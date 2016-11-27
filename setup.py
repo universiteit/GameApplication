@@ -6,5 +6,5 @@ setup(name='CoinApplication',
       author='Bart Rijnders, Daniel Molenaar, Thom Overhand, Jeffrey Maas, Stephen Goedhart & Jorik Schouten',
       author_email='NOOMA@hr.nl',
       url='http://rijnders.io',
-      packages=['CoinApplication'],
+      packages=['CoinApplication']
      )
