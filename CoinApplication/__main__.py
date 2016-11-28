@@ -1,6 +1,5 @@
 #!python3
 
-import python_unit_test
 from flask import Flask
 from DogeCoinApplication import DogeCoinApplication
 from BitCoinApplication import BitCoinApplication
