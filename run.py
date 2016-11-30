@@ -1,5 +1,11 @@
+from time import sleep
+from daemonize import Daemonize
 from app import app
 from config import *
+pid = "/tmp/server.pid"
 
-if __name__ == "__main__":
+def main():
     app.run(HOSTNAME, PORT)
+
+daemon = Daemonize(app="coinapplication_server", pid=pid, action=main)
+daemon.start()
