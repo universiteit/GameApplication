@@ -5,4 +5,4 @@ dogecoin = Blueprint('dogecoin', __name__, template_folder='templates')
 
 @dogecoin.route('/dogecoin')
 def index():
-    return "Index page for dogecoin application"
+    return "Index page for dogecoin application 2!"
