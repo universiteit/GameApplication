@@ -9,3 +9,6 @@ from app.auth import auth
 app.register_blueprint(bitcoin)
 app.register_blueprint(dogecoin)
 app.register_blueprint(auth)
+
+if __name__ == "__main__":
+    app.run("0.0.0.0", "9000")
