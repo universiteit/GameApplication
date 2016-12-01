@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PYENV_HOME=$WORKSPACE/.pyenv
+PYENV_HOME=.pyenv
 
 echo "Setting environment to: $PYENV_HOME"
 
