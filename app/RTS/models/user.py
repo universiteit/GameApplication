@@ -6,6 +6,6 @@ class User(db.Model):
     username = db.Column(db.String, primary_key = True)
     house = db.Column(db.String)
 
-    def __init__(self, username, password):
+    def __init__(self, username, house):
         self.username = username
-        self.password = password
+        self.house = house

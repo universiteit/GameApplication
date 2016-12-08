@@ -1,3 +1,10 @@
+# required for db creation
+from app.RTS.models.attack import Attack
+from app.RTS.models.town import Town
+from app.RTS.models.unit import Unit
+from app.RTS.models.user import User
+
+
 from flask import Blueprint, render_template
 from app.db import db
 

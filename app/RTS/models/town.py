@@ -4,7 +4,7 @@ class Town(db.Model):
     __tablename__ = "RtsTown"
 
     id = db.Column(db.Integer, primary_key = True)
-    username = db.Column(db.String(120), db.ForeignKey("User.username"))
+    username = db.Column(db.String(120), db.ForeignKey("RtsUser.username"))
     name = db.Column(db.String(120))
     knights = db.Column(db.Integer)
     cavalry = db.Column(db.Integer)
