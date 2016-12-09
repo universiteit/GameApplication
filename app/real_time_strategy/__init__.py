@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from app.db import db
+from app import db
 from app.real_time_strategy.models.unit import Unit
 from app.real_time_strategy.models.town import Town
 from app.real_time_strategy.models.user import User

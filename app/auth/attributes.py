@@ -2,38 +2,62 @@ from functools import wraps
 from flask import request
 from threading import local
 
-from random import randint
+import jwt
+from jwt import ExpiredSignatureError
 
-context = None
+
+SECRET = 'secret'
+ALGORITHM = 'HS256'
+VERIFY = True
+LEEWAY = 0
+CHECKS = {
+    'verify_signature' : True,
+    'verify_aud' : True, 
+    'verify_iat' : True,
+    'verify_exp' : True,
+    'verify_nbf' : True,
+    'verify_iss' : True,
+    'verify_sub' : True,
+    'verify_jti' : True,
+    'leeway' : 0,
+}
+
+_context = None
+def context():
+    return _context
+
 
 def secure(handle_unauthorized=True):
     def secure_decorator(func):
-        print('in secure')
         @wraps(func)
         def wrapper(*args, **kwargs):
-            print ('in wrapper')
             authorization = request.headers.get('Authorization')
 
-            global context
             if authorization is None:
-                if handle_unauthorized:
-                    return 'User is not logged in', 401
-                context = Context(randint(0,100), None)
-            else:
-                context = Context(randint(0,100), authorization)
+                return 'No authorization header set. The request has to be authenticated to access secured resources.', 401
+            
+            token = None
+            try:
+                token = jwt.decode(authorization, SECRET, verify=VERIFY, algorithms=ALGORITHM, options=CHECKS, leeway=LEEWAY)
+            except ExpiredSignatureError:
+                return 'The authentication token has expired.', 401
 
+            global _context
+            _context = TokenContext(token)
 
             result = func(*args, **kwargs)
 
-            context = None
+            _context = None
 
-            return func(*args, **kwargs)
+            return result
         return wrapper
     return secure_decorator
 
 
 class Context(local):
-    def __init__(user, auth):
-        self.user = user
-        self.authorization = auth
-        self.authorized = True if auth != None else False
+    def __init__(self, user_id):
+        self.user_id = user_id
+
+class TokenContext(Context):
+    def __init__(self, claims):
+        super().__init__(claims['sub'])

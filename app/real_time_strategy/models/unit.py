@@ -1,4 +1,4 @@
-from app.db import db
+from app import db
 
 class Unit(db.Model):
     __tablename__ = "RtsUnit"
