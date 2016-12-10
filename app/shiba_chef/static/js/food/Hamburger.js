@@ -2,7 +2,10 @@
  * Created by jorik on 8-12-2016.
  */
 function Hamburger(x,y, width, height, texture) {
-    PIXI.Sprite.call(this);
+    //PIXI.Sprite.call(this);
+    Food.call(this);
+
+    var self = this;
 
     this.texture = texture;
 
@@ -19,7 +22,7 @@ function Hamburger(x,y, width, height, texture) {
     this.buttonMode = true;
     this.anchor.set(0.5);
 
-    this.cookingStatus = 0;
+    //this.cookingStatus = 0;
 
     this
     // events for drag start
@@ -77,6 +80,28 @@ function Hamburger(x,y, width, height, texture) {
 
 }
 
+Hamburger.cookingStatus = 0;
+
+Hamburger.prototype.isAboveGrill = function(x1, y1, w1, h1, x2, y2, w2, h2) { //640, 330, 180, 90
+    return Collision.OverlapsWith(x1, y1, w1, h1, x2, y2, w2, h2);
+    //return (this.position.x > 640 && this.position.x < 820 && this.position.y > 330 && this.position.y < 420);
+};
+
+Hamburger.prototype.update = function () {
+    if(isAboveGrill()) {
+        this.cookingStatus++;
+        this.checkCookingStatus();
+    }
+
+
+};
+
+Hamburger.prototype.checkCookingStatus = function () {
+    if(this.cookingStatus > 300) {
+
+    }
+};
+
 //Hamburger.prototype.onDragStart = function() {
 //    // store a reference to the data
 //    // the reason for this is because of multitouch
@@ -104,5 +129,5 @@ function Hamburger(x,y, width, height, texture) {
 //    }
 //}
 
-Hamburger.prototype = Object.create(PIXI.Sprite.prototype);
+Hamburger.prototype = new Food();
 Hamburger.prototype.constructor = Hamburger;
