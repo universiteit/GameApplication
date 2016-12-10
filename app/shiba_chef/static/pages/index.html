@@ -12,7 +12,7 @@
     </style>
 </head>
 <body>
-<script src="../js/pixi.min.js"></script>
+<script src="js/pixi.min.js"></script>
 <script>
 
     var renderer = new PIXI.WebGLRenderer(1200, 720);
@@ -49,7 +49,7 @@
         //lifeless objects
 
         //table
-        PIXI.loader.add('table', '../img/equipment/desk.png').load(function (loader, resources) {
+        PIXI.loader.add('table', 'img/equipment/desk.png').load(function (loader, resources) {
             var table  = new PIXI.Sprite(resources.table.texture);
 
             table.scale.set(0.9);
@@ -64,14 +64,14 @@
 
 
         //chopping board
-        PIXI.loader.add('choppingBoard', '../img/equipment/chopping-board.png').load(function (loader, resources) {
+        PIXI.loader.add('choppingBoard', 'img/equipment/chopping-board.png').load(function (loader, resources) {
             choppingBoard = new Grill(270, 330, 180, 100, resources.choppingBoard.texture);
             // add it to the stage
             stage.addChild(choppingBoard);
         });
 
         //grill
-        PIXI.loader.add('grill', '../img/equipment/grill.png').load(function (loader, resources) {
+        PIXI.loader.add('grill', 'img/equipment/grill.png').load(function (loader, resources) {
             grill = new Grill(640, 330, 180, 90, resources.grill.texture);
             // add it to the stage
             stage.addChild(grill);
@@ -81,7 +81,7 @@
     function createShiba() {
         var shiba = new PIXI.Container();
 
-        PIXI.loader.add('shiba', '../img/shiba_neutral.jpg').load(function (loader, resources) {
+        PIXI.loader.add('shiba', 'img/shiba_neutral.jpg').load(function (loader, resources) {
             // This creates a texture from a 'bunny.png' image.
             shiba = new PIXI.Sprite(resources.shiba.texture);
 
@@ -96,7 +96,7 @@
     }
 
     function createFood() {
-        PIXI.loader.add('burger', '../img/food/burger.png').load(function (loader, resources) {
+        PIXI.loader.add('burger', 'img/food/burger.png').load(function (loader, resources) {
             var burger  = new Hamburger(200, 200, 80, 80, resources.burger.texture);
             // add it to the stage
             stage.addChild(burger);
@@ -109,13 +109,13 @@
 
 
 <!--EQUIPMENT-->
-<script src="../js/equipment/Grill.js"></script>
-<script src="../js/equipment/ChoppingBoard.js"></script>
+<script src="js/equipment/Grill.js"></script>
+<script src="js/equipment/ChoppingBoard.js"></script>
 <!--FOODS-->
-<script src="../js/food/Hamburger.js"></script>
+<script src="js/food/Hamburger.js"></script>
 
 <!--HELPERS-->
-<script src="../js/Helpers/HelperMethods.js"></script>
+<script src="js/Helpers/HelperMethods.js"></script>
 
 </body>
 </html>
