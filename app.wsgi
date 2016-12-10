@@ -3,7 +3,7 @@
 app_name = 'GameApplication'
 # Initialize virtualenv
 
-activate_this = '/var/www/' + GameApplication + '/.venv/bin/activate_this.py'
+activate_this = '/var/www/' + app_name + '/.venv/bin/activate_this.py'
 with open(activate_this) as file:
     exec(file.read(), dict(__file__=activate_this))
 
