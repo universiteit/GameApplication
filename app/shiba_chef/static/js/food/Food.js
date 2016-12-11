@@ -4,11 +4,13 @@
 function Food() {
     GameObject.call(this);
 
+    this.isGrillable = false;
+
 }
+
+Food.prototype = new GameObject();
+Food.prototype.constructor = Food;
 
 Food.prototype.update = function () {
 
 };
-
-Food.prototype = new GameObject();
-Food.prototype.constructor = Food;

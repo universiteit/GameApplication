@@ -7,10 +7,11 @@ function GameObject() {
 
 }
 
+GameObject.prototype = new PIXI.Sprite();
+GameObject.prototype.constructor = GameObject;
+
 GameObject.prototype.update = function () {
 
 };
 
 
-GameObject.prototype = new PIXI.Sprite();
-GameObject.prototype.constructor = GameObject;

@@ -11,102 +11,27 @@
         }
     </style>
 </head>
-<body>
-<script src="js/pixi.min.js"></script>
+<body onload="init();">
+<script src="../js/pixi.min.js"></script>
 <script>
-
-
-    createShiba();
-    createEnvironment();
-
-    createFood();
-
-    drawStage();
-
-    function drawStage() {
-        updateWorld();
-
-        // start the timer for the next animation loop
-        requestAnimationFrame(drawStage);
-
-        renderer.render(stage);
+    function init() {
+        var main = new Main();
     }
-
-    function updateWorld() {
-//        grill.updateSelf();
-    }
-
-    function createEnvironment() {
-        //lifeless objects
-
-        //table
-        PIXI.loader.add('table', 'img/equipment/desk.png').load(function (loader, resources) {
-            var table  = new PIXI.Sprite(resources.table.texture);
-
-            table.scale.set(0.9);
-
-            // move the sprite to its designated position
-            table.position.x = 200;
-            table.position.y = 250;
-
-            // add it to the stage
-            stage.addChild(table);
-        });
-
-
-        //chopping board
-        PIXI.loader.add('choppingBoard', 'img/equipment/chopping-board.png').load(function (loader, resources) {
-            choppingBoard = new Grill(270, 330, 180, 100, resources.choppingBoard.texture);
-            // add it to the stage
-            stage.addChild(choppingBoard);
-        });
-
-        //grill
-        PIXI.loader.add('grill', 'img/equipment/grill.png').load(function (loader, resources) {
-            grill = new Grill(640, 330, 180, 90, resources.grill.texture);
-            // add it to the stage
-            stage.addChild(grill);
-        });
-    }
-
-    function createShiba() {
-        var shiba = new PIXI.Container();
-
-        PIXI.loader.add('shiba', 'img/shiba_neutral.jpg').load(function (loader, resources) {
-            // This creates a texture from a 'bunny.png' image.
-            shiba = new PIXI.Sprite(resources.shiba.texture);
-
-            //setup shiba
-            shiba.position.x = 400;
-            shiba.position.y = 100;
-
-            shiba.scale.set(0.4);
-
-            stage.addChild(shiba);
-        });
-    }
-
-    function createFood() {
-        PIXI.loader.add('burger', 'img/food/burger.png').load(function (loader, resources) {
-            var burger  = new Hamburger(200, 200, 80, 80, resources.burger.texture);
-            // add it to the stage
-            stage.addChild(burger);
-        });
-    }
-
-
-
 </script>
 
+<script src="../js/Main.js"></script>
+<script src="../js/GameObject.js"></script>
 
 <!--EQUIPMENT-->
-<script src="js/equipment/Grill.js"></script>
-<script src="js/equipment/ChoppingBoard.js"></script>
+<script src="../js/equipment/Grill.js"></script>
+<script src="../js/equipment/ChoppingBoard.js"></script>
 <!--FOODS-->
-<script src="js/food/Hamburger.js"></script>
+<script src="../js/food/Food.js"></script>
+<script src="../js/food/Hamburger.js"></script>
 
 <!--HELPERS-->
-<script src="js/Helpers/HelperMethods.js"></script>
+<script src="../js/Helpers/HelperMethods.js"></script>
+
 
 </body>
 </html>

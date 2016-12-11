@@ -19,8 +19,10 @@ function Grill(x,y, width, height, texture) {
     }
 }
 
+
 Grill.prototype = Object.create(PIXI.Sprite.prototype);
 Grill.prototype.constructor = Grill;
+
 
 //Grill.inherits(PIXI.Container);
 
