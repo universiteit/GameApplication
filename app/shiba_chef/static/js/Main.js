@@ -16,6 +16,10 @@ function Main() {
     this.loadSpriteSheet();
 }
 
+Main.choppingBoard = null;
+Main.grill = null;
+Main.shiba = null;
+
 Main.prototype.update = function() {
     //update game objects
     this.gameObjects.forEach(function(gameObject) {
@@ -65,39 +69,21 @@ Main.prototype.createEnvironment = function() {
     //lifeless objects
 
     //table
-    var tableTexture = PIXI.Texture.fromImage('table');
-    var table = new PIXI.Sprite(tableTexture);
-
-    table.position.x = 200;
-    table.position.y = 250;
-
-    table.scale.set(0.9);
-
-    this.stage.addChild(table);
+    var table = new Table(200, 250, 720, 360, PIXI.Texture.fromImage('table'));
+    this.gameObjects.push(table);
 
     //chopping board
-    var choppingBoard = new Grill(270, 330, 180, 100, PIXI.Texture.fromImage('choppingBoard'));
-    //this.gameObjects.push(choppingBoard);
+    Main.choppingBoard = new ChoppingBoard(270, 330, 180, 100, PIXI.Texture.fromImage('choppingBoard'));
+    this.gameObjects.push(Main.choppingBoard);
 
     //grill
-    var grill = new Grill(640, 330, 180, 90, PIXI.Texture.fromImage('grill'));
-    //this.gameObjects.push(grill);
-    this.stage.addChild(grill);
+    Main.grill = new Grill(640, 330, 180, 90, PIXI.Texture.fromImage('grill'));
+    this.gameObjects.push(Main.grill);
 };
 
 Main.prototype.createShiba = function() {
-    var shibaTexture = PIXI.Texture.fromImage("shiba-neutral");
-    var shiba = new PIXI.Sprite(shibaTexture);
-
-    shiba.position.x = 400;
-    shiba.position.y = 100;
-
-    shiba.scale.set(0.4);
-
-    this.stage.addChild(shiba);
-
-    //this.gameObjects.push(shiba);
-
+    Main.shiba = new ShibaChef(400, 100, 410, 310, PIXI.Texture.fromImage("shiba-neutral"));
+    this.gameObjects.push(Main.shiba);
 };
 
 Main.prototype.createFood = function() {

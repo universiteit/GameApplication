@@ -1,7 +1,7 @@
 /**
- * Created by jorik on 8-12-2016.
+ * Created by jorik on 13-12-2016.
  */
-function ChoppingBoard(x,y, width, height, texture) {
+function ShibaChef(x,y, width, height, texture) {
     PIXI.Sprite.call(this);
 
     //var self = this;
@@ -15,5 +15,9 @@ function ChoppingBoard(x,y, width, height, texture) {
     this.height = height;
 }
 
-ChoppingBoard.prototype = Object.create(PIXI.Sprite.prototype);
-ChoppingBoard.prototype.constructor = ChoppingBoard;
+ShibaChef.prototype = new GameObject();
+ShibaChef.prototype.constructor = ShibaChef;
+
+ShibaChef.prototype.update = function() {
+
+};

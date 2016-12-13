@@ -8,22 +8,25 @@ function Grill(x,y, width, height, texture) {
 
     this.texture = texture;
 
+    this.food = [];
+
     //self.bounds = [];
     this.position.x = x;
     this.position.y = y;
     this.width = width;
     this.height = height;
-
-    function updateSelf() {
-
-    }
 }
 
-
-Grill.prototype = Object.create(PIXI.Sprite.prototype);
+Grill.prototype = new GameObject();
 Grill.prototype.constructor = Grill;
 
+Grill.prototype.update = function() {
 
+};
+
+Grill.prototype.addFood = function() {
+
+}
 //Grill.inherits(PIXI.Container);
 
 //Pixi.Container.prototype.overlapsWith()
