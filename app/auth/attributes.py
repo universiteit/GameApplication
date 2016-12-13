@@ -1,5 +1,5 @@
 from functools import wraps
-from flask import request
+from flask import request, session, redirect
 from threading import local
 
 import jwt
@@ -42,6 +42,9 @@ def secure(handle_unauthorized=True):
     def secure_decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
+            if not ('user_id' in session):
+                return redirect('/auth/login')
+
             authorization = request.headers.get('Authorization', None)
             err = _parse_token(authorization)
             if err != None: return err

@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, abort, jsonify, session
+from flask import Blueprint, request, render_template, abort, jsonify, session, redirect
 from jinja2 import TemplateNotFound
 
 from datetime import datetime, timedelta
@@ -15,6 +15,11 @@ auth = Blueprint('auth', __name__, template_folder='templates/')
 @auth.route('/login', methods=['GET'])
 def login():
     return render_template('login.html')
+
+@auth.route('/logout', methods=['GET'])
+def logout():
+    session.clear()
+    return redirect('auth/login')
 
 @auth.route('/login', methods=['POST'])
 def index():
