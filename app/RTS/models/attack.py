@@ -2,11 +2,10 @@ from app import db
 
 class Attack(db.Model):
     __tablename__ = "RtsAttack"
-
     id = db.Column(db.Integer, primary_key = True)
     
-    username = db.Column(db.String(120), db.ForeignKey("RtsPlayer.username"))
-    user = db.relationship('Player', foreign_keys = [username])
+    player_id = db.Column(db.String(120), db.ForeignKey("RtsPlayer.id"))
+    player = db.relationship('Player', foreign_keys = [player_id])
 
     origin_id = db.Column(db.Integer, db.ForeignKey("RtsTown.id"))
     destination_id = db.Column(db.Integer, db.ForeignKey("RtsTown.id"))
