@@ -1,8 +1,17 @@
-tr td:not(:nth-child(0)) {
+/*tr td:not(:nth-child(0)) {
     padding: 10px;
     border-left: 3px solid #e1e1e1;
+    border-top: 3px solid #e1e1e1;
+}*/
+
+tr td {
+	padding: 10px ;
 }
 
-tr td:nth-child(0) {
-    border-bottom:3px solid #e1e1e1;
+tr td:not(:nth-child(1)) {
+	border-left:3px solid #e1e1e1;
+}
+
+tr:not(:nth-child(1)) td {
+	border-top:3px solid #e1e1e1;
 }
