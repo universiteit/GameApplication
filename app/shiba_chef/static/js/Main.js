@@ -20,6 +20,8 @@ Main.choppingBoard = null;
 Main.grill = null;
 Main.shiba = null;
 
+Main.recipe = null;
+
 Main.prototype.update = function() {
     //update game objects
     this.gameObjects.forEach(function(gameObject) {
@@ -79,6 +81,12 @@ Main.prototype.createEnvironment = function() {
     //grill
     Main.grill = new Grill(640, 330, 180, 90, PIXI.Texture.fromImage('grill'));
     this.gameObjects.push(Main.grill);
+
+    // Recipe
+    Main.recipe = new Recipe(this.stage, {});
+    //this.gameObjects.push(Main.recipe);
+
+
 };
 
 Main.prototype.createShiba = function() {
