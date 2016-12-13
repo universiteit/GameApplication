@@ -23,4 +23,9 @@ GameObject.prototype.overlapsWith = function(gameObject) {
     );
 };
 
+GameObject.prototype.copyObject = function(gameObject) {
+    Main.prototype.addGameObject(Object.assign({}, gameObject));
+    //gameObject.copy());
+};
+
 

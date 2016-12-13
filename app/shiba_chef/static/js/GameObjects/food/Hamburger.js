@@ -22,7 +22,6 @@ function Hamburger(x,y, width, height, texture) {
     this.buttonMode = true;
     this.anchor.set(0.5);
 
-    this.cookingStatus = 0;
     this.isGrillable = true;
 
     this
@@ -60,19 +59,4 @@ Hamburger.prototype.checkCookingStatus = function() {
 
 };
 
-Hamburger.prototype.onDragEnd = function() {
-    this.alpha = 1;
-
-    this.dragging = false;
-
-    // set the interaction data to null
-    this.data = null;
-
-    if(this.overlapsWith(Main.grill)) {
-
-    }else {
-        //go back to starting position
-        this.position.set(this.startPositionX, this.startPositionY);
-    }
-}
 
