@@ -55,3 +55,4 @@ class Town(db.Model):
 
     def get_production(self, level):
         return int((level * 50) ** 1.2)
+    
