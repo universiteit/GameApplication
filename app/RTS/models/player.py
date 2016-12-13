@@ -1,4 +1,4 @@
-from app.db import db
+from app import db
 
 class Player(db.Model):
     __tablename__ = "RtsPlayer"
