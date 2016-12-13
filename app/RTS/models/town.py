@@ -4,7 +4,7 @@ class Town(db.Model):
     __tablename__ = "RtsTown"
 
     id = db.Column(db.Integer, primary_key = True)
-    username = db.Column(db.String(120), db.ForeignKey("User.username"))
+    username = db.Column(db.String(120), db.ForeignKey("RtsPlayer.username"))
     name = db.Column(db.String(120))
     knights = db.Column(db.Integer)
     cavalry = db.Column(db.Integer)
@@ -26,7 +26,7 @@ class Town(db.Model):
         self.username = username
         self.name = name
         self.knights = knights
-        self.cavalry = cavaly
+        self.cavalry = cavalry
         self.pikemen = pikemen
         self.lumber_mill = lumber_mill
         self.gold_mine = gold_mine

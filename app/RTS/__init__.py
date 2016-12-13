@@ -1,8 +1,9 @@
+# required for db creation
+from app.RTS.models.attack import Attack
+from app.RTS.models.town import Town
+from app.RTS.models.unit import Unit
+from app.RTS.models.player import Player
 from flask import Blueprint, render_template
-from app import db
-from app.real_time_strategy.models.unit import Unit
-from app.real_time_strategy.models.town import Town
-from app.real_time_strategy.models.user import User
 
 real_time_strategy = Blueprint('Real time strategy game', __name__, static_folder='static', template_folder='templates')
 rts = real_time_strategy
@@ -17,10 +18,4 @@ def index():
 
 @rts.route('/town/<id>')
 def town(id):
-    admin = User('admin', 'shiba inu')
-    guest = User('guest', 'akita inu')
-    db.session.add(admin)
-    db.session.add(guest)
-    db.session.commit()
-
-    return "dix"
+    return id
