@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 from app.db import db
 from config import *
-=======
-from app import db
->>>>>>> 22a44f66e946b7887806bf46cfe8de2e7310e08d
 
 class Attack(db.Model):
     __tablename__ = "RtsAttack"
