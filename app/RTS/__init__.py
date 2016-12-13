@@ -2,11 +2,8 @@
 from app.RTS.models.attack import Attack
 from app.RTS.models.town import Town
 from app.RTS.models.unit import Unit
-from app.RTS.models.user import User
-
-
+from app.RTS.models.player import Player
 from flask import Blueprint, render_template
-from app.db import db
 
 real_time_strategy = Blueprint('Real time strategy game', __name__, static_folder='static', template_folder='templates')
 rts = real_time_strategy
