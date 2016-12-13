@@ -40,3 +40,15 @@ class Town(db.Model):
         self.wood = wood
         self.food = food
         self.iron = iron
+
+    def calculate_costs(self, level):
+        exponent = 1.1
+        val = 40
+        for i in range(level):
+            val = val ** exponent
+        return int(val)
+
+    def calculate_time(self, level):
+        minutes = level ** 2
+        h, m = divmod(minutes, 60)
+        return "%d:%02d:%02d" % (h, m, 00)

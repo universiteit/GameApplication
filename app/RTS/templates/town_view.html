@@ -1,11 +1,52 @@
 {% extends 'base.html' %}
 
 {% block css %}
-<link rel='stylesheet' type='text/css' href='town.css'>
+<link rel='stylesheet' type='text/css' href='/rts/static/style/town.css'>
 {% endblock %}
 
 {% block content %}
     <table>
+        <thead>
+            Town buildings
+        </thead>
+        <tr>
+            <td>
+                Building
+            </td>
+            <td colspan="4">
+                Upgrade cost
+            </td>
+            <td>
+                Time (hh:mm:ss)
+            </td>
+            <td>
+                Upgrade
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Barrack({{current_town.barracks}})
+            </td>
+            <td>
+                <img width=30 src="/rts/static/food.svg"> : {{current_town.calculate_costs(current_town.barracks)}}
+            </td>
+            <td>
+                <img width=30 src="/rts/static/golden_ignot.svg"> : {{current_town.calculate_costs(current_town.barracks)}}
+            </td>
+            <td>
+                <img width=30 src="/rts/static/iron_ignot.svg"> : {{current_town.calculate_costs(current_town.barracks)}}
+            </td>
+            <td>
+                <img width=30 src="/rts/static/log.svg"> : {{current_town.calculate_costs(current_town.barracks)}}
+            </td>
+            <td>
+                <img width=30 src="/rts/static/clock.svg"> : {{current_town.calculate_time(20)}}
+            </td>
+            <td>
+                <button> OK </button>
+            </td>
+        </tr>
+    </table>
 {% endblock %}
 
 {% block scripts %}

@@ -1,0 +1,8 @@
+tr td:not(:nth-child(0)) {
+    padding: 10px;
+    border-left: 3px solid #e1e1e1;
+}
+
+tr td:nth-child(0) {
+    border-bottom:3px solid #e1e1e1;
+}
