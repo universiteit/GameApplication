@@ -11,8 +11,6 @@ bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
 
 # Blueprints
-from app.dogecoin import dogecoin
-from app.bitcoin import bitcoin
 from app.auth import auth
 from app.RTS import rts
 
@@ -21,8 +19,6 @@ with app.app_context():
     db.create_all()
 
 # Register blueprints
-app.register_blueprint(bitcoin)
-app.register_blueprint(dogecoin)
 app.register_blueprint(auth, url_prefix='/auth')
 app.register_blueprint(rts, url_prefix='/rts')
 
