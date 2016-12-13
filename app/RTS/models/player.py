@@ -9,7 +9,7 @@ class Player(db.Model):
     house = db.Column(db.String)
     towns = db.relationship('Town', backref='RtsPlayer', lazy='dynamic')
 
-    def __init__(self, username, house):
-        self.username = username
+    def __init__(self, user, house):
+        self.user = user
         self.house = house
         self.towns = []

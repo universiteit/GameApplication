@@ -17,8 +17,8 @@ class Attack(db.Model):
     cavalry_amount = db.Column(db.Integer)
     pikemen_amount = db.Column(db.Integer)
 
-    def __init__(self, user, destination, origin, knight_amount = 0, cavalry_amount = 0, pikemen_amount = 0):
-        self.user = user
+    def __init__(self, player, destination, origin, knight_amount = 0, cavalry_amount = 0, pikemen_amount = 0):
+        self.player = player
         self.destination = destination
         self.origin = origin
         self.knight_amount = knight_amount

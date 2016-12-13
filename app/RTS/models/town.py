@@ -5,7 +5,7 @@ class Town(db.Model):
 
     id = db.Column(db.Integer, primary_key = True)
     player_id = db.Column(db.Integer, db.ForeignKey("RtsPlayer.id"))
-    player = db.relationship('User', foreign_keys = [player_id])
+    player = db.relationship('Player', foreign_keys = [player_id])
 
     name = db.Column(db.String(120))
     knights = db.Column(db.Integer)
@@ -24,8 +24,8 @@ class Town(db.Model):
     upgrade = db.Column(db.String)
     upgrade_time_done = db.Column(db.DateTime)
 
-    def __init__(self, username, name, knights = 0, cavalry = 0, pikemen = 0, lumber_mill = 1, gold_mine = 1, farm = 1, barracks = 1, wall = 0, quarry = 1, gold = 0, wood = 0, food = 0, iron = 0, upgrade=None, upgrade_time_done = None):
-        self.userid = userid
+    def __init__(self, player, name, knights = 0, cavalry = 0, pikemen = 0, lumber_mill = 1, gold_mine = 1, farm = 1, barracks = 1, wall = 0, quarry = 1, gold = 0, wood = 0, food = 0, iron = 0, upgrade=None, upgrade_time_done = None):
+        self.player = player
         self.name = name
         self.knights = knights
         self.cavalry = cavalry
