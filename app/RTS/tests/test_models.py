@@ -1,12 +1,7 @@
 import unittest
-from app.RTS.models.* import *
-
-class TestUnit(unittest.TestCase):
-    def test_init(self):
-        unit = Unit("Soldier", 10, 20)
-        self.assertEqual(unit.type, "Soldier")
-        self.assertEqual(unit.offense, 10)
-        self.assertEqual(unit.defense, 20)
+from app.RTS.models.town import Town
+from app.RTS.models.attack import Attack
+from app.RTS.models.player import Player
 
 class TestTown(unittest.TestCase):
     def test_init(self):
@@ -16,9 +11,9 @@ class TestTown(unittest.TestCase):
         self.assertEqual(town.farm, 2)
         self.assertEqual(town.gold_mine, 1)
 
-class TestUser(unittest.TestCase):
+class TestPlayer(unittest.TestCase):
     def test_init(self):
-        user = User("Jaime", "Lannister")
+        user = Player("Jaime", "Lannister")
         self.assertEqual(user.username, "Jaime")
         self.assertEqual(user.house, "Lannister")
 

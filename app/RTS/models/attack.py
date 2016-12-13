@@ -4,19 +4,22 @@ class Attack(db.Model):
     __tablename__ = "RtsAttack"
 
     id = db.Column(db.Integer, primary_key = True)
-    username = db.Column(db.String(120), db.ForeignKey("RtsUser.username"))
+    
+    username = db.Column(db.String(120), db.ForeignKey("RtsPlayer.username"))
+    user = db.relationship('Player', foreign_keys = [username])
 
-    origin = db.relationship('Town', backref='id', lazy='dynamic')
-    destination = db.relationship('Town', backref='id', lazy='dynamic')
+    origin_id = db.Column(db.Integer, db.ForeignKey("RtsTown.id"))
+    destination_id = db.Column(db.Integer, db.ForeignKey("RtsTown.id"))
+
+    origin = db.relationship('Town', foreign_keys = [origin_id])
+    destination = db.relationship('Town', foreign_keys=[destination_id])
     
     knight_amount = db.Column(db.Integer)
     cavalry_amount = db.Column(db.Integer)
     pikemen_amount = db.Column(db.Integer)
-    
-    
 
-    def __init__(self, username, destination, origin, knight_amount = 0, cavalry_amount = 0, pikemen_amount = 0):
-        self.username = username
+    def __init__(self, user, destination, origin, knight_amount = 0, cavalry_amount = 0, pikemen_amount = 0):
+        self.user = user
         self.destination = destination
         self.origin = origin
         self.knight_amount = knight_amount
