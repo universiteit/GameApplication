@@ -7,22 +7,23 @@
 {% block content %}
     <table>
         <thead>
-            Production
+            <tr>
+                <th colspan="4">Production</th>
+            </tr>
         </thead>
         <tr>
-            <img width=30 src="/rts/static/food.svg"> : {{current_town.get_production(current_town.farm)}}
-        </tr>
-        <tr>
-            <img width=30 src="/rts/static/golden_ignot.svg"> : {{current_town.get_production(current_town.gold_mine)}}
-        </tr>
-        <tr>
-            <img width=30 src="/rts/static/iron_ignot.svg"> : {{current_town.get_production(current_town.quarry)}}
-        </tr>
-        <tr>
-            <img width=30 src="/rts/static/log.svg"> : {{current_town.get_production(current_town.lumber_mill)}}
+            <td><img width=30 src="/rts/static/food.svg"> : {{current_town.get_production(current_town.farm)}}</td>
+            <td><img width=30 src="/rts/static/golden_ignot.svg"> : {{current_town.get_production(current_town.gold_mine)}}</td>
+            <td><img width=30 src="/rts/static/iron_ignot.svg"> : {{current_town.get_production(current_town.quarry)}}</td>
+            <td><img width=30 src="/rts/static/log.svg"> : {{current_town.get_production(current_town.lumber_mill)}}</td>
         </tr>
     </table>
-    <table>
+    <table class="buildings">
+        <thead>
+            <tr>
+                <th colspan="7">Buildings</th>
+            </tr>
+        </thead>
         <tr>
             <td>
                 Building
@@ -177,7 +178,12 @@
         </tr>
     </table>
     
-    <table>
+    <table class="units">
+        <thead>
+            <tr>
+                <th colspan="6">Units</th>
+            </tr>
+        </thead>
         <tr>
             <td>
                 Building

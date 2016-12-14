@@ -1,5 +1,20 @@
+.buildings {
+	width: 56%;
+    display: inline;
+}
+
+.units {
+	margin-left:30px;
+	width: calc(50% - 4px);
+    display: Inline-table;
+}
+
 h2{
     text-align: center;
+}
+
+th {
+	text-align: center;
 }
 
 tr td {
