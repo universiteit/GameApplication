@@ -12,3 +12,4 @@ def static_file(file):
 
 
 import app.RTS.views
+import app.RTS.posts
