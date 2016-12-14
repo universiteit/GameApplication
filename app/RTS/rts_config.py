@@ -12,3 +12,7 @@ def get_wall_defense(level):
         return 1 + ((level * 5) / 100) 
     return None
 
+buildings = ["Wall", "Lumber Camp", "Iron Quarry", "Goldmine", "Barracks", "Farm"]
+
+
+

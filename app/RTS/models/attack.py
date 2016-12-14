@@ -1,4 +1,4 @@
-from app.db import db
+from app import db
 from config import *
 
 class Attack(db.Model):
@@ -27,24 +27,16 @@ class Attack(db.Model):
         self.pikemen_amount = pikemen_amount
 
     def get_defender_stats(self):
-        defense = (self.origin.pikemen * pikemen_defense) + 
-                    (self.origin.knights * knights_defense) +
-                    (self.origin.cavalry * cavalry_defense)
+        defense = (self.origin.pikemen * pikemen_defense) + (self.origin.knights * knights_defense) + (self.origin.cavalry * cavalry_defense)
         defense *= get_wall_defense(self.origin.wall)
         
-        offense = (self.origin.pikemen * pikemen_offense) + 
-                    (self.origin.knights * knights_offense) +
-                    (self.origin.cavalry * cavalry_offense)
+        offense = (self.origin.pikemen * pikemen_offense) + (self.origin.knights * knights_offense) + (self.origin.cavalry * cavalry_offense)
         return defense, offense
 
     def get_attacker_stats(self):
-        defense = (self.pikemen_amount * pikemen_defense) + 
-                    (self.knight_amount * knights_defense) +
-                    (self.cavalry_amount * cavalry_defense)
+        defense = (self.pikemen_amount * pikemen_defense) + (self.knight_amount * knights_defense) + (self.cavalry_amount * cavalry_defense)
         
-        offense = (self.pikemen_amount * pikemen_offense) + 
-                    (self.knight_amount * knights_offense) +
-                    (self.cavalry_amount * cavalry_offense)
+        offense = (self.pikemen_amount * pikemen_offense) + (self.knight_amount * knights_offense) + (self.cavalry_amount * cavalry_offense)
         return defense, offense
     
     def simulate(self):

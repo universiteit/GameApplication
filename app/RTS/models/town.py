@@ -40,3 +40,28 @@ class Town(db.Model):
         self.wood = wood
         self.food = food
         self.iron = iron
+
+    def get_costs(self, level):
+        exponent = 1.1
+        val = 40
+        for i in range(level):
+            val = val ** exponent
+        return int(val)
+
+    def get_time(self, level):
+        minutes = level ** 2
+        h, m = divmod(minutes, 60)
+        return "%d:%02d:%02d" % (h, m, 00)
+
+    def get_production(self, level):
+        return int((level * 50) ** 1.2)
+
+    def get_unit_costs(self, unit):
+        return {
+            'knight' : { 'gold' : 25, 'wood' : 60, 'food' : 30, 'iron' : 70, 'time' : ""},
+            'cavalry' : { 'gold' : 50, 'wood' : 125, 'food' : 100, 'iron' : 250, 'time' : ""},
+            'pikemen' : { 'gold' : 15, 'wood' : 50, 'food' : 30, 'iron' : 10, 'time' : ""},
+        }[unit.lower()]
+    
+    
+    

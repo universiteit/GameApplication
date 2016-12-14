@@ -4,6 +4,8 @@ from app.auth.attributes import secure
 from app.RTS.models import *
 from flask import Blueprint, render_template, redirect, session
 
+shit = Town("shit", "name", 0, 0, 0, 1, 3, 1, 1, 0, 1, 0, 0, 0, 0,None, None)
+
 @rts.route('/towns/')
 def all_towns():
     return render_template('views/all_towns_view.html', towns = Town.query.all(), player=current_player())
@@ -38,3 +40,7 @@ def create_player():
     if user:
         generate_player_for_user(user)
         return redirect(url_for('rts'))
+
+@rts.route('/townview/<town>')
+def townview(town):
+    return render_template("views/town_view.html", current_town = shit)
