@@ -26,7 +26,7 @@ def index():
 
 @rts.route('/townview/<town>')
 def townview(town):
-    return render_template("town_view.html", current_town = shit)
+    return render_template("views/town_view.html", current_town = shit)
 
 
 
