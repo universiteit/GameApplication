@@ -31,6 +31,11 @@ def generate_random_town(player):
     new_town.cavalry = 3
     return new_town
 
+def generate_player_for_user(user):
+    new_player = generate_new_player(user)
+    db.session.add(player)
+    db.session.commit()
+
 def get_player_from_user_id(user_id):
     player = Player.query.filter_by(id=user_id).first()
     if not player:
