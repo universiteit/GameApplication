@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <table>
+    <table class="table-left">
         <thead>
             <tr>
                 <th colspan="4">Production</th>
@@ -18,7 +18,20 @@
             <td><img width=30 src="/rts/static/log.svg"> : {{current_town.get_production(current_town.lumber_mill)}}</td>
         </tr>
     </table>
-    <table class="buildings">
+    <table class="table-right">
+        <thead>
+            <tr>
+                <th colspan="4">Resources</th>
+            </tr>
+        </thead>
+        <tr>
+            <td><img width=30 src="/rts/static/food.svg"> : {{current_town.food}}</td>
+            <td><img width=30 src="/rts/static/golden_ignot.svg"> : {{current_town.gold}}</td>
+            <td><img width=30 src="/rts/static/iron_ignot.svg"> : {{current_town.iron}}</td>
+            <td><img width=30 src="/rts/static/log.svg"> : {{current_town.wood}}</td>
+        </tr>
+    </table>
+    <table class="table-left">
         <thead>
             <tr>
                 <th colspan="7">Buildings</th>
@@ -178,7 +191,8 @@
         </tr>
     </table>
     
-    <table class="units">
+    <form class="table-right">
+    <table>
         <thead>
             <tr>
                 <th colspan="6">Units</th>
@@ -212,7 +226,7 @@
                 <img width=30 src="/rts/static/log.svg"> : {{current_town.get_unit_costs('knight')['wood']}}
             </td>
             <td>
-                <button> OK </button>
+                <input type="text" name="amount_of_knighs">
             </td>
         </tr>
         <tr>
@@ -232,7 +246,7 @@
                 <img width=30 src="/rts/static/log.svg"> : {{current_town.get_unit_costs('cavalry')['wood']}}
             </td>
             <td>
-                <button> OK </button>
+                <input type="text" name="amount_of_cavalry">
             </td>
         </tr>
         <tr>
@@ -252,10 +266,18 @@
                 <img width=30 src="/rts/static/log.svg"> : {{current_town.get_unit_costs('pikemen')['wood']}}
             </td>
             <td>
-                <button> OK </button>
+                <input type="text" name="amount_of_pikemen">
+            </td>
+        </tr>
+        <tr>
+            <td colspan=5>
+            </td>
+            <td>
+               <input type="submit" value="recruit"> 
             </td>
         </tr>
     </table>
+    </form>
 
 {% endblock %}
 
