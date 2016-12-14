@@ -1,0 +1,15 @@
+h2{
+    text-align: center;
+}
+
+tr td {
+	padding: 10px ;
+}
+
+tr td:not(:nth-child(1)) {
+	border-left:3px solid #e1e1e1;
+}
+
+tr:not(:nth-child(1)) td {
+	border-top:3px solid #e1e1e1;
+}
