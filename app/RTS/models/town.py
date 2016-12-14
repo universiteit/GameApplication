@@ -55,4 +55,13 @@ class Town(db.Model):
 
     def get_production(self, level):
         return int((level * 50) ** 1.2)
+
+    def get_unit_costs(self, unit):
+        return {
+            'knight' : { 'gold' : 25, 'wood' : 60, 'food' : 30, 'iron' : 70, 'time' : ""},
+            'cavalry' : { 'gold' : 50, 'wood' : 125, 'food' : 100, 'iron' : 250, 'time' : ""},
+            'pikemen' : { 'gold' : 15, 'wood' : 50, 'food' : 30, 'iron' : 10, 'time' : ""},
+        }[unit.lower()]
+    
+    
     
