@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>{% block title %}Welcome back {{player.user.username if player else "Anonymous"}}{% endblock %}</h3>
+<a href='house'>View your house!</a><br>
+<a href='towns'>View all the towns!</a>
+{% endblock %}
+
+{% block scripts %}
+    <script src="static/js/counter.js"></script>
+{% endblock %}

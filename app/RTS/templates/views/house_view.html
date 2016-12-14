@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>House {{player.house}}</h3>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Army Composition</th>
+            <th>Gold</th>
+        </tr>
+    {% for town in player.towns %}
+        <tr>
+            <td><a href='rts/town/{{town.id}}'>{{town.name}}</a></td>
+            <td>{{town.knights}}/{{town.cavalry}}/{{town.pikemen}}</td>
+            <td>{{town.gold}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

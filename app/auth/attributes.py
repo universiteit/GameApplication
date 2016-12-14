@@ -38,12 +38,16 @@ def _parse_token(auth):
 def _get_token(auth):
     return auth.split()[1]
 
-def secure(handle_unauthorized=True):
+def secure(handle_unauthorized=True, cookie_authorization=False):
     def secure_decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            if not ('user_id' in session):
-                return redirect('/auth/login')
+            if cookie_authorization:
+                if not ('user_id' in session):
+                    return redirect('/auth/login')
+                else:
+                    result = func(*args, **kwargs)
+                    return result
 
             authorization = request.headers.get('Authorization', None)
             err = _parse_token(authorization)
