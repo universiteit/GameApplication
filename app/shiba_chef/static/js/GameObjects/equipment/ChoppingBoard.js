@@ -21,11 +21,16 @@ ChoppingBoard.prototype = new GameObject();
 ChoppingBoard.prototype.constructor = ChoppingBoard;
 
 ChoppingBoard.prototype.update = function() {
-
+    if(this.food) this.food.choppingStatus++;
 };
 
 ChoppingBoard.prototype.addFood = function(gameObject) {
     //delete original food
     Main.prototype.removeGameObject(this.food);
+    gameObject.isOnChoppingBoard = true;
     this.food = gameObject;
+};
+
+ChoppingBoard.prototype.removeFood = function(gameObject) {
+   this.food = null;
 };

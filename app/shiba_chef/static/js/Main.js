@@ -121,8 +121,8 @@ Main.prototype.createFood = function() {
     //define foods
     foods.push(new BreadLower(200, 200, 100, 50, PIXI.Texture.fromImage("bread-lower")));
     foods.push(new BreadUpper(200, 200, 100, 50, PIXI.Texture.fromImage("bread-upper")));
-    foods.push(new Hamburger(200, 200, 70, 50, PIXI.Texture.fromImage("burger-raw")));
-    foods.push(new Hamburger(200, 200, 70, 50, PIXI.Texture.fromImage("burger-raw")));
+    foods.push(new Lettuce(200, 200, 90, 60, PIXI.Texture.fromImage("lettuce")));
+    foods.push(new Tomato(200, 200, 70, 60, PIXI.Texture.fromImage("tomato")));
     foods.push(new Hamburger(200, 200, 70, 50, PIXI.Texture.fromImage("burger-raw")));
     foods.push(new Hamburger(200, 200, 70, 50, PIXI.Texture.fromImage("burger-raw")));
     foods.push(new Hamburger(200, 200, 70, 50, PIXI.Texture.fromImage("burger-raw")));
