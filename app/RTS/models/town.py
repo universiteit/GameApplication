@@ -58,10 +58,13 @@ class Town(db.Model):
 
     def get_unit_costs(self, unit):
         return {
-            'knight' : { 'gold' : 25, 'wood' : 60, 'food' : 30, 'iron' : 70, 'time' : ""},
-            'cavalry' : { 'gold' : 50, 'wood' : 125, 'food' : 100, 'iron' : 250, 'time' : ""},
-            'pikemen' : { 'gold' : 15, 'wood' : 50, 'food' : 30, 'iron' : 10, 'time' : ""},
+            'knight' : { 'gold' : 25, 'wood' : 60, 'food' : 30, 'iron' : 70},
+            'cavalry' : { 'gold' : 50, 'wood' : 125, 'food' : 100, 'iron' : 250},
+            'pikemen' : { 'gold' : 15, 'wood' : 50, 'food' : 30, 'iron' : 10},
         }[unit.lower()]
-    
-    
+        
+    def add_units(self, knight, cavalry, pikemen):
+        self.knights += knight
+        self.cavalry += cavalry
+        self.pikemen += pikemen
     

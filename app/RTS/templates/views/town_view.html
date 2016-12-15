@@ -191,7 +191,7 @@
         </tr>
     </table>
     
-    <form class="table-right">
+    <form class="table-right" method="POST" action="/rts/jeffsmoeder">
     <table>
         <thead>
             <tr>
@@ -226,7 +226,7 @@
                 <img width=30 src="/rts/static/log.svg"> : {{current_town.get_unit_costs('knight')['wood']}}
             </td>
             <td>
-                <input type="text" name="amount_of_knighs">
+                <input type="text" name="amount_of_knights">
             </td>
         </tr>
         <tr>
@@ -277,6 +277,7 @@
             </td>
         </tr>
     </table>
+    <input type="hidden" name="townid" value={{current_town.id}}>
     </form>
 
 {% endblock %}
