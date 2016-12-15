@@ -3,7 +3,9 @@ from app.RTS.helpers import current_player, generate_player_for_user, current_us
 from app.auth.attributes import secure
 from app.RTS.models import *
 from app.auth.models.user import User
-from flask import Blueprint, render_template, redirect, session
+from flask import Blueprint, render_template, redirect, session, request
+from app import db
+
 
 @rts.route('/create-player', methods=['POST'])
 @secure(cookie_authorization=True)
@@ -24,4 +26,6 @@ def create_unit():
     id = int(request.form['townid'])
     town = Town.query.filter_by(id = id).first()
     town.add_units(knight_amount, cavalry_amount, pikemen_amount)
-    return redirect('rts/townview/' + id)
+    db.session.add(town)
+    db.session.commit()
+    return redirect('rts/town/' + str(id))
