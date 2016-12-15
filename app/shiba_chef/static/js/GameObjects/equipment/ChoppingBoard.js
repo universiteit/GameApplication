@@ -8,6 +8,8 @@ function ChoppingBoard(x,y, width, height, texture) {
 
     this.texture = texture;
 
+    this.food = null;
+
     //self.bounds = [];
     this.position.x = x;
     this.position.y = y;
@@ -20,4 +22,10 @@ ChoppingBoard.prototype.constructor = ChoppingBoard;
 
 ChoppingBoard.prototype.update = function() {
 
+};
+
+ChoppingBoard.prototype.addFood = function(gameObject) {
+    //delete original food
+    Main.prototype.removeGameObject(this.food);
+    this.food = gameObject;
 };

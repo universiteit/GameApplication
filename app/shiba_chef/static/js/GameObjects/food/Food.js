@@ -8,6 +8,8 @@ function Food() {
     this.isChoppable = false;
     this.isOnGrill = false;
 
+    this.isInDrawer = true;
+
     this.cookingStatus = 0;
 
 }
@@ -28,13 +30,18 @@ Food.prototype.onDragMove = function() {
 };
 
 Food.prototype.onDragStart = function(event) {
-    //make copy of object for next use
-    this.copyObject(this);
+    //if not on equipment, make copy of object for next use
+    if(this.isInDrawer) {
+        this.copySelfAtLocation(this);
+    } else if(this.isOnGrill) {
+        Main.grill.removeFood(this);
+        this.isOnGrill = false;
+    }
     // store a reference to the data
     // the reason for this is because of multitouch
     // we want to track the movement of this particular touch
     this.data = event.data;
-    this.alpha = 0.5;
+    this.alpha = 0.9;
     this.dragging = true;
 };
 
@@ -43,12 +50,20 @@ Food.prototype.onDragEnd = function() {
     this.dragging = false;
     // set the interaction data to null
     this.data = null;
-    if(this.overlapsWith(Main.grill) && this.isGrillable) {
+    if(this.overlapsWith(Main.grill) && this.isGrillable) { //place in grill
         Main.grill.addFood(this);
-    } else {
-        //remove
-
+        this.isInDrawer = false;
+    } else if(this.overlapsWith(Main.choppingBoard) && this.isChoppable) {  //place in chopping board
+        Main.choppingBoard.addFood(this);
+        this.isInDrawer = false;
+    }else {    //place outside of all equipment
+        //remove self
+        Main.prototype.removeGameObject(this);
         //this.position.set(this.startPositionX, this.startPositionY);
     }
-    Main.prototype.removeGameObject(this);
+
+};
+
+Food.prototype.copySelfAtLocation = function() {
+
 };

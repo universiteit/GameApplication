@@ -24,8 +24,29 @@ GameObject.prototype.overlapsWith = function(gameObject) {
 };
 
 GameObject.prototype.copyObject = function(gameObject) {
-    Main.prototype.addGameObject(Object.assign({}, gameObject));
-    //gameObject.copy());
+    //Main.prototype.addGameObject(Object.assign({}, gameObject));
+    //var newObject = JSON.parse(JSON.stringify(gameObject));
+
+    var newObject = GameObject.prototype.cloneObject(gameObject);
+
+    Main.prototype.addGameObject(newObject);
+
+};
+
+GameObject.prototype.cloneObject = function(obj) {
+    if (obj instanceof Object) {
+        var copy = new obj.constructor();
+        for (var attr in obj) {
+            if (obj.hasOwnProperty(attr)) {
+                if (obj[attr] instanceof Object) {
+                    copy[attr] = GameObject.prototype.cloneObject(obj[attr]);
+                } else {
+                    copy[attr] = obj[attr];
+                }
+            }
+        }
+        return copy;
+    }
 };
 
 

@@ -38,15 +38,31 @@ Main.prototype.update = function() {
 Main.prototype.loadSpriteSheet = function() {
     var loader = PIXI.loader;
 
-    //loader.add("wall", "resources/wall.json");    //example
-    loader.add('shiba-neutral', '../img/shiba_neutral.jpg');
+    //shiba
+    loader.add('shiba-neutral', '../img/DogeDefault.png');
+    loader.add('shiba-angry', '../img/DogeAngry.png');
+    loader.add('shiba-happy', '../img/DogeHappy.png');
+
+    //equipment
     loader.add('table', '../img/equipment/desk.png');
     loader.add('choppingBoard', '../img/equipment/chopping-board.png');
     loader.add('grill', '../img/equipment/grill.png');
 
-    loader.add('burger-raw', '../img/food/burger-raw.png');
-    loader.add('burger', '../img/food/burger.png');
-    loader.add('burger-burned', '../img/food/burger-burned.png');
+    //food
+    loader.add('bread-lower', '../img/food/BreadLowerPart.png');
+    loader.add('bread-upper', '../img/food/BreadUpperPart.png');
+    loader.add('burger-raw', '../img/food/BurgerRaw.png');
+    loader.add('burger', '../img/food/Burger.png');
+    loader.add('burger-burned', '../img/food/BurgerBurned.png');
+    loader.add('eggplant', '../img/food/Eggplant.png');
+    loader.add('fish', '../img/food/Fish.png');
+    loader.add('lettuce', '../img/food/Lettuce.png');
+    loader.add('lettuce-cut', '../img/food/LettucePiece.png');
+    loader.add('pepper', '../img/food/Peppered.png');
+    loader.add('salt', '../img/food/Salted.png');
+    loader.add('legolegoland', '../img/food/Salt.png');
+    loader.add('tomato', '../img/food/Tomato.png');
+    loader.add('tomato-cut', '../img/food/TomatoSlice.png');
 
     loader.once("complete", this.spriteSheetLoaded.bind(this));
     loader.load();
@@ -88,17 +104,43 @@ Main.prototype.createEnvironment = function() {
 };
 
 Main.prototype.createShiba = function() {
-    Main.shiba = new ShibaChef(400, 100, 410, 310, PIXI.Texture.fromImage("shiba-neutral"));
+    Main.shiba = new ShibaChef(400, 80, 310, 330, PIXI.Texture.fromImage("shiba-neutral"));
     Main.gameObjects.push(Main.shiba);
 };
 
 Main.prototype.createFood = function() {
-    var burger = new Hamburger(200, 200, 80, 80, PIXI.Texture.fromImage("burger-raw"));
-    Main.gameObjects.push(burger);
+    var foodColumns = 4;
+
+    var foodStartX = 300;
+    var foodStartY = 500;
+
+    var foodDiffX = 90;
+    var foodDiffY = 60;
+
+    var foods = [];
+    //define foods
+    foods.push(new BreadLower(200, 200, 100, 50, PIXI.Texture.fromImage("bread-lower")));
+    foods.push(new BreadUpper(200, 200, 100, 50, PIXI.Texture.fromImage("bread-upper")));
+    foods.push(new Hamburger(200, 200, 70, 50, PIXI.Texture.fromImage("burger-raw")));
+    foods.push(new Hamburger(200, 200, 70, 50, PIXI.Texture.fromImage("burger-raw")));
+    foods.push(new Hamburger(200, 200, 70, 50, PIXI.Texture.fromImage("burger-raw")));
+    foods.push(new Hamburger(200, 200, 70, 50, PIXI.Texture.fromImage("burger-raw")));
+    foods.push(new Hamburger(200, 200, 70, 50, PIXI.Texture.fromImage("burger-raw")));
+    foods.push(new Hamburger(200, 200, 70, 50, PIXI.Texture.fromImage("burger-raw")));
+
+    //push and set positions
+    foods.forEach(function(food, index) {
+        food.position.x = foodStartX + (foodDiffX * (index % foodColumns));
+        food.position.y = foodStartY + (foodDiffY * Math.floor(index / foodColumns));
+        //food.position.y = foodStartY;
+        Main.gameObjects.push(food);
+    });
+
 };
 
 Main.prototype.addGameObject = function(gameObject) {
     Main.gameObjects.push(gameObject);
+    Main.stage.addChild(gameObject);
 };
 
 Main.prototype.removeGameObject = function(gameObject) {

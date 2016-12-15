@@ -27,6 +27,14 @@ Grill.prototype.update = function() {
 Grill.prototype.addFood = function(gameObject) {
     this.food.push(gameObject);
 };
+
+Grill.prototype.removeFood = function(gameObject) {
+    var index = Main.grill.food.indexOf(gameObject);
+    if (index > -1) {
+        Main.grill.food.splice(index, 1);
+    }
+};
+
 //Grill.inherits(PIXI.Container);
 
 //Pixi.Container.prototype.overlapsWith()
