@@ -45,7 +45,7 @@
                 Upgrade cost
             </td>
             <td>
-                Time hh:mm:ss
+                Time
             </td>
             <td>
                 Upgrade
@@ -71,7 +71,11 @@
                 <img width=30 src="/rts/static/clock.svg"> : {{current_town.get_time(current_town.barracks)}}
             </td>
             <td>
-                <button> OK </button>
+                <form method="POST" action="/rts/purchase-building">
+                    <input type=hidden value="barrack" name="building-name">
+                    <input type="submit" name="upgrade-barrack" value="OK">
+                    <input type="hidden" name="townid" value={{current_town.id}}>
+                </form>    
             </td>
         </tr>
         <tr>
@@ -94,7 +98,11 @@
                 <img width=30 src="/rts/static/clock.svg"> : {{current_town.get_time(current_town.farm)}}
             </td>
             <td>
-                <button> OK </button>
+                <form method="POST" action="/rts/purchase-building">
+                    <input type=hidden value="farm" name="building-name">
+                    <input type="submit" name="upgrade-farm" value="OK">
+                    <input type="hidden" name="townid" value={{current_town.id}}>
+                </form>    
             </td>
         </tr>
         <tr>
@@ -117,7 +125,11 @@
                 <img width=30 src="/rts/static/clock.svg"> : {{current_town.get_time(current_town.gold_mine)}}
             </td>
             <td>
-                <button> OK </button>
+                <form method="POST" action="/rts/purchase-building">
+                    <input type=hidden value="mine" name="building-name">
+                    <input type="submit" name="upgrade-mine" value="OK">
+                    <input type="hidden" name="townid" value={{current_town.id}}>
+                </form> 
             </td>
         </tr>
         <tr>
@@ -140,7 +152,11 @@
                 <img width=30 src="/rts/static/clock.svg"> : {{current_town.get_time(current_town.quarry)}}
             </td>
             <td>
-                <button> OK </button>
+                <form method="POST" action="/rts/purchase-building">
+                    <input type=hidden value="quarry" name="building-name">
+                    <input type="submit" name="upgrade-quarry" value="OK">
+                    <input type="hidden" name="townid" value={{current_town.id}}>
+                </form> 
             </td>
         </tr>
         <tr>
@@ -163,7 +179,11 @@
                 <img width=30 src="/rts/static/clock.svg"> : {{current_town.get_time(current_town.lumber_mill)}}
             </td>
             <td>
-                <button> OK </button>
+                <form method="POST" action="/rts/purchase-building">
+                    <input type=hidden value="lumber" name="building-name">
+                    <input type="submit" name="upgrade-lumber" value="OK">
+                    <input type="hidden" name="townid" value={{current_town.id}}>
+                </form> 
             </td>
         </tr>
         <tr>
@@ -186,7 +206,11 @@
                 <img width=30 src="/rts/static/clock.svg"> : {{current_town.get_time(current_town.wall)}}
             </td>
             <td>
-                <button> OK </button>
+                <form method="POST" action="/rts/purchase-building">
+                    <input type=hidden value="wall" name="building-name">
+                    <input type="submit" name="upgrade-wall" value="OK">
+                    <input type="hidden" name="townid" value={{current_town.id}}>
+                </form> 
             </td>
         </tr>
     </table>

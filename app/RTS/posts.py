@@ -18,6 +18,7 @@ def create_player():
         return redirect('rts')
     return redirect('auth')
 
+#TODO: Check if the user has enough resources.
 @rts.route('/purchase-unit', methods=['POST'])
 def create_unit():
     cavalry_amount = int(request.form['amount_of_cavalry'])
@@ -26,6 +27,18 @@ def create_unit():
     id = int(request.form['townid'])
     town = Town.query.filter_by(id = id).first()
     town.add_units(knight_amount, cavalry_amount, pikemen_amount)
+    db.session.add(town)
+    db.session.commit()
+    return redirect('rts/town/' + str(id))
+
+#TODO: Check if the user has enough resources.
+@rts.route('/purchase-building', methods=['POST'])
+def upgrade_building():
+    building = request.form['building-name']
+    id = int(request.form['townid'])
+    town = Town.query.filter_by(id = id).first()
+    print(building)
+    town.upgrade_building(building)
     db.session.add(town)
     db.session.commit()
     return redirect('rts/town/' + str(id))

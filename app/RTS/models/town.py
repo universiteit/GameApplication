@@ -42,7 +42,7 @@ class Town(db.Model):
         self.iron = iron
 
     def get_costs(self, level):
-        exponent = 1.1
+        exponent = 1.06
         val = 40
         for i in range(level):
             val = val ** exponent
@@ -67,4 +67,22 @@ class Town(db.Model):
         self.knights += knight
         self.cavalry += cavalry
         self.pikemen += pikemen
+    
+    def upgrade_building(self, building):
+        building = building.lower()
+        if(building == 'barrack'):
+            self.barracks += 1
+        elif(building == 'lumber'):
+            self.lumber_mill += 1
+        elif(building == 'quarry'):
+            self.quarry += 1
+        elif(building == 'mine'):
+            self.gold_mine += 1
+        elif(building == 'farm'):
+            self.farm += 1
+        elif(building == 'wall'):
+            self.wall += 1        
+        else:
+            raise ValueError("Invalid value")
+
     
