@@ -4,15 +4,15 @@
             <a class="navbar-brand" href="/rts">RTS</a>
         </div>
         <div class='col-xs-2 pull-right'>
-            {% if not player %}
+            {% if not user %}
                 <a href='/auth/login'><input type='button' value='Login'></a>
             {% else %}
                 <a href='/auth/logout'><input type='button' value='Logout'></a>
             {% endif %}
         </div>
         <div class="col-xs-2 pull-right">
-            <div>Player</div>
-            <div>{{player.user.username if player else 'Anonymous'}}</div> 
+            <div>Logged in as:</div>
+            <div>{{user.username if user else 'Anonymous'}}</div> 
         </div>
     </div>
 </nav>

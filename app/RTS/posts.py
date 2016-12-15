@@ -2,9 +2,10 @@ from app.RTS import rts
 from app.RTS.helpers import current_player, generate_player_for_user, current_user
 from app.auth.attributes import secure
 from app.RTS.models import *
+from app.auth.models.user import User
 from flask import Blueprint, render_template, redirect, session
 
-@rts.route('/create-player')
+@rts.route('/create-player', methods=['POST'])
 @secure(cookie_authorization=True)
 def create_player():
     if current_player():

@@ -1,9 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>{% block title %}Welcome back {{player.user.username if player else "Anonymous"}}{% endblock %}</h3>
-<a href='house'>View your house!</a><br>
-<a href='towns'>View all the towns!</a>
+{% if player %}
+    <h3>Welcome back {{player.user.username}}</h3>
+    <a href='house'>View your house!</a><br>
+    <a href='towns'>View all the towns!</a>
+{% elif user %}
+    <h3>Hello {{ user.username }}</h3><br>
+    <p>You have not yet created a player for OGame of thrones.</p><br>
+    <p>Would you like to?</p><br><br>
+    <form action='/rts/create-player' method='post'>
+        <input type="submit" value='Join OGameOfThrones!'>
+    </form>
+{% else %}
+    <h3>Hello Anonymous</h3>
+    <p>You need an account to join this game</p>
+    <a href='/auth'><input type='button' value='login'></a>
+{% endif %}
 {% endblock %}
 
 {% block scripts %}
