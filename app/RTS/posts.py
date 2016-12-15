@@ -15,3 +15,13 @@ def create_player():
         generate_player_for_user(user)
         return redirect('rts')
     return redirect('auth')
+
+@rts.route('/purchase-unit', methods=['POST'])
+def create_unit():
+    cavalry_amount = int(request.form['amount_of_cavalry'])
+    knight_amount = int(request.form['amount_of_knights'])
+    pikemen_amount = int(request.form['amount_of_pikemen'])
+    id = int(request.form['townid'])
+    town = Town.query.filter_by(id = id).first()
+    town.add_units(knight_amount, cavalry_amount, pikemen_amount)
+    return redirect('rts/townview/' + id)

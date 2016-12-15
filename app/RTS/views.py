@@ -2,7 +2,7 @@ from app.RTS import rts
 from app.RTS.helpers import current_player, generate_player_for_user, current_user
 from app.auth.attributes import secure
 from app.RTS.models import *
-from flask import Blueprint, render_template, redirect, session
+from flask import Blueprint, render_template, redirect, session, request
 
 @rts.route('/towns/')
 def all_towns():
