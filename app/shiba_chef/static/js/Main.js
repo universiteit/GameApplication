@@ -88,9 +88,8 @@ Main.prototype.createEnvironment = function() {
         'Pineapple': 700
     });
 
-    Main.recipe.increment('Pineapple');
-    //this.gameObjects.push(Main.recipe);
-
+    var added = Main.recipe.increment('Pineapple');
+    var error = Main.recipe.increment('RandomShit');
 
 };
 

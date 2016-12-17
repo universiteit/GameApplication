@@ -1,32 +1,31 @@
+var style = {
+    fontFamily: 'Arial',
+    fontSize: '18px'
+}
+
+
 function Recipe(stage, items) {
-    /* 
-    items = {
-        'Hamburger' : 15,
-        'Pineapple' : 700
-    } */
+    PIXI.Sprite.call(this);
+    
+    const offset = 30;
+
     var self = this;
 
     this.x = this.y = 20;
 
-    PIXI.Sprite.call(this);
-
     var stage = stage;
 
-    this.ingredients = {};
-
     var clear = function() {
-        for (var key in this.ingredients) {
-            stage.removeChild(this.ingredients[key]['text']);
+        for (var key in self.ingredients) {
+            stage.removeChild(self.ingredients[key]['text']);
         }
-        this.ingredients = {};
+        self.ingredients = {};
     }
-
-    const offset = 30;
 
     this.updateText = function() {
         for (var key in this.ingredients) {
-            var text = key + ': ' + this.ingredients[key]['done'] + '/' + this.ingredients[key]['required'];
-            this.ingredients[key]['text'].text = text;
+            var text = key + ': ' + self.ingredients[key]['done'] + '/' + this.ingredients[key]['required'];
+            self.ingredients[key]['text'].text = text;
         }
     }
 
@@ -34,10 +33,10 @@ function Recipe(stage, items) {
         clear();
         var i = 0;
         for (var key in json) {
-            var text = new PIXI.Text();
+            var text = new PIXI.Text('', style);
             text.y = self.y + 15 + (offset * i);
             text.x = self.x + 15;
-            this.ingredients[key] = {
+            self.ingredients[key] = {
                 'done' : 0,
                 'required' : json[key],
                 'text' : text
@@ -48,6 +47,7 @@ function Recipe(stage, items) {
         self.updateText();
     }
 
+    // Background
     var graphics = new PIXI.Graphics();
 
 
@@ -63,8 +63,24 @@ function Recipe(stage, items) {
 Recipe.prototype = new GameObject();
 Recipe.prototype.constructor = Recipe;
 
+Recipe.prototype.ingredients = {};
 
 Recipe.prototype.increment = function(ingredient) {
-    this.ingredients[ingredient]['done'];
+    if (!(ingredient in this.ingredients))
+        return false;
+    if (this.ingredients[ingredient].done + 1 > this.ingredients[ingredient].required)
+        return false;
+    this.ingredients[ingredient].done++;
     this.updateText();
+    return true;
+}
+
+Recipe.prototype.isDone = function() {
+    for (key in this.ingredients) {
+        var done = this.ingredients[key].done;
+        var required = this.ingredients[key].required;
+        if (done != required)
+            return false;
+    }
+    return true;
 }
