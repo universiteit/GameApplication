@@ -83,7 +83,12 @@ Main.prototype.createEnvironment = function() {
     this.gameObjects.push(Main.grill);
 
     // Recipe
-    Main.recipe = new Recipe(this.stage, {});
+    Main.recipe = new Recipe(this.stage, {
+        'Hamburger': 50,
+        'Pineapple': 700
+    });
+
+    Main.recipe.increment('Pineapple');
     //this.gameObjects.push(Main.recipe);
 
 
