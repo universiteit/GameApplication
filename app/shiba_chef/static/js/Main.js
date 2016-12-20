@@ -20,6 +20,7 @@ function Main() {
 Main.choppingBoard = null;
 Main.grill = null;
 Main.shiba = null;
+Main.bin = null;
 Main.gameObjects = [];
 
 Main.prototype.update = function() {
@@ -47,6 +48,7 @@ Main.prototype.loadSpriteSheet = function() {
     loader.add('table', '../img/equipment/desk.png');
     loader.add('choppingBoard', '../img/equipment/chopping-board.png');
     loader.add('grill', '../img/equipment/grill.png');
+    loader.add('bin', '../img/equipment/bin.png');
 
     //food
     loader.add('bread-lower', '../img/food/BreadLowerPart.png');
@@ -101,10 +103,13 @@ Main.prototype.createEnvironment = function() {
     //grill
     Main.grill = new Grill(640, 330, 180, 90, PIXI.Texture.fromImage('grill'));
     Main.gameObjects.push(Main.grill);
+
+    //bin
+    Main.bin = new Bin(230, 370, 60, 80, PIXI.Texture.fromImage('bin'));
 };
 
 Main.prototype.createShiba = function() {
-    Main.shiba = new ShibaChef(400, 80, 310, 330, PIXI.Texture.fromImage("shiba-neutral"));
+    Main.shiba = new ShibaChef(400, 80, 280, 330, PIXI.Texture.fromImage("shiba-neutral"));
     Main.gameObjects.push(Main.shiba);
 };
 
@@ -124,8 +129,8 @@ Main.prototype.createFood = function() {
     foods.push(new Lettuce(200, 200, 90, 60, PIXI.Texture.fromImage("lettuce")));
     foods.push(new Tomato(200, 200, 70, 60, PIXI.Texture.fromImage("tomato")));
     foods.push(new Hamburger(200, 200, 70, 50, PIXI.Texture.fromImage("burger-raw")));
-    foods.push(new Hamburger(200, 200, 70, 50, PIXI.Texture.fromImage("burger-raw")));
-    foods.push(new Hamburger(200, 200, 70, 50, PIXI.Texture.fromImage("burger-raw")));
+    foods.push(new Salt(200, 200, 70, 40, PIXI.Texture.fromImage("salt")));
+    foods.push(new Pepper(200, 200, 70, 60, PIXI.Texture.fromImage("pepper")));
     foods.push(new Hamburger(200, 200, 70, 50, PIXI.Texture.fromImage("burger-raw")));
 
     //push and set positions
@@ -149,4 +154,8 @@ Main.prototype.removeGameObject = function(gameObject) {
         Main.gameObjects.splice(index, 1);
     }
     Main.stage.removeChild(gameObject);
+};
+
+Main.prototype.throwFoodInBin = function(food) {
+    Main.prototype.removeGameObject(food);
 };

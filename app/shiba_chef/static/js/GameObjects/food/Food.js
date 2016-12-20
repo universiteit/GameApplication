@@ -64,7 +64,9 @@ Food.prototype.onDragEnd = function() {
     } else if(this.overlapsWith(Main.choppingBoard) && this.isChoppable) {  //place in chopping board
         Main.choppingBoard.addFood(this);
         this.isInDrawer = false;
-    }else {    //place outside of all equipment
+    } else if(this.overlapsWith(Main.bin)) {
+        Main.prototype.throwFoodInBin(this);
+    } else {    //place outside of all equipment
         //remove self
         //Main.prototype.removeGameObject(this);
     }
