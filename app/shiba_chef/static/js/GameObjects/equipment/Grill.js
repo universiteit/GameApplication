@@ -8,9 +8,7 @@ function Grill(x,y, width, height, texture) {
 
     this.texture = texture;
 
-    this.food = [];
-
-    //self.bounds = [];
+    this.food = null;
     this.position.x = x;
     this.position.y = y;
     this.width = width;
@@ -21,12 +19,19 @@ Grill.prototype = new GameObject();
 Grill.prototype.constructor = Grill;
 
 Grill.prototype.update = function() {
-
+    //this.food.forEach(function(food) {
+    if(this.food) this.food.cookingStatus++;
+    //})
 };
 
-Grill.prototype.addFood = function() {
+Grill.prototype.addFood = function(gameObject) {
+    this.food = gameObject;
+};
 
-}
+Grill.prototype.removeFood = function(gameObject) {
+    this.food = null;
+};
+
 //Grill.inherits(PIXI.Container);
 
 //Pixi.Container.prototype.overlapsWith()

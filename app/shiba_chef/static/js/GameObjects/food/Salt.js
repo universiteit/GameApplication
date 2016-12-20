@@ -1,7 +1,7 @@
 /**
  * Created by jorik on 8-12-2016.
  */
-function Hamburger(x,y, width, height, texture) {
+function Salt(x,y, width, height, texture) {
     //PIXI.Sprite.call(this);
     Food.call(this);
 
@@ -22,8 +22,6 @@ function Hamburger(x,y, width, height, texture) {
     this.buttonMode = true;
     this.anchor.set(0.5);
 
-    this.isGrillable = true;
-
     this
     // events for drag start
     .on('mousedown', this.onDragStart)
@@ -39,26 +37,16 @@ function Hamburger(x,y, width, height, texture) {
 
 }
 
-Hamburger.prototype = new Food();
-Hamburger.prototype.constructor = Hamburger;
+Salt.prototype = new Food();
+Salt.prototype.constructor = Salt;
 
-Hamburger.prototype.update = function() {
-    this.checkCookingStatus();
-
-    //console.log(this.cookingStatus);
-};
-
-Hamburger.prototype.checkCookingStatus = function() {
-    if(this.cookingStatus > 1000) {
-        this.texture = PIXI.Texture.fromImage("burger-burned");
-    } else if(this.cookingStatus > 500) {
-        this.texture = PIXI.Texture.fromImage("burger");
-    }
+Salt.prototype.update = function() {
 
 };
 
-Hamburger.prototype.copySelfAtLocation = function(self) {
-    var newSelf = new Hamburger(self.x, self.y, self.width, self.height, self.texture);
+
+Salt.prototype.copySelfAtLocation = function(self) {
+    var newSelf = new Salt(self.x, self.y, self.width, self.height, self.texture);
     Main.prototype.addGameObject(newSelf);
 };
 

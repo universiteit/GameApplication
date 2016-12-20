@@ -1,7 +1,7 @@
 /**
  * Created by jorik on 8-12-2016.
  */
-function Hamburger(x,y, width, height, texture) {
+function Lettuce(x,y, width, height, texture) {
     //PIXI.Sprite.call(this);
     Food.call(this);
 
@@ -22,7 +22,7 @@ function Hamburger(x,y, width, height, texture) {
     this.buttonMode = true;
     this.anchor.set(0.5);
 
-    this.isGrillable = true;
+    this.isChoppable = true;
 
     this
     // events for drag start
@@ -39,27 +39,28 @@ function Hamburger(x,y, width, height, texture) {
 
 }
 
-Hamburger.prototype = new Food();
-Hamburger.prototype.constructor = Hamburger;
+Lettuce.prototype = new Food();
+Lettuce.prototype.constructor = Lettuce;
 
-Hamburger.prototype.update = function() {
-    this.checkCookingStatus();
-
-    //console.log(this.cookingStatus);
-};
-
-Hamburger.prototype.checkCookingStatus = function() {
-    if(this.cookingStatus > 1000) {
-        this.texture = PIXI.Texture.fromImage("burger-burned");
-    } else if(this.cookingStatus > 500) {
-        this.texture = PIXI.Texture.fromImage("burger");
+Lettuce.prototype.update = function() {
+    if(this.isOnChoppingBoard) {
+        this.checkChoppingStatus();
     }
-
 };
 
-Hamburger.prototype.copySelfAtLocation = function(self) {
-    var newSelf = new Hamburger(self.x, self.y, self.width, self.height, self.texture);
+
+Lettuce.prototype.copySelfAtLocation = function(self) {
+    var newSelf = new Lettuce(self.x, self.y, self.width, self.height, self.texture);
     Main.prototype.addGameObject(newSelf);
 };
 
-
+Lettuce.prototype.checkChoppingStatus = function() {
+    if(!this.isChopped) {
+        if (this.choppingStatus > 200) {
+            this.texture = PIXI.Texture.fromImage("lettuce-cut");
+            this.isChopped = true;
+        } else {
+            this.texture = PIXI.Texture.fromImage("lettuce");
+        }
+    }
+};
