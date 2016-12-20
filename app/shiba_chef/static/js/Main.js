@@ -105,7 +105,8 @@ Main.prototype.createEnvironment = function() {
     Main.gameObjects.push(Main.grill);
 
     //bin
-    Main.bin = new Bin(230, 370, 60, 80, PIXI.Texture.fromImage('bin'));
+    Main.bin = new Bin(100, 320, 150, 200, PIXI.Texture.fromImage('bin'));
+    Main.gameObjects.push(Main.bin);
 };
 
 Main.prototype.createShiba = function() {
@@ -114,10 +115,23 @@ Main.prototype.createShiba = function() {
 };
 
 Main.prototype.createFood = function() {
+    //create rectangle
+    var foodRec = new PIXI.Graphics();
+
+    foodRec.beginFill(0x7aabf9);
+
+    // set the line style to have a width of 5 and set the color to red
+    foodRec.lineStyle(2, 0x4a699b);
+
+    // draw a rectangle
+    foodRec.drawRect(280, 480, 430, 140);
+
+    Main.stage.addChild(foodRec);
+
     var foodColumns = 4;
 
-    var foodStartX = 300;
-    var foodStartY = 500;
+    var foodStartX = 360;
+    var foodStartY = 520;
 
     var foodDiffX = 90;
     var foodDiffY = 60;
