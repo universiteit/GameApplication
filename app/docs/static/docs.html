@@ -185,7 +185,31 @@ You are encouraged to read the release notes before installing GameAPP on your m
     </div>
     <h3>3.7 SHIBA CHEF</h3>
     <div class='padded'>
-        stuff about PixiJS
+         <p>Shiba Chef is a web based game made with PixiJs. The game consists of an index page which contains the canvas where all objects of the game are drawn, animate and interacted with by the user.</p>
+    <div class='padded'>
+        <p class='red'><b>MODELS</b></p>
+        <p>Shiba Chef uses models in form of javascript files, whereby the models themselves inherit the attributes and functions of their superclass as a basic form of Object Oriented Programming. Shiba Chef has 3 kinds of game objects: Lifeless, Equipment and Food.</p>
+
+        <p><b>Lifeless</b></p>
+        <p>Lifeless game objects are the simplest objects in the game, their attributes are only defined once in the constructor and they don’t move. An example of a Lifeless objects is the Table object. The lifeless object’s primary purpose is displaying sprites on screen. None of the lifeless objects have user interaction and serve as background scenery or visual aids.</p>
+
+        <p><b>Equipment</b></p>
+        <p>Equipment objects are dynamic game objects which functions can manipulate Food objects. They can e.g. chop, boil or grill ingredients when they are placed above them  to prepare the ingredients for the recipe. Examples of Equipment objects are: the Grill object, the Chopping Board object and the Cooking Pot object.</p>
+
+        <p><b>Food</b></p>
+        <p>Food objects are dynamic game objects which represent ingredients to build a recipe with. Their attributes define if they can be grilled, boiled or cut. When Food objects are placed on the presenting plate in front of the chef, the game (or the chef) checks if the ingredient fits correctly in the recipe, based on their attributes and kind of food .</p>
+
+        <p class='red'><b>VIEWS</b></p>
+        <p>Shiba chef only has a single page, this page uses a game engine (Pixi.js) to render visual elements on the user's browser:</p>
+
+        <p><b>Index view (../shiba_chef/)</b></p>
+        <p>Our index view contains all the logic required to play the shiba chef game. The game is completely javascript based and loads all of it resources using this one view. This view uses Pixi.js to render game objects, because our one page has a lot of elements to it the view never changes. All functionality can be reached from this single view.</p>
+
+                </div>
+        <p>Routing to the views is handled through Flask. Since the application is simple server side it currently only has a single route and a static file server for the static javascript, html and css files.</p>
+
+        <p class='red'><b>USER INTERACTIVITY</b></p>
+        <p>Users can interact with shiba chef by clicking on the game elements displayed on screen. The user can click and drag food to specific game elements such as the cutting board, plate or the bin. The interactivity is achieved through javascript event handlers (mouse down & up). All user actions are processed client side using javascript, for example validation of recipes, or transforming game objects such as a uncooked burger into a cooked burger.</p>
     </div>
 </div>
 <h2>4. Integrating GameAPP with Jenkins pipeline</h2>
