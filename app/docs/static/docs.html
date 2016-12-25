@@ -77,13 +77,8 @@ You are encouraged to read the release notes before installing GameAPP on your m
 <div class='padded'>
 <p>The following segment contains all the different technical specifications of the application.</p>
 
-    <h3>3.1 ARCHITECTURE OF THE APPLICATION</h3>
-    <div class='padded'>
-    <p>The GameAPP application consists of a collection of packages all working in tandem. Each minigame is written as a separate package. The authentication layer and dashboard are also separate packages. A single app package imports all the sub packages and functions as a collection exposing all the packages as a single app.</p>
 
-    <p>This design approach has been chosen because it keeps separate all the responsibilities and allows for easy addition of new packages such as new minigames.</p>
-    </div>
-    <h3>3.2 LANGUAGES, FRAMEWORKS, LIBRARIES</h3>
+    <h3>3.1 LANGUAGES, FRAMEWORKS, LIBRARIES</h3>
     <div class='padded'>
     <p>The majority of GameAPP has been written in Python 3.5.2 with a few shell scripts added for good measure. In addition to plain python two frameworks have been used.</p>
 
@@ -108,6 +103,17 @@ You are encouraged to read the release notes before installing GameAPP on your m
     <p>PixiJS is a 2D WebGL Renderer for Javascript. Primarily used in the Shiba Chef application, PixiJS is used to render the images, handle input / output, create particle effects etc.</p>
     </div>
 
+    <h3>3.2 ARCHITECTURE OF THE APPLICATION</h3>
+    <div class='padded'>
+    <p>The GameAPP application consists of a collection of packages all working in tandem. Each minigame is written as a separate package. The authentication layer and dashboard are also separate packages. A single app package imports all the sub packages and functions as a collection exposing all the packages as a single app.</p>
+
+    <p>This design approach has been chosen because it keeps separate all the responsibilities and allows for easy addition of new packages such as new minigames. Below is a package diagram of the entire application, showing all packages and their dependencies</p>
+
+    <img src='static/diagram.svg'>
+
+    <p>Shiba Chef, Dashboard and OGameOfthrones all use interfaces exposed in the auth package. More information about the auth package can be read in paragraph 3.5. Furthermore, Shiba Chef and OGameOfThrones use interfaces exposed by the dashboard package as explained in paragraph 3.4. The app package also includes an instance of SqlAlchemy. All sub packages use this singleton of SqlAlchemy to communicate with the database and persist their data</p> 
+    </div>
+
     <h3>3.3 TESTING</h3>
     <div class='padded'>
     <p>Each package has its own set of unit tests. These tests are placed in a dedicated test folder inside the package. These tests are automatically detected by nose. The main ‘app’ also has its own set of unit tests. Each developer runs the unit tests locally for the application they are working on. The tests are also used inside the Jenkins pipeline. More information about the pipeline can be found inside the ‘Integrating GameAPP with Jenkins pipeline’ section.</p>
@@ -119,7 +125,7 @@ You are encouraged to read the release notes before installing GameAPP on your m
     <div class='padded'>
     <p>The dashboard package functions as an index that shows the user all the different minigames. It’s accessed by simply visiting the site root url. Additionally it allows navigation to the login and registration section, more about this can be read in the Authentication chapter of the Technical specifications.</p>
 
-    <p>The dashboard exposes an interface for minigames to register their service. This interface accepts a hyperlink to the minigame’s root url and a url to a ‘display’ image. The dashboard maintains a collection of all the registered minigames. When a request is made for the dashboard, it renders an HTML template with the minigame images tiled in a grid as hyperlinks.</p>
+    <p>The dashboard exposes an interface for minigames to register their service. This interface accepts a hyperlink to the minigame’s root url and a url to a ‘display’ image. The dashboard maintains a collection of all the registered minigames. When a request is made for the dashboard, it renders an HTML template with the minigame images tiled in a grid as hyperlinks. Furthermore it exposes an interface by which minigames can add their scores to the 'shared scoreboard' for all the minigame apps.</p>
     </div>
     <h3>3.5 AUTHENTICATION PACKAGE</h3>
     <div class='padded'>
@@ -247,7 +253,9 @@ You are encouraged to read the release notes before installing GameAPP on your m
     </div>
     <h3>4.4 PERSONAL JENKINS SETUP FOR FORKS</h3>
     <div class='padded'>
-        <p>Personal deployment pipelines are used by each development team working on a specific area of the application. The team has decided not to dictate how these pipelines are set up, and are up to the discretion of the individual team members. The only requirement is that the pipeline correctly gathers all the dependencies and runs the unit tests pertaining to their particular area (ex. Shiba Chef developers run the Shiba Chef unit tests).</p>
+        <p>Personal deployment pipelines are used by each developer working on a specific area of the application. The team has decided not to dictate how these pipelines are set up, and are up to the discretion of the individual team members. The only requirement is that the pipeline correctly gathers all the dependencies and runs the unit tests pertaining to their particular area (ex. Shiba Chef developers run the Shiba Chef unit tests).</p>
+
+        <p>In practice the personal pipelines have been nearly identical to those of the shared pipeline, containing the same phases except only for their own package and set up by each developer personally.</p>
     </div>
 </div>
 <hr>
@@ -255,32 +263,32 @@ You are encouraged to read the release notes before installing GameAPP on your m
 <div class='padded'>
     <h3>Daniel Molenaar</h3>
     <div class='padded'>
-        <p>Primary contributor to the authentication service, contributor to Shiba Chef and responsible for setting up the Jenkins pipeline.</p>
+        <p>Primary contributor to the authentication service. Has built the models, the authentication by JSON Web Tokens interface and implementation, the hashing of passwords, as well as the authentication decorators used by other developers. Contributor to Shiba Chef by building the recipies logic and responsible for setting up the shared Jenkins pipeline in cooperation with Bart Rijnders.</p>
     </div>
 
     <h3>Bart Rijnders</h3>
     <div class='padded'>
-        <p>Contributor to the authentication service, OGameOfThrones and primarily responsible for setting up the Jenkins pipeline and the release document.</p>
+        <p>Contributor to the authentication service by adding Cookie authentication implementation, a registration page and the login page. Contributor to OGameOfThrones by way of creating all the SqlAlchemy models, the signup page coupled with generating base cities and houses for new players, the attack view and related user interactivy, and unit testing the package. Primarily responsible for setting up the sharedJenkins pipeline and the Apache server. Primary creator of this release document.</p>
     </div>
 
     <h3>Thom Overhand</h3>
     <div class='padded'>
-        <p>Primary contributor to the technical funtionalities of OGameOfThrones, realised the first design together with Jeffrey Maas</p>
+        <p>Primary contributor to the technical funtionalities of OGameOfThrones including building the entire towns view and related user interactivity, the logic for battles by armies attacking towns, and implementing celery tasks for updating town supplies, army amounts, attack movements, and performing battle calculations. Also aided in unit testing the package.</p>
     </div>
 
     <h3>Jeffrey Maas</h3>
     <div class='padded'>
-        <p>Primary contributor to the design of OGameOfThrones. Assisted Thom Overhand with creating the functionalities of the game</p>
+        <p>Primary contributor to the design of OGameOfThrones including icons, fonts etcetera. Contributor to functionality of OGameOfThrones in conjunction with Thom Overhand, including the entire town view / attack view and related user interactivity, the logic for battles by armies attack towns, creating the css and HTML templates, and unit testing the package.</p>
     </div>
 
     <h3>Stephen Goedhart</h3>
     <div class='padded'>
-        <p>Primary contributor to the dashboard and contributor to Shiba Chef.</p>
+        <p>Sole contributor to the dashboard package. This includes building and designing the dashboard, defining and implementing the interface by which minigames can 'register' their application on the dashboard, and unit testing the dashboard. Also aided in Shiba Chef by designing all the icons,textures and other visuals. Also did the shared scoreboard / score keeping part of the app, by adding an interface to the dashboard that minigames can send messages to about users and their scores and the underlying logic of keeping these scores.</p>
     </div>
 
     <h3>Jorik Schouten</h3>
     <div class='padded'>
-        <p>Primary contributor to Shiba Chef and memes. Also responsible for unit testing Shiba Chef.</p>
+        <p>Primary contributor to Shiba Chef including the entire game logic such as cooking items, dragging and dropping items and snapping them to their position, setting animations of items being cooked and too many others to sum here. Also responsible for unit testing Shiba Chef package.</p>
     </div>
 </div>
 <br>
