@@ -23,5 +23,9 @@ def index():
 @rts.route('/town/<town_id>')
 @secure(cookie_authorization=True)
 def townview(town_id):
-    town = Town.query.filter_by(id=town_id).first()
-    return render_template("views/town_view.html", current_town = town, user=current_user())
+    player = current_player()
+    town = Town.query.filter_by(id=int(town_id)).first()
+    if town.player == player:
+        return render_template("views/town_view.html", current_town = town, user=current_user())
+    else:
+        return "Unauthorized", 401

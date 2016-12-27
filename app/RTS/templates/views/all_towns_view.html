@@ -9,7 +9,7 @@
         </tr>
     {% for town in towns %}
         <tr>
-            <td><a href='rts/town/{{town.id}}'>{{town.name}}</a></td>
+            <td><a href='/rts/town/{{town.id}}'>{{town.name}}</a></td>
             <td>{{town.knights}}/{{town.cavalry}}/{{town.pikemen}}</td>
             <td>{{town.player.house}}</td>
             <td>{{town.player.user.username}}</td>
