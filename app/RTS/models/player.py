@@ -13,3 +13,6 @@ class Player(db.Model):
         self.user = user
         self.house = house
         self.towns = []
+
+    def add_town(self, town):
+        self.towns.append(town)

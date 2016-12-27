@@ -67,4 +67,3 @@ class Town(db.Model):
         self.knights += knight
         self.cavalry += cavalry
         self.pikemen += pikemen
-    
