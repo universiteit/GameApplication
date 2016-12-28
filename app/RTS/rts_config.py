@@ -13,6 +13,3 @@ def get_wall_defense(level):
     return None
 
 buildings = ["Wall", "Lumber Camp", "Iron Quarry", "Goldmine", "Barracks", "Farm"]
-
-
-

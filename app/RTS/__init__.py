@@ -3,6 +3,7 @@ from flask import session
 from app.RTS.models import *
 from flask import Blueprint, render_template, redirect
 from app.auth.attributes import secure
+import app.RTS.background_tasks
 
 real_time_strategy = Blueprint('Real time strategy game', __name__, static_folder='static', template_folder='templates')
 rts = real_time_strategy

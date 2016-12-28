@@ -1,4 +1,5 @@
 from app import db
+import datetime, math
 
 class Town(db.Model):
     __tablename__ = "RtsTown"
@@ -41,48 +42,65 @@ class Town(db.Model):
         self.food = food
         self.iron = iron
 
-    def get_costs(self, level):
+    # Gets the cost of upgrading a building from given level to the next.
+    def get_upgrade_cost(self, level):
         exponent = 1.06
         val = 40
         for i in range(level):
             val = val ** exponent
-        return int(val)
+        return int(math.ceil(val))
 
-    def get_time(self, level):
+    # Get the time in timespan required to upgrade a building frm given level to the next.
+    def get_upgrade_time(self, level):
         minutes = level ** 2
         h, m = divmod(minutes, 60)
-        return "%d:%02d:%02d" % (h, m, 00)
+        return datetime.time(hour = h, minute = m)
 
+    # Get the amount of resources per minute based on given level.
     def get_production(self, level):
-        return int((level * 50) ** 1.2)
+        return int(math.ceil((level * 50) ** 1.2))
 
-    def get_unit_costs(self, unit):
+    def get_unit_cost(self, unit):
         return {
             'knight' : { 'gold' : 25, 'wood' : 60, 'food' : 30, 'iron' : 70},
             'cavalry' : { 'gold' : 50, 'wood' : 125, 'food' : 100, 'iron' : 250},
             'pikemen' : { 'gold' : 15, 'wood' : 50, 'food' : 30, 'iron' : 10},
         }[unit.lower()]
         
-    def add_units(self, knight, cavalry, pikemen):
+    def add_units(self, knight = 0, cavalry = 0, pikemen = 0):
         self.knights += knight
         self.cavalry += cavalry
         self.pikemen += pikemen
-    
-    def upgrade_building(self, building):
-        building = building.lower()
-        if(building == 'barrack'):
-            self.barracks += 1
-        elif(building == 'lumber'):
-            self.lumber_mill += 1
-        elif(building == 'quarry'):
-            self.quarry += 1
-        elif(building == 'mine'):
-            self.gold_mine += 1
-        elif(building == 'farm'):
-            self.farm += 1
-        elif(building == 'wall'):
-            self.wall += 1        
-        else:
-            raise ValueError("Invalid value")
 
+    def add_upgrade(self, building):
+        if not self.upgrade:
+            self.upgrade = building
+            self.upgrade_time_done = self.get_upgrade_time(1)
+        else:
+            raise RuntimeError("Town already has an upgrade queued up")
+
+    def update_resources(self):
+        self.gold += int(self.get_production(self.gold_mine) / 12.0)
+        self.wood += int(self.get_production(self.lumber_mill) / 12.0)
+        self.food += int(self.get_production(self.farm) / 12.0)
+        self.iron += int(self.get_production(self.quarry) / 12.0)
     
+    def update_upgrade(self):
+        if self.upgrade_time_done and datetime.datetime.now() >= self.upgrade_time_done:
+            building = self.upgrade.lower()
+            if(building == 'barrack'):
+                self.barracks += 1
+            elif(building == 'lumber'):
+                self.lumber_mill += 1
+            elif(building == 'quarry'):
+                self.quarry += 1
+            elif(building == 'mine'):
+                self.gold_mine += 1
+            elif(building == 'farm'):
+                self.farm += 1
+            elif(building == 'wall'):
+                self.wall += 1        
+            else:
+                raise ValueError("Invalid value")
+            upgrade = None
+            upgrade_time_done = None
