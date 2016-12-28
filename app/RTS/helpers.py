@@ -39,11 +39,13 @@ def generate_random_town(player):
     new_town.cavalry = 3
     return new_town
 
+# Assigns a new player to an existing user in the database
 def generate_player_for_user(user):
     new_player = generate_new_player(user)
     db.session.add(new_player)
     db.session.commit()
 
+# Gets the player from a user id, if it has no player, generate one.
 def get_player_from_user_id(user_id):
     player = Player.query.filter_by(id=user_id).first()
     if not player:
@@ -51,3 +53,8 @@ def get_player_from_user_id(user_id):
         db.session.add(player)
         db.session.commit()
     return player
+
+
+# Runs an attack
+def run_attack(attack):
+    return True
