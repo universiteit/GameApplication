@@ -1,9 +1,9 @@
 import unittest, datetime
 from unittest import mock
 from app.auth.models.user import User
-from app.RTS.models.town import Town
-from app.RTS.models.attack import Attack
-from app.RTS.models.player import Player
+from app.RTS.models import *
+from app.RTS.rts_config import *
+from app import db
 
 class TestTown(unittest.TestCase):
     def setUp(self):
@@ -63,6 +63,7 @@ class TestTown(unittest.TestCase):
         self.assertEqual(self.town.barracks, 2)
         self.assertEqual(self.town.lumber_mill, 1)
 
+
 class TestPlayer(unittest.TestCase):
     def setUp(self):
         self.user = User("Jaime", "pass")
@@ -72,11 +73,67 @@ class TestPlayer(unittest.TestCase):
         self.assertEqual(player.user.username, "Jaime")
         self.assertEqual(player.house, "Lannister")
 
+
 class TestAttack(unittest.TestCase):
     def setUp(self):
-        self.user = User("Jaime", "pass")
+        self.player1 = Player(None, "Lannister")
+        self.player2 = Player(None, "Stark")
+        self.destination = Town(self.player2, "Winterfell", knights = 1, cavalry = 1, pikemen = 1, wall=3)
+        self.origin = Town(self.player1, "King's Landing")
+        self.attack = Attack(self.player1, self.destination, self.origin, knights = 1, cavalry = 1 , pikemen = 1)
 
     def test_init(self):
-        player = Player(self.user, "Lannister")
-        attack = Attack(player, None, None, knights = 4, cavalry = 6 , pikemen = 7)
-        self.assertEqual(attack.pikemen, 7)
+        self.assertEqual(self.attack.player.house, self.player1.house)
+        self.assertEqual(self.attack.knights, 1)
+
+    def test_get_defender_stats(self):
+        get_wall_defense = self.attack.get_wall_defense
+        self.attack.get_wall_defense = mock.MagicMock(return_value = 2)
+        defense, offense = self.attack.get_defender_stats()
+        self.assertEqual(defense, 150)
+        self.assertEqual(offense, 180)
+        self.attack.get_wall_defense = get_wall_defense
+
+    def test_get_attacker_stats(self):
+        defense, offense = self.attack.get_attacker_stats()
+        self.assertEqual(defense, 75)
+        self.assertEqual(offense, 180)
+
+    def test_take_damage(self):
+        pikemen, cavalry, knights = self.attack.take_damage(1, 1, 1, 70)
+        self.assertEqual(knights, 1)
+        self.assertEqual(pikemen, 0)
+        self.assertEqual(cavalry, 0)
+    
+    def test_simulate_battle(self):
+        take_damage = self.attack.take_damage
+        get_wall_defense = self.attack.get_wall_defense
+        self.attack.take_damage = mock.MagicMock(return_value = (1,1,1))
+        self.attack.get_wall_defense = mock.MagicMock(return_value = 0)
+        # Both armies are 1, 1, 1. Total defense is 150, attack is 180
+        # attacker wins. Attacker remains with 1, 1, 1 army
+        result = self.attack.simulate_battle()
+        self.assertTrue(result["success"])
+        self.assertEqual(result["attacking army"][1], 1)
+        self.attack.take_damage = take_damage
+        self.attack.get_wall_defense = get_wall_defense
+
+    def test_get_wall_defense(self):
+        result = self.attack.get_wall_defense(3)
+        self.assertEqual(result, 1.15)
+
+    @mock.patch('app.RTS.models.attack.db')
+    def test_resolve(self, mock_db):
+        simulate_battle = self.attack.simulate_battle()
+        mock_result = { "success" : True, "attacking army" : (2,2,2), "defending_army" : (0,0,0) }
+        self.attack.simulate_battle = mock.MagicMock(return_value = mock_result)
+        self.attack.resolve()
+        # Check if calls made to db layer
+        self.assertTrue(mock_db.session.add.called)
+        self.assertTrue(mock_db.session.delete.called)
+        self.assertTrue(mock_db.commit)
+        # Check if given proper parameters to db calls
+        self.assertEqual(mock_db.session.add.call_args[0][0], self.destination)
+        self.assertEqual(mock_db.session.delete.call_args[0][0], self.attack)
+        # Check if player switched after victory
+        self.assertEqual(self.destination.player, self.player1)

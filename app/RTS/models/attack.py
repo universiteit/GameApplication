@@ -1,5 +1,6 @@
 from app import db
-from config import *
+from app.RTS.rts_config import *
+import random
 
 class Attack(db.Model):
     __tablename__ = "RtsAttack"
@@ -29,28 +30,62 @@ class Attack(db.Model):
         self.pikemen = pikemen
 
     def get_defender_stats(self):
-        defense = (self.origin.pikemen * pikemen_defense) + (self.origin.knights * knights_defense) + (self.origin.cavalry * cavalry_defense)
-        defense *= get_wall_defense(self.origin.wall)
+        defense = (self.destination.pikemen * pikemen_defense) + (self.destination.knights * knight_defense) + (self.destination.cavalry * cavalry_defense)
+        defense *= self.get_wall_defense(self.origin.wall)
         
-        offense = (self.origin.pikemen * pikemen_offense) + (self.origin.knights * knights_offense) + (self.origin.cavalry * cavalry_offense)
+        offense = (self.destination.pikemen * pikemen_offense) + (self.destination.knights * knight_offense) + (self.destination.cavalry * cavalry_offense)
         return defense, offense
 
     def get_attacker_stats(self):
-        defense = (self.pikemen * pikemen_defense) + (self.knights * knights_defense) + (self.cavalry * cavalry_defense)
+        defense = (self.pikemen * pikemen_defense) + (self.knights * knight_defense) + (self.cavalry * cavalry_defense)
         
-        offense = (self.pikemen * pikemen_offense) + (self.knights * knights_offense) + (self.cavalry * cavalry_offense)
+        offense = (self.pikemen * pikemen_offense) + (self.knights * knight_offense) + (self.cavalry * cavalry_offense)
         return defense, offense
     
-    def simulate(self):
-        defender = self.get_defender_stats
-        attacker = self.get_attacker_stats
+    def take_damage(self, pikemen = 0, cavalry = 0, knights = 0, damage = 0, defense_modifier = 1):
+        while damage > 0:
+            if pikemen > 0 and damage > pikemen_defense * defense_modifier:
+                damage -= pikemen_defense
+                pikemen -= 1
+            elif cavalry > 0 and damage > cavalry_defense * defense_modifier:
+                damage -= cavalry_defense
+                cavalry -= 1
+            elif knights > 0 and damage > knight_defense * defense_modifier:
+                damage -= knight_defense
+                knights -= 1
+            else:
+                return pikemen, cavalry, knights
+        return pikemen, cavalry, knights
 
-        if (attacker[1] - defender[0]) > 0:
-            return self.origin
-        return self.destination
+    def simulate_battle(self):
+        defender_defense = self.get_defender_stats()[0]
+        attacker_offense = self.get_attacker_stats()[1]
+        if defender_defense > attacker_offense:
+            attacker_army = 0, 0, 0
+            defender_army = self.take_damage(self.destination.pikemen, self.destination.cavalry, self.destination.knights, attacker_offense - defender_defense, self.get_wall_defense(self.origin.wall))
+            return { "success" : False, "attacking army" : attacker_army, "defending army" : defender_army }
+        else:
+            defender_army = 0, 0, 0
+            attacker_army = self.take_damage(self.pikemen, self.cavalry, self.knights, attacker_offense - defender_defense)
+            return { "success" : True, "attacking army" : attacker_army, "defending army" : defender_army }
     
-    def get_wall_defense(level):
+    def get_wall_defense(self, level):
         if level <= 20:
             return 1 + ((level * 5) / 100) 
         return None
         
+    # Resolves the attack, returning the new state of the destination (with perhaps a new owner and army size)
+    def resolve(self):
+        battle_result = self.simulate_battle()
+        if battle_result["success"]:
+            self.destination.player = self.player
+            self.destination.pikemen = battle_result["attacking army"][0]
+            self.destination.cavalry = battle_result["attacking army"][1]
+            self.destination.knights = battle_result["attacking army"][2]
+        else:
+            self.destination.pikemen = battle_result["defending army"][0]
+            self.destination.cavalry = battle_result["defending army"][1]
+            self.destination.knights = battle_result["defending army"][2]
+        db.session.add(self.destination)
+        db.session.delete(self)
+        db.commit()

@@ -6,7 +6,3 @@ knight_offense = 40
 
 cavalry_defense = 30
 cavalry_offense = 130
-
-
-
-buildings = ["Wall", "Lumber Camp", "Iron Quarry", "Goldmine", "Barracks", "Farm"]
