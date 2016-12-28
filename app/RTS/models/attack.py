@@ -13,6 +13,8 @@ class Attack(db.Model):
 
     origin = db.relationship('Town', foreign_keys = [origin_id])
     destination = db.relationship('Town', foreign_keys=[destination_id])
+
+    arrival_time = db.Column(db.DateTime)
     
     knights = db.Column(db.Integer)
     cavalry = db.Column(db.Integer)
@@ -47,5 +49,8 @@ class Attack(db.Model):
             return self.origin
         return self.destination
     
-    
+    def get_wall_defense(level):
+        if level <= 20:
+            return 1 + ((level * 5) / 100) 
+        return None
         
