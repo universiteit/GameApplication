@@ -107,13 +107,33 @@ Main.prototype.createEnvironment = function() {
     Main.gameObjects.push(Main.grill);
 
     // Recipe
-    Main.recipe = new Recipe(Main.stage, {
-        'Hamburger': 50,
-        'Pineapple': 700
-    });
 
-    var added = Main.recipe.increment('Pineapple');
-    var error = Main.recipe.increment('RandomShit');
+    var ingredients = [
+        new Ingredient('Lettuce', 5),
+        new Ingredient('Salt', 1),
+        new Ingredient('Salt', 1),
+        new Ingredient('Salt', 1),
+        new Ingredient('Salt', 1),
+        new Ingredient('Salt', 1),
+        new Ingredient('Salt', 1),
+        new Ingredient('Salt', 1),
+        new Ingredient('Salt', 1)
+    ]
+
+
+    Main.recipe = new Recipe(Main.stage, ingredients);
+
+    Main.recipe.finishIngredient('Lettuce');
+
+    var interval = setInterval(saltDone, 1000);
+    
+    function saltDone() {
+        if(!Main.recipe.finishIngredient('Salt'))
+            clearInterval(interval);
+    }
+
+    /*var added = Main.recipe.increment('Pineapple');
+    var error = Main.recipe.increment('RandomShit');*/
 
     //bin
     Main.bin = new Bin(100, 320, 150, 200, PIXI.Texture.fromImage('bin'));

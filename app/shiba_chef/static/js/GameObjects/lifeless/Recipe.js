@@ -1,9 +1,3 @@
-var style = {
-    fontFamily: 'Arial',
-    fontSize: '18px'
-}
-
-
 function Recipe(stage, items) {
     PIXI.Sprite.call(this);
     
@@ -16,35 +10,19 @@ function Recipe(stage, items) {
     var stage = stage;
 
     var clear = function() {
-        for (var key in self.ingredients) {
-            stage.removeChild(self.ingredients[key]['text']);
-        }
-        self.ingredients = {};
+        self.ingredients.forEach(function(element) {
+            stage.removeChild(element.text);
+        })
     }
 
-    this.updateText = function() {
-        for (var key in this.ingredients) {
-            var text = key + ': ' + self.ingredients[key]['done'] + '/' + this.ingredients[key]['required'];
-            self.ingredients[key]['text'].text = text;
-        }
-    }
-
-    var generate = function(json) {
+    var generate = function(items) {
         clear();
-        var i = 0;
-        for (var key in json) {
-            var text = new PIXI.Text('', style);
-            text.y = self.y + 15 + (offset * i);
-            text.x = self.x + 15;
-            self.ingredients[key] = {
-                'done' : 0,
-                'required' : json[key],
-                'text' : text
-            };
-            stage.addChild(text);
-            i++;
-        }
-        self.updateText();
+        items.forEach(function(element, index) {
+            element.text.y = self.y + 15 + (offset * index);
+            element.text.x = self.x + 15;
+            stage.addChild(element.text);
+        });
+        self.ingredients = items;
     }
 
     // Background
@@ -63,24 +41,10 @@ function Recipe(stage, items) {
 Recipe.prototype = new GameObject();
 Recipe.prototype.constructor = Recipe;
 
-Recipe.prototype.ingredients = {};
+Recipe.prototype.currentIngredient = 0;
+Recipe.prototype.ingredients = [];
 
-Recipe.prototype.increment = function(ingredient) {
-    if (!(ingredient in this.ingredients))
-        return false;
-    if (this.ingredients[ingredient].done + 1 > this.ingredients[ingredient].required)
-        return false;
-    this.ingredients[ingredient].done++;
-    this.updateText();
-    return true;
-}
 
-Recipe.prototype.isDone = function() {
-    for (key in this.ingredients) {
-        var done = this.ingredients[key].done;
-        var required = this.ingredients[key].required;
-        if (done != required)
-            return false;
-    }
-    return true;
+Recipe.prototype.finishIngredient = function(ingredient) {
+    return this.currentIngredient < this.ingredients.length && (this.ingredients[this.currentIngredient].isIngredient(ingredient)) ? ((this.ingredients[this.currentIngredient].done()) | ++this.currentIngredient) > 0 : false // Ask Jorik.
 }
