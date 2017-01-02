@@ -42,6 +42,14 @@ class Town(db.Model):
         self.food = food
         self.iron = iron
 
+    def remove_units(self, knights = 0, cavalry = 0, pikemen = 0):
+        if self.knights >= knights and self.cavalry >= cavalry and self.pikemen >= pikemen:
+            self.knights -= knights
+            self.cavalry -= cavalry
+            self.pikemen -= pikemen
+            return True
+        return False
+    
     # Gets the cost of upgrading a building from given level to the next.
     def get_upgrade_cost(self, level):
         exponent = 1.06
@@ -74,7 +82,7 @@ class Town(db.Model):
 
         def sum_costs(key):
             return knight_cost[key] * knight + cavalry_cost[key] * cavalry + pikemen_cost[key] * pikemen
-            
+
         gold = sum_costs("gold")
         wood = sum_costs("wood")
         food = sum_costs("food")

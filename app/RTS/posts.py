@@ -53,9 +53,8 @@ def send_attack():
     id = int(request.form['townid'])
     town = Town.query.filter_by(id = id).first()
     destination = Town.query.filter_by(id = destination).first()
-    attack = Attack(town.player, destination, town, knight_amount, cavalry_amount, pikemen_amount)
-    print(attack)
-    db.session.add(attack)
-    db.session.commit()
-    
+    if town.remove_units(knight_amount, cavalry_amount, pikemen_amount):
+        attack = Attack(town.player, destination, town, knight_amount, cavalry_amount, pikemen_amount)
+        db.session.add(attack)
+        db.session.commit()
     return redirect('rts/town/' + str(id))

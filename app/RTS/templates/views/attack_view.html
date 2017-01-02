@@ -14,9 +14,9 @@
         <tr>
             <td><a href='town/{{attack.origin.id}}'>{{attack.origin.name}}</a></td>
             <td><a href='town/{{attack.destination.id}}'>{{attack.destination.name}}</a></td>
-            <td><img src='rts/static/unit_sword.png'> {{town.knights}}</td>
-            <td><img src='rts/static/unit_light.png'> {{town.cavalry}}</td>
-            <td><img src='rts/static/unit_spear.png'> {{town.pikemen}}</td>
+            <td><img src='/rts/static/unit_sword.png'> {{attack.knights}}</td>
+            <td><img src='/rts/static/unit_light.png'> {{attack.cavalry}}</td>
+            <td><img src='/rts/static/unit_spear.png'> {{attack.pikemen}}</td>
             <td>{{attack.arrival_time.ctime()}}</td>
         </tr>
     {% endfor %}
