@@ -17,6 +17,7 @@ function Main() {
     this.loadSpriteSheet();
 }
 
+Main.presentingPlate = null;
 Main.choppingBoard = null;
 Main.grill = null;
 Main.shiba = null;
@@ -51,6 +52,7 @@ Main.prototype.loadSpriteSheet = function() {
     loader.add('choppingBoard', '../img/equipment/chopping-board.png');
     loader.add('grill', '../img/equipment/grill.png');
     loader.add('bin', '../img/equipment/bin.png');
+    loader.add('presenting-plate', '../img/equipment/presenting-plate.png');
 
     //food
     loader.add('bread-lower', '../img/food/BreadLowerPart.png');
@@ -93,6 +95,10 @@ Main.prototype.makeWorld = function() {
 
 Main.prototype.createEnvironment = function() {
     //lifeless objects
+
+    //presenting plate
+    Main.presentingPlate = new PresentingPlate(50, 80, 180, 100, PIXI.Texture.fromImage('presenting-plate'));
+    Main.gameObjects.push(Main.presentingPlate);
 
     //table
     var table = new Table(200, 250, 720, 360, PIXI.Texture.fromImage('table'));
