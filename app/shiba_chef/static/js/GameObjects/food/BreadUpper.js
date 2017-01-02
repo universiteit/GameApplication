@@ -7,6 +7,8 @@ function BreadUpper(x,y, width, height, texture) {
 
     var self = this;
 
+    this.plateName = 'BreadUpper';
+
     this.texture = texture;
 
     //self.bounds = [];

@@ -96,13 +96,15 @@ Main.prototype.makeWorld = function() {
 Main.prototype.createEnvironment = function() {
     //lifeless objects
 
-    //presenting plate
-    Main.presentingPlate = new PresentingPlate(50, 80, 180, 100, PIXI.Texture.fromImage('presenting-plate'));
-    Main.gameObjects.push(Main.presentingPlate);
+
 
     //table
     var table = new Table(200, 250, 720, 360, PIXI.Texture.fromImage('table'));
     Main.gameObjects.push(table);
+
+    //presenting plate
+    Main.presentingPlate = new PresentingPlate(450, 320, 150, 90, PIXI.Texture.fromImage('presenting-plate'));
+    Main.gameObjects.push(Main.presentingPlate);
 
     //chopping board
     Main.choppingBoard = new ChoppingBoard(270, 330, 180, 100, PIXI.Texture.fromImage('choppingBoard'));
@@ -115,34 +117,27 @@ Main.prototype.createEnvironment = function() {
     // Recipe
 
     var ingredients = [
-        new Ingredient('Lettuce', 5),
-        new Ingredient('Salt', 1),
-        new Ingredient('Salt', 1),
-        new Ingredient('Salt', 1),
-        new Ingredient('Salt', 1),
-        new Ingredient('Salt', 1),
-        new Ingredient('Salt', 1),
-        new Ingredient('Salt', 1),
-        new Ingredient('Salt', 1)
+        new Ingredient('BreadLower', 5),
+        new Ingredient('Hamburger', 10),
+        new Ingredient('BreadUpper', 5)
     ]
-
 
     Main.recipe = new Recipe(Main.stage, ingredients);
 
-    Main.recipe.finishIngredient('Lettuce');
-
-    var interval = setInterval(saltDone, 1000);
-    
-    function saltDone() {
-        if(!Main.recipe.finishIngredient('Salt'))
-            clearInterval(interval);
-    }
+//    Main.recipe.finishIngredient('Lettuce');
+//
+//    var interval = setInterval(saltDone, 1000);
+//
+//    function saltDone() {
+//        if(!Main.recipe.finishIngredient('Salt'))
+//            clearInterval(interval);
+//    }
 
     /*var added = Main.recipe.increment('Pineapple');
     var error = Main.recipe.increment('RandomShit');*/
 
     //bin
-    Main.bin = new Bin(100, 320, 150, 200, PIXI.Texture.fromImage('bin'));
+    Main.bin = new Bin(100, 350, 150, 150, PIXI.Texture.fromImage('bin'));
     Main.gameObjects.push(Main.bin);
 };
 
@@ -156,10 +151,7 @@ Main.prototype.createFood = function() {
     var foodRec = new PIXI.Graphics();
 
     foodRec.beginFill(0x7aabf9);
-
-    // set the line style to have a width of 5 and set the color to red
     foodRec.lineStyle(2, 0x4a699b);
-
     // draw a rectangle
     foodRec.drawRect(280, 480, 430, 140);
 

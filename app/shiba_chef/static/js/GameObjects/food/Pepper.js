@@ -7,6 +7,8 @@ function Pepper(x,y, width, height, texture) {
 
     var self = this;
 
+    this.plateName = 'Pepper';
+
     this.texture = texture;
 
     //self.bounds = [];

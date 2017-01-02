@@ -33,3 +33,16 @@ ShibaChef.prototype.update = function() {
             break;
     }
 };
+
+ShibaChef.prototype.getAngory = function(duration) {
+    this.shibaStatus = 2;
+    setTimeout(function() {
+        Main.shiba.shibaStatus = 0;
+    }, duration);
+};
+ShibaChef.prototype.beHappy = function(duration) {
+      this.shibaStatus = 1;
+      setTimeout(function() {
+          Main.shiba.shibaStatus = 0;
+      }, duration);
+};

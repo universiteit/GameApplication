@@ -7,6 +7,8 @@ function BreadLower(x,y, width, height, texture) {
 
     var self = this;
 
+    this.plateName = 'BreadLower';
+
     this.texture = texture;
 
     //self.bounds = [];

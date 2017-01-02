@@ -7,6 +7,8 @@ function Tomato(x,y, width, height, texture) {
 
     var self = this;
 
+    this.plateName = 'Tomato';
+
     this.texture = texture;
 
     //self.bounds = [];

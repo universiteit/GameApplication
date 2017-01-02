@@ -7,6 +7,8 @@ function Salt(x,y, width, height, texture) {
 
     var self = this;
 
+    this.plateName = 'Salt';
+
     this.texture = texture;
 
     //self.bounds = [];

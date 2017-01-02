@@ -7,6 +7,8 @@ function Lettuce(x,y, width, height, texture) {
 
     var self = this;
 
+    this.plateName = 'Lettuce';
+
     this.texture = texture;
 
     //self.bounds = [];

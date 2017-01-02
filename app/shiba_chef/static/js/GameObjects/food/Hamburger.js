@@ -7,6 +7,8 @@ function Hamburger(x,y, width, height, texture) {
 
     var self = this;
 
+    this.plateName = 'Hamburger';
+
     this.texture = texture;
 
     //self.bounds = [];
