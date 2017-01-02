@@ -90,3 +90,14 @@ class Attack(db.Model):
         db.session.add(self.destination)
         db.session.delete(self)
         db.session.commit()
+
+    def __str__(self):
+        v = "ATTACK\n"
+        v += self.player.user.username + "\n"
+        v += str(self.destination) + "\n"
+        v += str(self.origin) + "\n"
+        v += str(self.knights) + "\n"
+        v += str(self.cavalry) + "\n"
+        v += str(self.pikemen) + "\n"
+        v += "END ATTACK\n"
+        return v

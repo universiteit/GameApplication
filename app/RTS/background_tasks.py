@@ -15,7 +15,7 @@ def update_towns():
 def update_attacks():
     now = datetime.datetime.now()
     attack = Attack.query.order_by(Attack.arrival_time).first()
-    while attack and now <= attack.arrival_time:
+    while attack and now >= attack.arrival_time:
         attack.resolve()
         attack = Attack.query.order_by(Attack.arrival_time).first()
 

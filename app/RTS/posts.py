@@ -4,7 +4,7 @@ from app.auth.attributes import secure
 from app.RTS.models import *
 from app.auth.models.user import User
 from flask import Blueprint, render_template, redirect, session, request
-from app import db
+from app import db, bcrypt
 
 @rts.route('/create-player', methods=['POST'])
 @secure(cookie_authorization=True)
@@ -39,6 +39,9 @@ def upgrade_building():
     town.add_upgrade(building)
     db.session.add(town)
     db.session.commit()
+    password = bcrypt.generate_password_hash("password")
+
+
     return redirect('rts/town/' + str(id))
 
 @rts.route('/send-attack', methods=['POST'])
@@ -51,6 +54,8 @@ def send_attack():
     town = Town.query.filter_by(id = id).first()
     destination = Town.query.filter_by(id = destination).first()
     attack = Attack(town.player, destination, town, knight_amount, cavalry_amount, pikemen_amount)
+    print(attack)
     db.session.add(attack)
     db.session.commit()
+    
     return redirect('rts/town/' + str(id))

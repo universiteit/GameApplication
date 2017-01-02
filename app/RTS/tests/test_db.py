@@ -15,13 +15,12 @@ class TestDb(unittest.TestCase):
         # Create mock user
         password = bcrypt.generate_password_hash("password")
         self.user = User("test_user_1", password)
-        self.user2 = User("test_user_2", password)
+        self.user2 = User("test_user_3", password)
         db.session.add(self.user)
-        kutje = Player(self.user2, "ktu")
         db.session.add(self.user2)
         db.session.commit()
-        db.session.add(kutje)
-        db.session.commit()
+    
+
     def test_player(self):
         player = Player(self.user, "Lannister")
         db.session.add(player)
@@ -45,6 +44,7 @@ class TestDb(unittest.TestCase):
         db.session.delete(player)
         db.session.commit()
 
+    
     def test_player_town_relationship(self):
         player1 = Player(self.user, "Lannister")
         player2 = Player(self.user2, "Stark")
@@ -69,9 +69,8 @@ class TestDb(unittest.TestCase):
 
         result = Town.query.filter_by(name="Casterly Rock").first()
         self.assertEqual(result.player.user.username, player1.user.username)
-    
+
     def test_attack(self):
-        print("running @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         player1 = Player(self.user, "Lannister")
         player2 = Player(self.user2, "Stark")
         db.session.add(player1)
@@ -88,6 +87,15 @@ class TestDb(unittest.TestCase):
         db.session.add(attack)
         db.session.commit()
 
+        db.session.delete(attack)
+        db.session.delete(town)
+        db.session.delete(town1)
+        db.session.delete(player1)
+        db.session.delete(player2)
+        db.session.commit()
+
+    @unittest.skip("")
     def tearDown(self):
-        #db.session.delete(self.user)
-        pass
+        db.session.delete(self.user)
+        db.session.delete(self.user2)
+        db.session.commit()
