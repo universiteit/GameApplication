@@ -65,6 +65,8 @@ class TestTown(unittest.TestCase):
         self.town.update_upgrade()
         self.assertEqual(self.town.barracks, 2)
         self.assertEqual(self.town.lumber_mill, 1)
+        self.assertIsNone(self.town.upgrade)
+        self.assertIsNone(self.town.upgrade_time_done)
 
 
 class TestPlayer(unittest.TestCase):

@@ -51,12 +51,3 @@ class test_background_tasks(unittest.TestCase):
         self.assertTrue(self.attack.resolve.called)
         self.assertEqual(len(self.attack.resolve.call_args_list), 2)
 
-    @mock.patch('app.RTS.background_tasks.update_towns')
-    @mock.patch('app.RTS.background_tasks.update_attacks')
-    def test_setup_scheduler(self, mock_update_attacks, mock_update_towns):
-        background_tasks.setup_scheduler()
-        time.sleep(6)
-        self.assertTrue(mock_update_attacks.called)
-        self.assertTrue(mock_update_towns.called)
-        time.sleep(6)
-        self.assertEqual(len(mock_update_attacks.call_args_list), 2)

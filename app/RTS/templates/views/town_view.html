@@ -71,11 +71,13 @@
                 <img width=30 src="/rts/static/clock.svg"> : {{current_town.get_upgrade_time(current_town.barracks)}}
             </td>
             <td>
+                {%if not current_town.upgrade%}
                 <form method="POST" action="/rts/purchase-building">
                     <input type=hidden value="barrack" name="building-name">
                     <input type="submit" name="upgrade-barrack" value="OK">
                     <input type="hidden" name="townid" value={{current_town.id}}>
-                </form>    
+                </form>
+                {%endif%}
             </td>
         </tr>
         <tr>
@@ -98,11 +100,13 @@
                 <img width=30 src="/rts/static/clock.svg"> : {{current_town.get_upgrade_time(current_town.farm)}}
             </td>
             <td>
+                {%if not current_town.upgrade%}
                 <form method="POST" action="/rts/purchase-building">
                     <input type=hidden value="farm" name="building-name">
                     <input type="submit" name="upgrade-farm" value="OK">
                     <input type="hidden" name="townid" value={{current_town.id}}>
                 </form>    
+                {%endif%}
             </td>
         </tr>
         <tr>
@@ -125,11 +129,13 @@
                 <img width=30 src="/rts/static/clock.svg"> : {{current_town.get_upgrade_time(current_town.gold_mine)}}
             </td>
             <td>
+                {%if not current_town.upgrade%}
                 <form method="POST" action="/rts/purchase-building">
                     <input type=hidden value="mine" name="building-name">
                     <input type="submit" name="upgrade-mine" value="OK">
                     <input type="hidden" name="townid" value={{current_town.id}}>
                 </form> 
+                {%endif%}
             </td>
         </tr>
         <tr>
@@ -152,11 +158,13 @@
                 <img width=30 src="/rts/static/clock.svg"> : {{current_town.get_upgrade_time(current_town.quarry)}}
             </td>
             <td>
+                {%if not current_town.upgrade%}
                 <form method="POST" action="/rts/purchase-building">
                     <input type=hidden value="quarry" name="building-name">
                     <input type="submit" name="upgrade-quarry" value="OK">
                     <input type="hidden" name="townid" value={{current_town.id}}>
                 </form> 
+                {%endif%}
             </td>
         </tr>
         <tr>
@@ -179,11 +187,13 @@
                 <img width=30 src="/rts/static/clock.svg"> : {{current_town.get_upgrade_time(current_town.lumber_mill)}}
             </td>
             <td>
+                {%if not current_town.upgrade%}
                 <form method="POST" action="/rts/purchase-building">
                     <input type=hidden value="lumber" name="building-name">
                     <input type="submit" name="upgrade-lumber" value="OK">
                     <input type="hidden" name="townid" value={{current_town.id}}>
                 </form> 
+                {%endif%}
             </td>
         </tr>
         <tr>
@@ -206,11 +216,13 @@
                 <img width=30 src="/rts/static/clock.svg"> : {{current_town.get_upgrade_time(current_town.wall)}}
             </td>
             <td>
+                {%if not current_town.upgrade%}
                 <form method="POST" action="/rts/purchase-building">
                     <input type=hidden value="wall" name="building-name">
                     <input type="submit" name="upgrade-wall" value="OK">
                     <input type="hidden" name="townid" value={{current_town.id}}>
                 </form> 
+                {%endif%}
             </td>
         </tr>
     </table>
@@ -250,7 +262,7 @@
                 <img width=30 src="/rts/static/log.svg"> : {{current_town.get_unit_cost('knight')['wood']}}
             </td>
             <td>
-                <input type="text" name="amount_of_knights">
+                <input type="text" name="amount_of_knights" value="0">
             </td>
         </tr>
         <tr>
@@ -270,7 +282,7 @@
                 <img width=30 src="/rts/static/log.svg"> : {{current_town.get_unit_cost('cavalry')['wood']}}
             </td>
             <td>
-                <input type="text" name="amount_of_cavalry">
+                <input type="text" name="amount_of_cavalry" value="0">
             </td>
         </tr>
         <tr>
@@ -290,7 +302,7 @@
                 <img width=30 src="/rts/static/log.svg"> : {{current_town.get_unit_cost('pikemen')['wood']}}
             </td>
             <td>
-                <input type="text" name="amount_of_pikemen">
+                <input type="text" name="amount_of_pikemen" value="0">
             </td>
         </tr>
         <tr>
@@ -303,6 +315,91 @@
     </table>
     <input type="hidden" name="townid" value={{current_town.id}}>
     </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Upgrading
+                </th>
+                <th>
+                    Done
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {%if current_town.upgrade%}
+            <tr>
+                <td>
+                    {{current_town.upgrade}}
+                </td>
+                <td>
+                    {{current_town.upgrade_time_done.ctime()}}
+                </td>
+            </tr>
+            {%else%}
+            <tr>
+                <td>
+                    None
+                </td>
+                <td>
+                    None
+                </td>
+            </tr>
+            {%endif%}
+        </tbody>
+    </table>
+
+    <form class="table-right" method="POST" action="/rts/send-attack">
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2">
+                    Attack
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Town
+                </td>
+                <td colspan="3">
+                    Units
+                </td>
+                <td>
+                    Send
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <select name="destination">
+                        {%for town in towns%}
+                        {%if town.player.user.id != user.id %} 
+                        <option value="{{town.id}}">
+                            {{town.id}} - {{town.name}} - {{town.player.house}}
+                        </option>
+                        {%endif%}
+                        {%endfor%}
+                    </select>
+                </td>
+                <td>
+                    <img src="/rts/static/unit_sword.png"> <input type="text" name="amount_of_knights" value="0">
+                </td>
+                <td>
+                    <img src="/rts/static/unit_light.png"> <input type="text" name="amount_of_cavalry" value="0">
+                </td>
+                <td>
+                    <img src="/rts/static/unit_spear.png"> <input type="text" name="amount_of_pikemen" value="0">
+                </td>
+                <td>
+                    <input type="submit" value="attack"> 
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <input type="hidden" name="townid" value={{current_town.id}}>
+    <form>
 
 {% endblock %}
 

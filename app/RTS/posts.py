@@ -37,7 +37,20 @@ def upgrade_building():
     building = request.form['building-name']
     id = int(request.form['townid'])
     town = Town.query.filter_by(id = id).first()
-    if town.add_upgrade(building):
-        db.session.add(town)
-        db.session.commit()
+    town.add_upgrade(building)
+    db.session.add(town)
+    db.session.commit()
+    return redirect('rts/town/' + str(id))
+
+@rts.route('/send-attack', methods=['POST'])
+def send_attack():
+    destination = int(request.form['destination'])
+    cavalry_amount = int(request.form['amount_of_cavalry'])
+    knight_amount = int(request.form['amount_of_knights'])
+    pikemen_amount = int(request.form['amount_of_pikemen'])
+    id = int(request.form['townid'])
+    town = Town.query.filter_by(id = id).first()
+    attack = Attack(town.player, destination, town, knight_amount, cavalry_amount, pikemen_amount)
+    db.session.add(attack)
+    db.session.commit()
     return redirect('rts/town/' + str(id))

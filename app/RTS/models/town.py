@@ -54,7 +54,7 @@ class Town(db.Model):
     def get_upgrade_time(self, level):
         minutes = level ** 2
         h, m = divmod(minutes, 60)
-        return datetime.time(hour = h, minute = m)
+        return datetime.timedelta(hours = h, minutes = m)
 
     # Get the amount of resources per minute based on given level.
     def get_production(self, level):
@@ -68,9 +68,21 @@ class Town(db.Model):
         }[unit.lower()]
         
     def add_units(self, knight = 0, cavalry = 0, pikemen = 0):
-        self.knights += knight
-        self.cavalry += cavalry
-        self.pikemen += pikemen
+        knight_cost = self.get_unit_cost("knight")
+        cavalry_cost = self.get_unit_cost("cavalry")
+        pikemen_cost = self.get_unit_cost("pikemen")
+
+        def sum_costs(key):
+            return knight_cost[key] * knight + cavalry_cost[key] * cavalry + pikemen_cost[key] * pikemen
+            
+        gold = sum_costs("gold")
+        wood = sum_costs("wood")
+        food = sum_costs("food")
+        iron = sum_costs("iron")
+        if self.remove_resources(gold, food, wood, iron):
+            self.knights += knight
+            self.cavalry += cavalry
+            self.pikemen += pikemen
 
     def get_building_level(self, building):
         building = building.lower()
@@ -89,20 +101,28 @@ class Town(db.Model):
         else:
             raise ValueError("Invalid value")
 
-    def add_upgrade(self, building):
-        if not self.upgrade:
-            self.food -= self.get_upgrade_cost(self.get_building_level(building))
-            self.wood -= self.get_upgrade_cost(self.get_building_level(building))
-            self.iron -= self.get_upgrade_cost(self.get_building_level(building))
-            self.gold -= self.get_upgrade_cost(self.get_building_level(building))
-            if self.food or self.wood or self.iron or self.gold < 0:
-                return False
-            self.upgrade = building
-            self.upgrade_time_done = self.get_upgrade_time(1)
+    def check_resources(self, gold = 0, food = 0, wood = 0, iron = 0):
+        return (self.food - food) >= 0 and (self.gold - gold) >= 0 and (self.iron - iron) >= 0 and (self.wood - wood) >= 0
+
+    def remove_resources(self, gold = 0, food = 0, wood = 0, iron = 0):
+        if self.check_resources(gold, food, wood, iron):
+            self.gold -= gold
+            self.food -= food
+            self.wood -= wood
+            self.iron -= iron
             return True
+        return False
+
+    def add_upgrade(self, building):
+        building_level = self.get_building_level(building)
+        if not self.upgrade:
+            upgrade_cost = self.get_upgrade_cost(building_level)
+            if not self.remove_resources(upgrade_cost, upgrade_cost, upgrade_cost, upgrade_cost):
+                return 
+            self.upgrade = building
+            self.upgrade_time_done = datetime.datetime.now() + self.get_upgrade_time(building_level)
         else:
             raise RuntimeError("Town already has an upgrade queued up")
-            return False
 
     def update_resources(self):
         self.gold += int(self.get_production(self.gold_mine) / 12.0)
@@ -127,5 +147,5 @@ class Town(db.Model):
                 self.wall += 1        
             else:
                 raise ValueError("Invalid value")
-            upgrade = None
-            upgrade_time_done = None
+            self.upgrade = None
+            self.upgrade_time_done = None

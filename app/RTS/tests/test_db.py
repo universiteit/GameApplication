@@ -67,6 +67,23 @@ class TestDb(unittest.TestCase):
 
         result = Town.query.filter_by(name="Casterly Rock").first()
         self.assertEqual(result.player.user.username, player1.user.username)
+    
+    def test_attack(self):
+        player1 = Player(self.user, "Lannister")
+        player2 = Player(self.user2, "Stark")
+        db.session.add(player1)
+        db.session.add(player2)
+        db.session.commit()
+
+        town = Town(player1, "Casterly Rock")
+        town1 = Town(player2, "shithole")
+        db.session.add(town1)        
+        db.session.add(town)
+        db.session.commit()
+
+        attack = Attack(player1, town1, town, knights = 1)
+        db.session.add(attack)
+        db.session.commit()
 
     def tearDown(self):
         db.session.delete(self.user)
