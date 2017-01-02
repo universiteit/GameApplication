@@ -6,10 +6,7 @@ from apscheduler.triggers.interval import IntervalTrigger
 
 def update_towns():
     towns = Town.query.all()
-    print(towns)
-    raise EOFError()
     for town in towns:
-        print("I did it!")
         town.update_resources()
         town.update_upgrade()
         db.session.add(town)
@@ -18,7 +15,7 @@ def update_towns():
 def update_attacks():
     now = datetime.datetime.now()
     attack = Attack.query.order_by(Attack.arrival_time).first()
-    while attack and attack.arrival_time < now:
+    while attack and now <= attack.arrival_time:
         attack.resolve()
         attack = Attack.query.order_by(Attack.arrival_time).first()
 
