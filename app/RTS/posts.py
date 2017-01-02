@@ -6,7 +6,6 @@ from app.auth.models.user import User
 from flask import Blueprint, render_template, redirect, session, request
 from app import db
 
-
 @rts.route('/create-player', methods=['POST'])
 @secure(cookie_authorization=True)
 def create_player():
@@ -50,6 +49,7 @@ def send_attack():
     pikemen_amount = int(request.form['amount_of_pikemen'])
     id = int(request.form['townid'])
     town = Town.query.filter_by(id = id).first()
+    destination = Town.query.filter_by(id = destination).first()
     attack = Attack(town.player, destination, town, knight_amount, cavalry_amount, pikemen_amount)
     db.session.add(attack)
     db.session.commit()

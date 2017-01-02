@@ -17,14 +17,15 @@ class TestTown(unittest.TestCase):
         self.assertEqual(self.town.gold_mine, 1)
 
     def test_get_upgrade_cost(self):
+        print("oke")
         upgrade_cost = self.town.get_upgrade_cost(3) # Upgrade cost from level 3 to 4
         self.assertEqual(upgrade_cost, 81)
 
     def test_get_upgrade_time(self):
         upgrade_time = self.town.get_upgrade_time(5)
-        self.assertEqual(upgrade_time, datetime.time(minute=25))
+        self.assertEqual(upgrade_time, datetime.timedelta(minutes=25))
         upgrade_time = self.town.get_upgrade_time(20)
-        self.assertGreater(upgrade_time, datetime.time(hour = 6, minute=30))
+        self.assertGreater(upgrade_time, datetime.timedelta(hours = 6, minutes=30))
 
     def test_get_production(self):
         amount = self.town.get_production(4)
@@ -36,17 +37,19 @@ class TestTown(unittest.TestCase):
         self.assertEqual(unit_cost["wood"], 60)
 
     def test_add_units(self):
+        self.town.get_unit_cost = mock.MagicMock(return_value = { 'gold' : 0, 'wood' : 0, 'food' : 0, 'iron' : 0})
         self.town.add_units(pikemen = 5)
         self.assertEqual(self.town.knights, 0)
         self.assertEqual(self.town.pikemen, 5)
     
-    def test_add_upgrade(self):
-        mock_time = datetime.datetime(1, 1, 1)
+    @mock.patch("app.RTS.models.town.datetime")
+    def test_add_upgrade(self, mock_datetime):
+        mock_datetime.datetime.now = mock.MagicMock(return_value = datetime.datetime(1,1,1))
+        mock_time = datetime.timedelta(hours = 0)
         self.town.get_upgrade_cost = mock.MagicMock(return_value = 0)
         self.town.get_upgrade_time = mock.MagicMock(name="get_upgrade_time", return_value=mock_time)
-        result = self.town.add_upgrade("barrack")
-        self.assertTrue(result)
-        self.assertEqual(self.town.upgrade_time_done, mock_time)
+        self.town.add_upgrade("barrack")
+        self.assertEqual(self.town.upgrade_time_done, datetime.datetime(1,1,1))
         self.assertEqual(self.town.upgrade, "barrack")
         self.assertEqual(self.town.food, 0)
         self.town.upgrade = None

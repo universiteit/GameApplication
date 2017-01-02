@@ -17,9 +17,11 @@ class TestDb(unittest.TestCase):
         self.user = User("test_user_1", password)
         self.user2 = User("test_user_2", password)
         db.session.add(self.user)
+        kutje = Player(self.user2, "ktu")
         db.session.add(self.user2)
         db.session.commit()
-
+        db.session.add(kutje)
+        db.session.commit()
     def test_player(self):
         player = Player(self.user, "Lannister")
         db.session.add(player)
@@ -69,6 +71,7 @@ class TestDb(unittest.TestCase):
         self.assertEqual(result.player.user.username, player1.user.username)
     
     def test_attack(self):
+        print("running @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         player1 = Player(self.user, "Lannister")
         player2 = Player(self.user2, "Stark")
         db.session.add(player1)
@@ -86,4 +89,5 @@ class TestDb(unittest.TestCase):
         db.session.commit()
 
     def tearDown(self):
-        db.session.delete(self.user)
+        #db.session.delete(self.user)
+        pass

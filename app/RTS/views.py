@@ -37,4 +37,4 @@ def attackview():
     if not player:
         return redirect("rts")
     attacks = Attack.query.filter(Attack.player_id == player.id).all()
-    return render_template("views/attack_view.html", player = player, attacks = attacks)
+    return render_template("views/attack_view.html",user = player.user, player = player, attacks = attacks)

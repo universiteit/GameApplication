@@ -89,4 +89,4 @@ class Attack(db.Model):
             self.destination.knights = battle_result["defending army"][2]
         db.session.add(self.destination)
         db.session.delete(self)
-        db.commit()
+        db.session.commit()
