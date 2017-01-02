@@ -1,6 +1,6 @@
 from app import db
 from app.RTS.rts_config import *
-import random
+import random, datetime
 
 class Attack(db.Model):
     __tablename__ = "RtsAttack"
@@ -28,10 +28,11 @@ class Attack(db.Model):
         self.knights = knights
         self.cavalry = cavalry
         self.pikemen = pikemen
+        self.arrival_time = datetime.datetime.now() + datetime.timedelta(minutes = 10)
 
     def get_defender_stats(self):
         defense = (self.destination.pikemen * pikemen_defense) + (self.destination.knights * knight_defense) + (self.destination.cavalry * cavalry_defense)
-        defense *= self.get_wall_defense(self.origin.wall)
+        defense *= self.get_wall_defense(self.destination.wall)
         
         offense = (self.destination.pikemen * pikemen_offense) + (self.destination.knights * knight_offense) + (self.destination.cavalry * cavalry_offense)
         return defense, offense
@@ -62,7 +63,7 @@ class Attack(db.Model):
         attacker_offense = self.get_attacker_stats()[1]
         if defender_defense > attacker_offense:
             attacker_army = 0, 0, 0
-            defender_army = self.take_damage(self.destination.pikemen, self.destination.cavalry, self.destination.knights, attacker_offense - defender_defense, self.get_wall_defense(self.origin.wall))
+            defender_army = self.take_damage(self.destination.pikemen, self.destination.cavalry, self.destination.knights, attacker_offense - defender_defense, self.get_wall_defense(self.destination.wall))
             return { "success" : False, "attacking army" : attacker_army, "defending army" : defender_army }
         else:
             defender_army = 0, 0, 0
