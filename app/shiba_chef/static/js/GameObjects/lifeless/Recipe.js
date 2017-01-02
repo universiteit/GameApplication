@@ -48,3 +48,12 @@ Recipe.prototype.ingredients = [];
 Recipe.prototype.finishIngredient = function(ingredient) {
     return this.currentIngredient < this.ingredients.length && (this.ingredients[this.currentIngredient].isIngredient(ingredient)) ? ((this.ingredients[this.currentIngredient].done()) | ++this.currentIngredient) > 0 : false // Ask Jorik.
 }
+
+Recipe.prototype.getCurrentHeight = function() {
+    var height = 0;
+    for(var i = 0; i < this.currentIngredient; i++) {
+        height += this.ingredients[i].height;
+    }
+    return height;
+}
+

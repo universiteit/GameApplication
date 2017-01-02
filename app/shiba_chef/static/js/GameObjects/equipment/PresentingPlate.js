@@ -37,7 +37,9 @@ PresentingPlate.prototype.dropOnPlate = function(food) {
 
 PresentingPlate.prototype.addIngredient = function(food) {
         food.isOnPlate = true;
-        //snap food to place and 
+        //snap food to place and move to top
         food.x = this.position.x + this.snapX;
-        food.y = this.position.y + this.snapY + Main.recipe.ingredients[Main.recipe.currentIngredient].height;
+        var extraHeight =  Main.recipe.getCurrentHeight();
+        food.y = this.position.y + this.snapY - extraHeight;
+        Main.prototype.moveFoodToTop(food);
 };

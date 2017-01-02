@@ -20,7 +20,7 @@ Grill.prototype.constructor = Grill;
 
 Grill.prototype.update = function() {
     //this.food.forEach(function(food) {
-    if(this.food) this.food.cookingStatus++;
+    if(this.food != null) this.food.cookingStatus++;
     //})
 };
 
@@ -28,7 +28,7 @@ Grill.prototype.addFood = function(gameObject) {
     this.food = gameObject;
 };
 
-Grill.prototype.removeFood = function(gameObject) {
+Grill.prototype.removeFood = function() {
     this.food = null;
 };
 

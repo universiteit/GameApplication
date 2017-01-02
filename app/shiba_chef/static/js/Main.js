@@ -107,19 +107,19 @@ Main.prototype.createEnvironment = function() {
     Main.gameObjects.push(Main.presentingPlate);
 
     //chopping board
-    Main.choppingBoard = new ChoppingBoard(270, 330, 180, 100, PIXI.Texture.fromImage('choppingBoard'));
+    Main.choppingBoard = new ChoppingBoard(260, 345, 190, 80, PIXI.Texture.fromImage('choppingBoard'));
     Main.gameObjects.push(Main.choppingBoard);
 
     //grill
-    Main.grill = new Grill(640, 330, 180, 90, PIXI.Texture.fromImage('grill'));
+    Main.grill = new Grill(630, 340, 200, 70, PIXI.Texture.fromImage('grill'));
     Main.gameObjects.push(Main.grill);
 
     // Recipe
 
     var ingredients = [
-        new Ingredient('BreadLower', 5),
-        new Ingredient('Hamburger', 10),
-        new Ingredient('BreadUpper', 5)
+        new Ingredient('BreadLower', 0),
+        new Ingredient('Hamburger', 15),
+        new Ingredient('BreadUpper', 15)
     ]
 
     Main.recipe = new Recipe(Main.stage, ingredients);
@@ -201,4 +201,9 @@ Main.prototype.removeGameObject = function(gameObject) {
 
 Main.prototype.throwFoodInBin = function(food) {
     Main.prototype.removeGameObject(food);
+};
+
+Main.prototype.moveFoodToTop = function(food) {
+    Main.stage.removeChild(food);
+    Main.stage.addChild(food);
 };

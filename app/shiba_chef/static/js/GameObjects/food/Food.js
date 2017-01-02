@@ -42,7 +42,7 @@ Food.prototype.onDragStart = function(event) {
         this.copySelfAtLocation(this);
         this.isInDrawer = false;
     } else if(this.isOnGrill) {
-        Main.grill.removeFood(this);
+        Main.grill.removeFood();
         this.isOnGrill = false;
     } else if(this.isOnChoppingBoard) {
         Main.choppingBoard.removeFood(this);
