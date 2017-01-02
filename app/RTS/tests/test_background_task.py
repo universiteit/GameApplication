@@ -1,4 +1,4 @@
-import unittest
+import unittest, datetime, time
 import app.RTS.background_tasks as background_tasks
 from app import db, app
 from unittest import mock
@@ -27,15 +27,36 @@ class test_background_tasks(unittest.TestCase):
 
     @mock.patch('app.RTS.background_tasks.db')
     @mock.patch('app.RTS.background_tasks.Town')
-    def test_update_towns(self, mock_db, mock_Town):
-        background_tasks.update_towns()
-        mock_Town.query.all = mock.MagicMock(return_value = [self.town], name="disco")
+    def test_update_towns(self, mock_Town, mock_db):
+        mock_Town.query.all = mock.MagicMock(return_value = [self.town])
         self.town.update_resources = mock.MagicMock()
         self.town.update_upgrade = mock.MagicMock()
-        
+        background_tasks.update_towns()
+        self.assertTrue(self.town.update_upgrade.called)
+        self.assertTrue(self.town.update_resources.called)
+        self.assertEqual(self.town, mock_db.session.add.call_args[0][0])
+        self.assertTrue(mock_db.session.add.called)
+        self.assertTrue(mock_db.session.commit.called)
 
-    def test_update_attacks(self):
-        pass
+    @mock.patch('app.RTS.background_tasks.datetime')    
+    @mock.patch('app.RTS.background_tasks.Attack')
+    def test_update_attacks(self, mock_attack, mock_datetime):
+        mock_datetime.datetime.now = mock.MagicMock(return_value=datetime.datetime(1,1,1))
+        mock_order_by = mock.MagicMock()
+        mock_order_by.first = mock.MagicMock(side_effect=[self.attack, self.attack, None])
+        mock_attack.query.order_by = mock.MagicMock(return_value = mock_order_by)
+        self.attack.resolve = mock.MagicMock()
 
-    def test_setup_scheduler(self):
-        pass
+        background_tasks.update_attacks()
+        self.assertTrue(self.attack.resolve.called)
+        self.assertEqual(len(self.attack.resolve.call_args_list), 2)
+
+    @mock.patch('app.RTS.background_tasks.update_towns')
+    @mock.patch('app.RTS.background_tasks.update_attacks')
+    def test_setup_scheduler(self, mock_update_attacks, mock_update_towns):
+        background_tasks.setup_scheduler()
+        time.sleep(6)
+        self.assertTrue(mock_update_attacks.called)
+        self.assertTrue(mock_update_towns.called)
+        time.sleep(6)
+        self.assertEqual(len(mock_update_attacks.call_args_list), 2)
