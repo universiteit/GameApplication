@@ -37,8 +37,7 @@ def upgrade_building():
     building = request.form['building-name']
     id = int(request.form['townid'])
     town = Town.query.filter_by(id = id).first()
-    print(building)
-    town.upgrade_building(building)
-    db.session.add(town)
-    db.session.commit()
+    if town.add_upgrade(building):
+        db.session.add(town)
+        db.session.commit()
     return redirect('rts/town/' + str(id))

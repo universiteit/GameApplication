@@ -42,10 +42,13 @@ class TestTown(unittest.TestCase):
     
     def test_add_upgrade(self):
         mock_time = datetime.datetime(1, 1, 1)
+        self.town.get_upgrade_cost = mock.MagicMock(return_value = 0)
         self.town.get_upgrade_time = mock.MagicMock(name="get_upgrade_time", return_value=mock_time)
-        self.town.add_upgrade("barrack")
+        result = self.town.add_upgrade("barrack")
+        self.assertTrue(result)
         self.assertEqual(self.town.upgrade_time_done, mock_time)
         self.assertEqual(self.town.upgrade, "barrack")
+        self.assertEqual(self.town.food, 0)
         self.town.upgrade = None
         self.town.upgrade_time_done = None
 

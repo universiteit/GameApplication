@@ -46,7 +46,7 @@ class Town(db.Model):
     def get_upgrade_cost(self, level):
         exponent = 1.06
         val = 40
-        for i in range(level):
+        for i in range(int(level)):
             val = val ** exponent
         return int(math.ceil(val))
 
@@ -72,12 +72,37 @@ class Town(db.Model):
         self.cavalry += cavalry
         self.pikemen += pikemen
 
+    def get_building_level(self, building):
+        building = building.lower()
+        if(building == 'barrack'):
+            return self.barracks
+        elif(building == 'lumber'):
+            return self.lumber_mill
+        elif(building == 'quarry'):
+            return self.quarry
+        elif(building == 'mine'):
+            return self.gold_mine
+        elif(building == 'farm'):
+            return self.farm
+        elif(building == 'wall'):
+            return self.wall      
+        else:
+            raise ValueError("Invalid value")
+
     def add_upgrade(self, building):
         if not self.upgrade:
+            self.food -= self.get_upgrade_cost(self.get_building_level(building))
+            self.wood -= self.get_upgrade_cost(self.get_building_level(building))
+            self.iron -= self.get_upgrade_cost(self.get_building_level(building))
+            self.gold -= self.get_upgrade_cost(self.get_building_level(building))
+            if self.food or self.wood or self.iron or self.gold < 0:
+                return False
             self.upgrade = building
             self.upgrade_time_done = self.get_upgrade_time(1)
+            return True
         else:
             raise RuntimeError("Town already has an upgrade queued up")
+            return False
 
     def update_resources(self):
         self.gold += int(self.get_production(self.gold_mine) / 12.0)
