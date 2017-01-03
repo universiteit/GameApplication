@@ -1,13 +1,18 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">RTS</a>
+        <div class="navbar-header col-xs-1">
+            <a class="navbar-brand" href="/rts">RTS</a>
         </div>
-        <div class="col-xs-offset-4 col-xs-4">
-            <div class="row">
-                <div>Metal</div>
-                <div>{{metal}}</div>
-            </div>
+        <div class='col-xs-2 pull-right'>
+            {% if not user %}
+                <a href='/auth/login'><input type='button' value='Login'></a>
+            {% else %}
+                <a href='/auth/logout'><input type='button' value='Logout'></a>
+            {% endif %}
+        </div>
+        <div class="col-xs-2 pull-right">
+            <div>Logged in as:</div>
+            <div>{{user.username if user else 'Anonymous'}}</div> 
         </div>
     </div>
 </nav>
