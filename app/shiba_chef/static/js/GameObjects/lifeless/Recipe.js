@@ -1,6 +1,9 @@
 function Recipe(stage, items) {
     PIXI.Sprite.call(this);
     
+    var backgroundColor = 0x7aabf9;
+    var lineColor = 0x4a699b;
+
     var offset = 30;
 
     var self = this;
@@ -29,7 +32,8 @@ function Recipe(stage, items) {
     var graphics = new PIXI.Graphics();
 
     var elementHeight = 30;
-    graphics.beginFill(0x82562A);
+    graphics.beginFill(backgroundColor);
+    graphics.lineStyle(2, lineColor);
     graphics.drawRoundedRect(this.x, this.y, 200, 15 + (items.length * elementHeight) + 15, 15);
     graphics.endFill();
 
