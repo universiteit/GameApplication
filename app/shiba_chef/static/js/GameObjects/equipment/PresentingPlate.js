@@ -42,4 +42,5 @@ PresentingPlate.prototype.addIngredient = function(food) {
         var extraHeight =  Main.recipe.getCurrentHeight();
         food.y = this.position.y + this.snapY - extraHeight;
         Main.prototype.moveFoodToTop(food);
+        
 };

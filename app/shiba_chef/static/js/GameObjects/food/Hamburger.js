@@ -53,8 +53,10 @@ Hamburger.prototype.update = function() {
 Hamburger.prototype.checkCookingStatus = function() {
     if(this.cookingStatus > 1000) {
         this.texture = PIXI.Texture.fromImage("burger-burned");
+        this.isGrilled = false;
     } else if(this.cookingStatus > 500) {
         this.texture = PIXI.Texture.fromImage("burger");
+        this.isGrilled = true;
     }
 
 };

@@ -15,6 +15,7 @@ function Food() {
     this.isOnPlate = false;
 
     this.isChopped = false;
+    this.isGrilled = false;
 
     this.cookingStatus = 0;
     this.choppingStatus = 0;

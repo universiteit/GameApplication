@@ -3,17 +3,26 @@ var style = {
     fontSize: '18px'
 }
 
-function Ingredient(name, height) {
+function Ingredient(name, height, options) {
     self = this;
     self.name = name;
     self.height = height;
     self.text = new PIXI.Text(name, style);
+    var defaults = {
+        grilled: false,
+        chopped: false
+    };
+    self.options = Object.assign({}, defaults, options);
 }
 
 Ingredient.prototype.isIngredient = function(object) {
-    if (typeof object === 'string')
-        return this.name == object;
-    return this.name == Object.prototype.toString.call(obj).match(/^\[object\s(.*)\]$/)[1];
+    if (this.name != object)
+        return false;
+    if (this.options.grilled && !object.isGrilled)
+        return false;
+    if (this.options.chopped && !object.isChopped)
+        return false;
+    return true;
 }
 
 Ingredient.prototype.done = function() {

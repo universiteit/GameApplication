@@ -118,7 +118,7 @@ Main.prototype.createEnvironment = function() {
 
     var ingredients = [
         new Ingredient('BreadLower', 0),
-        new Ingredient('Hamburger', 15),
+        new Ingredient('Hamburger', 15, { grilled: true }),
         new Ingredient('BreadUpper', 15)
     ]
 
