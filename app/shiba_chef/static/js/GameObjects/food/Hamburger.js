@@ -7,7 +7,7 @@ function Hamburger(x,y, width, height, texture) {
 
     var self = this;
 
-    this.plateName = 'Hamburger';
+    this.name = 'Hamburger';
 
     this.texture = texture;
 
@@ -25,19 +25,6 @@ function Hamburger(x,y, width, height, texture) {
     this.anchor.set(0.5);
 
     this.isGrillable = true;
-
-    this
-    // events for drag start
-    .on('mousedown', this.onDragStart)
-    .on('touchstart', this.onDragStart)
-    // events for drag end
-    .on('mouseup', this.onDragEnd)
-    .on('mouseupoutside', this.onDragEnd)
-    .on('touchend', this.onDragEnd)
-    .on('touchendoutside', this.onDragEnd)
-    // events for drag move
-    .on('mousemove', this.onDragMove)
-    .on('touchmove', this.onDragMove);
 
 }
 

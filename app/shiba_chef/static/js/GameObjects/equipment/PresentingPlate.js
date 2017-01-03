@@ -27,7 +27,7 @@ PresentingPlate.prototype.update = function() {
 
 PresentingPlate.prototype.dropOnPlate = function(food) {
     //check if next ingredient
-    if(Main.recipe.finishIngredient(food.plateName)) {
+    if(Main.recipe.finishIngredient(food)) {
         Main.shiba.beHappy(1000);
         this.addIngredient(food);
     } else {    //DO NOT MAKE SHIBA CHEF ANGORY WITH YOUR PITIFUL OFFERINGS
@@ -42,5 +42,5 @@ PresentingPlate.prototype.addIngredient = function(food) {
         var extraHeight =  Main.recipe.getCurrentHeight();
         food.y = this.position.y + this.snapY - extraHeight;
         Main.prototype.moveFoodToTop(food);
-        
+        food.removeEvents();
 };

@@ -4,8 +4,8 @@
 function Food() {
     GameObject.call(this);
 
-    this.plateName = null;
-
+    this.name = '';
+    
     this.isGrillable = false;
     this.isChoppable = false;
 
@@ -20,6 +20,20 @@ function Food() {
     this.cookingStatus = 0;
     this.choppingStatus = 0;
 
+    // Events
+    this
+    // events for drag start
+    .on('mousedown', this.onDragStart)
+    .on('touchstart', this.onDragStart)
+    // events for drag end
+    .on('mouseup', this.onDragEnd)
+    .on('mouseupoutside', this.onDragEnd)
+    .on('touchend', this.onDragEnd)
+    .on('touchendoutside', this.onDragEnd)
+    // events for drag move
+    .on('mousemove', this.onDragMove)
+    .on('touchmove', this.onDragMove);
+
 }
 
 Food.prototype = new GameObject();
@@ -28,6 +42,21 @@ Food.prototype.constructor = Food;
 Food.prototype.update = function () {
 
 };
+
+Food.prototype.removeEvents = function() {
+    this
+    // events for drag start
+    .off('mousedown', this.onDragStart)
+    .off('touchstart', this.onDragStart)
+    // events for drag end
+    .off('mouseup', this.onDragEnd)
+    .off('mouseupoutside', this.onDragEnd)
+    .off('touchend', this.onDragEnd)
+    .off('touchendoutside', this.onDragEnd)
+    // events for drag move
+    .off('mousemove', this.onDragMove)
+    .off('touchmove', this.onDragMove);
+}
 
 Food.prototype.onDragMove = function() {
     if (this.dragging)

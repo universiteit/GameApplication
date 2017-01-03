@@ -16,11 +16,11 @@ function Ingredient(name, height, options) {
 }
 
 Ingredient.prototype.isIngredient = function(object) {
-    if (this.name != object)
+    if (this.name != object.name)
         return false;
-    if (this.options.grilled && !object.isGrilled)
+    if (this.options.grilled != object.isGrilled)
         return false;
-    if (this.options.chopped && !object.isChopped)
+    if (this.options.chopped != object.isChopped)
         return false;
     return true;
 }
