@@ -42,6 +42,7 @@ class Town(db.Model):
         self.food = food
         self.iron = iron
 
+    # Removes given units from town, if the town has enough of each unit.
     def remove_units(self, knights = 0, cavalry = 0, pikemen = 0):
         if self.knights >= knights and self.cavalry >= cavalry and self.pikemen >= pikemen:
             self.knights -= knights
@@ -68,6 +69,7 @@ class Town(db.Model):
     def get_production(self, level):
         return int(math.ceil((level * 50) ** 1.2))
 
+    # Returns dictionary of the cost of resources for a given unit
     def get_unit_cost(self, unit):
         return {
             'knight' : { 'gold' : 25, 'wood' : 60, 'food' : 30, 'iron' : 70},
@@ -75,6 +77,7 @@ class Town(db.Model):
             'pikemen' : { 'gold' : 15, 'wood' : 50, 'food' : 30, 'iron' : 10},
         }[unit.lower()]
         
+    # Adds given units if the town has enough resources
     def add_units(self, knight = 0, cavalry = 0, pikemen = 0):
         knight_cost = self.get_unit_cost("knight")
         cavalry_cost = self.get_unit_cost("cavalry")
@@ -92,6 +95,7 @@ class Town(db.Model):
             self.cavalry += cavalry
             self.pikemen += pikemen
 
+    # Converts building name in string format to the level of the current town's building
     def get_building_level(self, building):
         building = building.lower()
         if(building == 'barrack'):
@@ -109,9 +113,11 @@ class Town(db.Model):
         else:
             raise ValueError("Invalid value")
 
+    # Predicate that checks whether the town has at least the given resource amounts
     def check_resources(self, gold = 0, food = 0, wood = 0, iron = 0):
         return (self.food - food) >= 0 and (self.gold - gold) >= 0 and (self.iron - iron) >= 0 and (self.wood - wood) >= 0
 
+    # Removes resources from the town if town has enough resources.
     def remove_resources(self, gold = 0, food = 0, wood = 0, iron = 0):
         if self.check_resources(gold, food, wood, iron):
             self.gold -= gold
@@ -121,6 +127,7 @@ class Town(db.Model):
             return True
         return False
 
+    # Sets an upgrade if not already in progress and enough money is in the town to purchase it.
     def add_upgrade(self, building):
         building_level = self.get_building_level(building)
         if not self.upgrade:
@@ -132,12 +139,15 @@ class Town(db.Model):
         else:
             raise RuntimeError("Town already has an upgrade queued up")
 
+    # Increments resources according to production levels.
     def update_resources(self):
         self.gold += int(self.get_production(self.gold_mine) / 12.0)
         self.wood += int(self.get_production(self.lumber_mill) / 12.0)
         self.food += int(self.get_production(self.farm) / 12.0)
         self.iron += int(self.get_production(self.quarry) / 12.0)
     
+    # Checks whether the upgrade time has passed
+    # If so, remove the upgrade and upgrade timer and upgrade the building.
     def update_upgrade(self):
         if self.upgrade_time_done and datetime.datetime.now() >= self.upgrade_time_done:
             building = self.upgrade.lower()

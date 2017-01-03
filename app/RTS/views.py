@@ -5,6 +5,7 @@ from app.RTS.models import *
 from flask import Blueprint, render_template, redirect, session, request
 
 @rts.route('/towns/')
+@secure(cookie_authorization=True)
 def all_towns():
     return render_template('views/all_towns_view.html', towns = Town.query.all(), user=current_user())
 
@@ -17,6 +18,7 @@ def house():
     return render_template('views/house_view.html', player=player, user=player.user)
 
 @rts.route('/')
+@secure(cookie_authorization=True)
 def index():
     return render_template('views/index.html', user=current_user(), player=current_player())
 

@@ -86,6 +86,11 @@ class TestTown(unittest.TestCase):
         self.assertIsNone(self.town.upgrade)
         self.assertIsNone(self.town.upgrade_time_done)
 
+        with self.assertRaises(ValueError):
+            self.town.upgrade = "dix"
+            self.town.upgrade_time_done = datetime.datetime.now()
+            self.town.update_upgrade()
+
     def test_remove_units(self):
         self.town.knights = 5
         self.town.cavalry = 5
