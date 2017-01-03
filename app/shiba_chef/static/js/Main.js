@@ -75,6 +75,7 @@ Main.finishGame = function() {
 
 Main.retry = function() {
     Main.stage = new PIXI.Container();
+    Main.gameObjects = [];
     main.makeWorld();
 }
 
@@ -170,9 +171,9 @@ Main.prototype.createEnvironment = function() {
 
     var ingredients = [
         new Ingredient('Lower bun', 0),
-        new Ingredient('Hamburger', 15, { grilled: false }),
+        new Ingredient('Hamburger', 15, { grilled: true }),
         new Ingredient('Lower bun', 15),
-        new Ingredient('Hamburger', 15, { grilled: false }),
+        new Ingredient('Hamburger', 15, { grilled: true }),
         new Ingredient('Upper bun', 15)
     ]
 

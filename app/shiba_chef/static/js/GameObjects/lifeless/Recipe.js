@@ -49,7 +49,6 @@ Recipe.prototype.currentIngredient = 0;
 Recipe.prototype.ingredients = [];
 
 Recipe.prototype.isDone = function() {
-    return true;
     return this.currentIngredient >= this.ingredients.length;
 }
 
