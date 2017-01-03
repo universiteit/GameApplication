@@ -46,11 +46,13 @@ def upgrade_building():
 
 @rts.route('/send-attack', methods=['POST'])
 def send_attack():
+    id = int(request.form['townid'])
+    if not 'destination' in request.form:
+        return redirect('rts/town/' + str(id))
     destination = int(request.form['destination'])
     cavalry_amount = int(request.form['amount_of_cavalry'])
     knight_amount = int(request.form['amount_of_knights'])
     pikemen_amount = int(request.form['amount_of_pikemen'])
-    id = int(request.form['townid'])
     town = Town.query.filter_by(id = id).first()
     destination = Town.query.filter_by(id = destination).first()
     if town.remove_units(knight_amount, cavalry_amount, pikemen_amount):

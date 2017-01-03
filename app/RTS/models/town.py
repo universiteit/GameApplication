@@ -44,7 +44,7 @@ class Town(db.Model):
 
     # Removes given units from town, if the town has enough of each unit.
     def remove_units(self, knights = 0, cavalry = 0, pikemen = 0):
-        if self.knights >= knights and self.cavalry >= cavalry and self.pikemen >= pikemen:
+        if self.knights >= knights and self.cavalry >= cavalry and self.pikemen >= pikemen and knights >= 0 and cavalry >= 0 and pikemen >= 0:
             self.knights -= knights
             self.cavalry -= cavalry
             self.pikemen -= pikemen
@@ -119,7 +119,7 @@ class Town(db.Model):
 
     # Removes resources from the town if town has enough resources.
     def remove_resources(self, gold = 0, food = 0, wood = 0, iron = 0):
-        if self.check_resources(gold, food, wood, iron) and gold <= 0 and food <= and wood <= 0 and iron <=0:
+        if self.check_resources(gold, food, wood, iron) and gold >= 0 and food >= 0 and wood >= 0 and iron >= 0:
             self.gold -= gold
             self.food -= food
             self.wood -= wood
