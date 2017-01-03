@@ -1,7 +1,7 @@
 function Recipe(stage, items) {
     PIXI.Sprite.call(this);
     
-    const offset = 30;
+    var offset = 30;
 
     var self = this;
 
@@ -28,9 +28,9 @@ function Recipe(stage, items) {
     // Background
     var graphics = new PIXI.Graphics();
 
-
+    var elementHeight = 30;
     graphics.beginFill(0x82562A);
-    graphics.drawRoundedRect(this.x, this.y, 200, 350, 15);
+    graphics.drawRoundedRect(this.x, this.y, 200, 15 + (items.length * elementHeight) + 15, 15);
     graphics.endFill();
 
     stage.addChild(graphics);
