@@ -119,7 +119,7 @@ class Town(db.Model):
 
     # Removes resources from the town if town has enough resources.
     def remove_resources(self, gold = 0, food = 0, wood = 0, iron = 0):
-        if self.check_resources(gold, food, wood, iron):
+        if self.check_resources(gold, food, wood, iron) and gold <= 0 and food <= and wood <= 0 and iron <=0:
             self.gold -= gold
             self.food -= food
             self.wood -= wood
