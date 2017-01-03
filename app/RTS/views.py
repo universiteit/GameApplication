@@ -30,7 +30,7 @@ def townview(town_id):
     if town.player == player:
         return render_template("views/town_view.html", current_town = town, user=current_user(), towns=Town.query.all())
     else:
-        return "Unauthorized", 401
+        return render_template("views/town_preview.html", current_town = town, user=current_user())
 
 @rts.route('/attacks')
 @secure(cookie_authorization=True)
