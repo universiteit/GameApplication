@@ -32,6 +32,15 @@ QUnit.test("Choppingboard testing", function( assert ) {
     choppingBoard.addFood(hamburger);
 
     assert.equal( choppingBoard.food, hamburger, "added food to chopping board successfully!" );
+
+    choppingBoard.update();
+
+    assert.ok( choppingBoard.food.choppingStatus > 0, "updated food on chopping board successfully!" );
+
+    choppingBoard.removeFood();
+
+    assert.equal( choppingBoard.food, null, "removed food from chopping board successfully!");
+
 });
 QUnit.test("Grill testing", function( assert ) {
     assert.equal( 1, 1, "hey");

@@ -36,8 +36,17 @@ ShibaChef.prototype.update = function() {
 
 ShibaChef.prototype.getAngory = function(duration) {
     this.shibaStatus = 2;
+    var animation = null;
+    if(Main.score.score <= -500) {
+        animation = setInterval(function() {
+            Main.shiba.rotation += Math.cos(new Date().getTime() * 0.2);
+        }, 10);
+    }
     setTimeout(function() {
         Main.shiba.shibaStatus = 0;
+        //stop animation
+        clearInterval(animation);
+         Main.shiba.rotation = 0;
     }, duration);
 };
 ShibaChef.prototype.beHappy = function(duration) {
