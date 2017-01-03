@@ -36,15 +36,27 @@ class TestTown(unittest.TestCase):
         self.assertEqual(unit_cost["gold"], 25)
         self.assertEqual(unit_cost["wood"], 60)
 
+
     def test_add_units(self):
-        self.town.get_unit_cost = mock.MagicMock(return_value = { 'gold' : 0, 'wood' : 0, 'food' : 0, 'iron' : 0})
-        self.town.add_units(pikemen = 5)
+        self.town.get_unit_cost = mock.MagicMock(return_value = { 'gold' : 100, 'wood' : 0, 'food' : 0, 'iron' : 0})
+        # Test when we have insuffisicent money. Result must be no changes to money and units
+        self.town.gold = 99
+        self.town.add_units(knight = 1)
+        self.assertEqual(self.town.gold, 99)
         self.assertEqual(self.town.knights, 0)
-        self.assertEqual(self.town.pikemen, 5)
+
+        # Test when we have enough money. Result must be purchase completed
+        self.town.gold = 100
+        self.town.add_units(pikemen = 1)
+        self.assertEqual(self.town.gold, 0)
+        self.assertEqual(self.town.knights, 0)
+        self.assertEqual(self.town.pikemen, 1)
+
     
     @mock.patch("app.RTS.models.town.datetime")
     def test_add_upgrade(self, mock_datetime):
         mock_datetime.datetime.now = mock.MagicMock(return_value = datetime.datetime(1,1,1))
+        self.town.get_building_level = mock.MagicMock(return_value = 1)
         mock_time = datetime.timedelta(hours = 0)
         self.town.get_upgrade_cost = mock.MagicMock(return_value = 0)
         self.town.get_upgrade_time = mock.MagicMock(name="get_upgrade_time", return_value=mock_time)
@@ -52,8 +64,11 @@ class TestTown(unittest.TestCase):
         self.assertEqual(self.town.upgrade_time_done, datetime.datetime(1,1,1))
         self.assertEqual(self.town.upgrade, "barrack")
         self.assertEqual(self.town.food, 0)
-        self.town.upgrade = None
-        self.town.upgrade_time_done = None
+
+        # Raise exception when already upgrading
+        with self.assertRaises(RuntimeError):
+            self.town.add_upgrade("barrack")
+        
 
     def test_update_resources(self):
         self.town.get_production = mock.MagicMock(return_value = 120)
@@ -70,6 +85,42 @@ class TestTown(unittest.TestCase):
         self.assertEqual(self.town.lumber_mill, 1)
         self.assertIsNone(self.town.upgrade)
         self.assertIsNone(self.town.upgrade_time_done)
+
+    def test_remove_units(self):
+        self.town.knights = 5
+        self.town.cavalry = 5
+        self.town.pikemen = 5
+        result = self.town.remove_units(10,10,10)
+        self.assertFalse(result)
+        self.assertEqual(self.town.knights, 5)
+        result = self.town.remove_units(3,3,3)
+        self.assertTrue(result)
+        self.assertEqual(self.town.knights, 2)
+        self.assertEqual(self.town.cavalry, 2)
+        self.assertEqual(self.town.pikemen, 2)
+
+    def test_get_building_level(self):
+        self.assertEqual(self.town.get_building_level("farm"), 2)
+        self.assertEqual(self.town.get_building_level("barrack"), 1)
+        self.assertEqual(self.town.get_building_level("wall"), 0)
+
+    def test_check_resources(self):
+        self.town.gold = 50
+        self.town.food = 30
+        self.assertTrue(self.town.check_resources(gold = 50, food = 30))
+        self.assertFalse(self.town.check_resources(gold=101, food=31))
+
+    def test_remove_resources(self):
+        self.town.gold = 100
+        self.town.check_resources = mock.MagicMock(return_value = False)
+        self.assertFalse(self.town.remove_resources(gold = 100, wood = 100))
+        self.assertEqual(self.town.gold, 100)
+        self.assertEqual(self.town.wood, 0)
+
+        self.town.check_resources = mock.MagicMock(return_value = True)
+        self.assertTrue(self.town.remove_resources(gold = 100, wood = 100))
+        self.assertEqual(self.town.gold, 0)
+        self.assertEqual(self.town.wood, -100)
 
 
 class TestPlayer(unittest.TestCase):

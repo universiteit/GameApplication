@@ -94,7 +94,6 @@ class TestDb(unittest.TestCase):
         db.session.delete(player2)
         db.session.commit()
 
-    @unittest.skip("")
     def tearDown(self):
         db.session.delete(self.user)
         db.session.delete(self.user2)

@@ -41,7 +41,7 @@ class test_background_tasks(unittest.TestCase):
     @mock.patch('app.RTS.background_tasks.datetime')    
     @mock.patch('app.RTS.background_tasks.Attack')
     def test_update_attacks(self, mock_attack, mock_datetime):
-        mock_datetime.datetime.now = mock.MagicMock(return_value=datetime.datetime(1,1,1))
+        mock_datetime.datetime.now = mock.MagicMock(return_value=datetime.datetime(2050,1,1))
         mock_order_by = mock.MagicMock()
         mock_order_by.first = mock.MagicMock(side_effect=[self.attack, self.attack, None])
         mock_attack.query.order_by = mock.MagicMock(return_value = mock_order_by)
