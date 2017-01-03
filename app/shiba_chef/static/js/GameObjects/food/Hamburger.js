@@ -7,7 +7,7 @@ function Hamburger(x,y, width, height, texture) {
 
     var self = this;
 
-    this.plateName = 'Hamburger';
+    this.name = 'Hamburger';
 
     this.texture = texture;
 
@@ -26,19 +26,6 @@ function Hamburger(x,y, width, height, texture) {
 
     this.isGrillable = true;
 
-    this
-    // events for drag start
-    .on('mousedown', this.onDragStart)
-    .on('touchstart', this.onDragStart)
-    // events for drag end
-    .on('mouseup', this.onDragEnd)
-    .on('mouseupoutside', this.onDragEnd)
-    .on('touchend', this.onDragEnd)
-    .on('touchendoutside', this.onDragEnd)
-    // events for drag move
-    .on('mousemove', this.onDragMove)
-    .on('touchmove', this.onDragMove);
-
 }
 
 Hamburger.prototype = new Food();
@@ -53,8 +40,10 @@ Hamburger.prototype.update = function() {
 Hamburger.prototype.checkCookingStatus = function() {
     if(this.cookingStatus > 1000) {
         this.texture = PIXI.Texture.fromImage("burger-burned");
+        this.isGrilled = false;
     } else if(this.cookingStatus > 500) {
         this.texture = PIXI.Texture.fromImage("burger");
+        this.isGrilled = true;
     }
 
 };

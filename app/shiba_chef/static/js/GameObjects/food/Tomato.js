@@ -7,7 +7,7 @@ function Tomato(x,y, width, height, texture) {
 
     var self = this;
 
-    this.plateName = 'Tomato';
+    this.name = 'Tomato';
 
     this.texture = texture;
 
@@ -26,19 +26,6 @@ function Tomato(x,y, width, height, texture) {
 
     this.isChoppable = true;
 
-    this
-    // events for drag start
-    .on('mousedown', this.onDragStart)
-    .on('touchstart', this.onDragStart)
-    // events for drag end
-    .on('mouseup', this.onDragEnd)
-    .on('mouseupoutside', this.onDragEnd)
-    .on('touchend', this.onDragEnd)
-    .on('touchendoutside', this.onDragEnd)
-    // events for drag move
-    .on('mousemove', this.onDragMove)
-    .on('touchmove', this.onDragMove);
-
 }
 
 Tomato.prototype = new Food();
@@ -52,7 +39,7 @@ Tomato.prototype.update = function() {
 
 
 Tomato.prototype.copySelfAtLocation = function(self) {
-    var newSelf = new Lettuce(self.x, self.y, self.width, self.height, self.texture);
+    var newSelf = new Tomato(self.x, self.y, self.width, self.height, self.texture);
     Main.prototype.addGameObject(newSelf);
 };
 
