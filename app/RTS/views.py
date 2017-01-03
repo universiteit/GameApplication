@@ -5,7 +5,6 @@ from app.RTS.models import *
 from flask import Blueprint, render_template, redirect, session, request
 
 @rts.route('/towns/')
-@secure(cookie_authorization=True)
 def all_towns():
     return render_template('views/all_towns_view.html', towns = Town.query.all(), user=current_user())
 
