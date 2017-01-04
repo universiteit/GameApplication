@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-<h3>House {{player.house}}</h3>
+<h3>Welcome {{player.user.username}} of House {{player.house}}</h3>
+    <div class='house-info-panel'>
+        <h2>House {{player.house}}</h2>
+        <img>
+        <p>Towns: {{ player.towns.all() | length }}</p>
+    </div>
+    <div class='town-list'>
     <table>
         <tr>
             <th>Name</th>
@@ -15,4 +21,5 @@
         </tr>
     {% endfor %}
     </table>
+    </div>
 {% endblock %}

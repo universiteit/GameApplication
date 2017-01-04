@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block css %}
+<link rel='stylesheet' type='text/css' href='/rts/static/style/town.css'>
+{% endblock %}
+
+{% block content %}
+    <h3>{{current_town.name}}</h3>
+    <p>Owned by: {{current_town.player.user.username}} of house {{current_town.player.house}}</p>
+
+    <table class="table-left">
+        <thead>
+            <tr>
+                <th colspan="4">Production</th>
+            </tr>
+        </thead>
+        <tr>
+            <td><img width=30 src="/rts/static/food.svg"> : {{current_town.get_production(current_town.farm)}}</td>
+            <td><img width=30 src="/rts/static/golden_ignot.svg"> : {{current_town.get_production(current_town.gold_mine)}}</td>
+            <td><img width=30 src="/rts/static/iron_ignot.svg"> : {{current_town.get_production(current_town.quarry)}}</td>
+            <td><img width=30 src="/rts/static/log.svg"> : {{current_town.get_production(current_town.lumber_mill)}}</td>
+        </tr>
+    </table>
+    <table class="table-right">
+        <thead>
+            <tr>
+                <th colspan="4">Resources</th>
+            </tr>
+        </thead>
+        <tr>
+            <td><img width=30 src="/rts/static/food.svg"> : {{current_town.food}}</td>
+            <td><img width=30 src="/rts/static/golden_ignot.svg"> : {{current_town.gold}}</td>
+            <td><img width=30 src="/rts/static/iron_ignot.svg"> : {{current_town.iron}}</td>
+            <td><img width=30 src="/rts/static/log.svg"> : {{current_town.wood}}</td>
+        </tr>
+    </table>
+    <table class="table-left">
+        <thead>
+            <tr>
+                <th colspan="7">Buildings</th>
+            </tr>
+        </thead>
+        <tr>
+            <td>
+                Building
+            </td>
+            <td>
+                Level
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Barrack
+            </td>
+            <td>
+                {{current_town.barracks}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Farm
+            </td>
+            <td>
+                {{current_town.farm}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Gold mine
+            </td>
+            <td>
+                {{current_town.gold_mine}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Quarry
+            </td>
+            <td>
+                {{current_town.quarry}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Lumber mill
+            </td>
+            <td>
+                {{current_town.lumber_mill}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Wall
+            </td>
+            <td>
+                {{current_town.wall}}
+            </td>
+        </tr>
+    </table>
+    
+    <table>
+        <thead>
+            <tr>
+                <th colspan="7">Units</th>
+            </tr>
+        </thead>
+        <tr>
+            <td>
+                Unit type
+            </td>
+            <td>
+                Garrisoned amount
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Knight
+            </td>
+            <td>
+                {{current_town.knights}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Cavalry
+            </td>
+            <td>
+                {{current_town.cavalry}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Pikemen
+            </td>
+            <td>
+                {{current_town.pikemen}}
+            </td>
+        </tr>
+    </table>
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
