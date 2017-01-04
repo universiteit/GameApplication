@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>House {{player.house}}</h3>
+    <table>
+        <tr>
+            <th>Origin</th>
+            <th>Destination</th>
+            <th>Knights</th>
+            <th>Cavalry</th>
+            <th>Pikemen</th>
+            <th>Arrival Time</th>
+        </tr>
+    {% for attack in attacks %}
+        <tr>
+            <td><a href='town/{{attack.origin.id}}'>{{attack.origin.name}}</a></td>
+            <td><a href='town/{{attack.destination.id}}'>{{attack.destination.name}}</a></td>
+            <td><img src='/rts/static/unit_sword.png'> {{attack.knights}}</td>
+            <td><img src='/rts/static/unit_light.png'> {{attack.cavalry}}</td>
+            <td><img src='/rts/static/unit_spear.png'> {{attack.pikemen}}</td>
+            <td>{{attack.arrival_time.ctime()}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

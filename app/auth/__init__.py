@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, abort, jsonify
+from flask import Blueprint, request, render_template, abort, jsonify, session, redirect
 from jinja2 import TemplateNotFound
 
 from datetime import datetime, timedelta
@@ -8,14 +8,25 @@ from app import db
 from app import bcrypt
 
 from app.auth.models.user import User
-
 from random import randint
 
 auth = Blueprint('auth', __name__, template_folder='templates/')
 
+@auth.route('/login', methods=['GET'])
+def login():
+    return render_template('login.html')
+
+@auth.route('/logout', methods=['GET'])
+def logout():
+    session.clear()
+    return redirect('auth/login')
+
 @auth.route('/login', methods=['POST'])
 def index():
-    login_info = request.get_json()
+    if (request.form):
+        login_info = request.form
+    else:
+        login_info = request.get_json()
 
     user = User.query.filter_by(username=login_info['username']).first()
 
@@ -43,21 +54,40 @@ def index():
         'token_type' : 'Bearer'
     }
 
-    return jsonify(ret)
+    if (request.form):
+        session['user_id'] = user.id
+        return 'logged in!'
+    else:
+        return jsonify(ret)
+
+@auth.route('', methods=['GET'])
+def register():
+    return render_template('register.html')
 
 @auth.route('', methods=['POST'])
 def create_account():
-    account_details = request.get_json()
+    if (request.form):
+        account_details = request.form
+    else:
+        account_details = request.get_json()
     username = account_details['username']
     password = bcrypt.generate_password_hash(account_details['password'])
     user = User(username, password)
     db.session.add(user)
     db.session.commit()
-    return '', 200
+    return 'created account', 200
 
 @auth.route('/verify')
 @secure()
 def verify():
     print('\n', context())
     message = 'User with id: `' + str(context().user_id) + '` is logged in.'
+    return message
+
+@auth.route('/verify-cookie')
+def verify_cookie():
+    if 'user_id' in session:
+        message = "User with id: '" + str(session["user_id"]) + "' is logged in."
+    else:
+        message = "No user is logged in."
     return message
