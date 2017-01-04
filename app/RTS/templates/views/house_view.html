@@ -4,7 +4,7 @@
     <div class='house-info-panel'>
         <h2>House {{player.house}}</h2>
         <img>
-        <p>Towns: {{len(player.towns)}}</p>
+        <p>Towns: {{ player.towns.all() | length }}</p>
     </div>
     <div class='town-list'>
     <table>

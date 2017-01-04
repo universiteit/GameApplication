@@ -14,10 +14,10 @@
             </tr>
         </thead>
         <tr>
-            <td><img width=30 src="/rts/static/food.svg"> : {{current_town.get_production(current_town.farm)}}</td>
-            <td><img width=30 src="/rts/static/golden_ignot.svg"> : {{current_town.get_production(current_town.gold_mine)}}</td>
-            <td><img width=30 src="/rts/static/iron_ignot.svg"> : {{current_town.get_production(current_town.quarry)}}</td>
-            <td><img width=30 src="/rts/static/log.svg"> : {{current_town.get_production(current_town.lumber_mill)}}</td>
+            <td><img width=30 src="/rts/static/food.png"> : {{current_town.get_production(current_town.farm)}}</td>
+            <td><img width=30 src="/rts/static/gold.png"> : {{current_town.get_production(current_town.gold_mine)}}</td>
+            <td><img width=30 src="/rts/static/iron.png"> : {{current_town.get_production(current_town.quarry)}}</td>
+            <td><img width=30 src="/rts/static/wood.png"> : {{current_town.get_production(current_town.lumber_mill)}}</td>
         </tr>
     </table>
     <table class="table-right">
@@ -27,10 +27,10 @@
             </tr>
         </thead>
         <tr>
-            <td><img width=30 src="/rts/static/food.svg"> : {{current_town.food}}</td>
-            <td><img width=30 src="/rts/static/golden_ignot.svg"> : {{current_town.gold}}</td>
-            <td><img width=30 src="/rts/static/iron_ignot.svg"> : {{current_town.iron}}</td>
-            <td><img width=30 src="/rts/static/log.svg"> : {{current_town.wood}}</td>
+            <td><img width=30 src="/rts/static/food.png"> : {{current_town.food}}</td>
+            <td><img width=30 src="/rts/static/gold.png"> : {{current_town.gold}}</td>
+            <td><img width=30 src="/rts/static/iron.png"> : {{current_town.iron}}</td>
+            <td><img width=30 src="/rts/static/wood.png"> : {{current_town.wood}}</td>
         </tr>
     </table>
     <table class="table-left">
@@ -58,19 +58,19 @@
                 Barrack({{current_town.barracks}})
             </td>
             <td>
-                <img width=30 src="/rts/static/food.svg"> : {{current_town.get_upgrade_cost(current_town.barracks)}}
+                <img width=30 src="/rts/static/food.png">{{current_town.get_upgrade_cost(current_town.barracks)}}
             </td>
             <td>
-                <img width=30 src="/rts/static/golden_ignot.svg"> : {{current_town.get_upgrade_cost(current_town.barracks)}}
+                <img width=30 src="/rts/static/gold.png">{{current_town.get_upgrade_cost(current_town.barracks)}}
             </td>
             <td>
-                <img width=30 src="/rts/static/iron_ignot.svg"> : {{current_town.get_upgrade_cost(current_town.barracks)}}
+                <img width=30 src="/rts/static/iron.png">{{current_town.get_upgrade_cost(current_town.barracks)}}
             </td>
             <td>
-                <img width=30 src="/rts/static/log.svg"> : {{current_town.get_upgrade_cost(current_town.barracks)}}
+                <img width=30 src="/rts/static/wood.png">{{current_town.get_upgrade_cost(current_town.barracks)}}
             </td>
             <td>
-                <img width=30 src="/rts/static/clock.svg"> : {{current_town.get_upgrade_time(current_town.barracks)}}
+                <img width=30 src="/rts/static/hourglass.png">{{current_town.get_upgrade_time(current_town.barracks)}}
             </td>
             <td>
                 {%if not current_town.upgrade%}
@@ -87,19 +87,19 @@
                 Farm({{current_town.farm}})
             </td>
             <td>
-                <img width=30 src="/rts/static/food.svg"> : {{current_town.get_upgrade_cost(current_town.farm)}}
+                <img width=30 src="/rts/static/food.png">{{current_town.get_upgrade_cost(current_town.farm)}}
             </td>
             <td>
-                <img width=30 src="/rts/static/golden_ignot.svg"> : {{current_town.get_upgrade_cost(current_town.farm)}}
+                <img width=30 src="/rts/static/gold.png">{{current_town.get_upgrade_cost(current_town.farm)}}
             </td>
             <td>
-                <img width=30 src="/rts/static/iron_ignot.svg"> : {{current_town.get_upgrade_cost(current_town.farm)}}
+                <img width=30 src="/rts/static/iron.png">{{current_town.get_upgrade_cost(current_town.farm)}}
             </td>
             <td>
-                <img width=30 src="/rts/static/log.svg"> : {{current_town.get_upgrade_cost(current_town.farm)}}
+                <img width=30 src="/rts/static/wood.png">{{current_town.get_upgrade_cost(current_town.farm)}}
             </td>
             <td>
-                <img width=30 src="/rts/static/clock.svg"> : {{current_town.get_upgrade_time(current_town.farm)}}
+                <img width=30 src="/rts/static/hourglass.png">{{current_town.get_upgrade_time(current_town.farm)}}
             </td>
             <td>
                 {%if not current_town.upgrade%}
@@ -116,19 +116,19 @@
                 Gold mine({{current_town.gold_mine}})
             </td>
             <td>
-                <img width=30 src="/rts/static/food.svg"> : {{current_town.get_upgrade_cost(current_town.gold_mine)}}
+                <img width=30 src="/rts/static/food.png">{{current_town.get_upgrade_cost(current_town.gold_mine)}}
             </td>
             <td>
-                <img width=30 src="/rts/static/golden_ignot.svg"> : {{current_town.get_upgrade_cost(current_town.gold_mine)}}
+                <img width=30 src="/rts/static/gold.png">{{current_town.get_upgrade_cost(current_town.gold_mine)}}
             </td>
             <td>
-                <img width=30 src="/rts/static/iron_ignot.svg"> : {{current_town.get_upgrade_cost(current_town.gold_mine)}}
+                <img width=30 src="/rts/static/iron.png">{{current_town.get_upgrade_cost(current_town.gold_mine)}}
             </td>
             <td>
-                <img width=30 src="/rts/static/log.svg"> : {{current_town.get_upgrade_cost(current_town.gold_mine)}}
+                <img width=30 src="/rts/static/wood.png">{{current_town.get_upgrade_cost(current_town.gold_mine)}}
             </td>
             <td>
-                <img width=30 src="/rts/static/clock.svg"> : {{current_town.get_upgrade_time(current_town.gold_mine)}}
+                <img width=30 src="/rts/static/hourglass.png">{{current_town.get_upgrade_time(current_town.gold_mine)}}
             </td>
             <td>
                 {%if not current_town.upgrade%}
@@ -145,19 +145,19 @@
                 Iron quarry({{current_town.quarry}})
             </td>
             <td>
-                <img width=30 src="/rts/static/food.svg"> : {{current_town.get_upgrade_cost(current_town.quarry)}}
+                <img width=30 src="/rts/static/food.png">{{current_town.get_upgrade_cost(current_town.quarry)}}
             </td>
             <td>
-                <img width=30 src="/rts/static/golden_ignot.svg"> : {{current_town.get_upgrade_cost(current_town.quarry)}}
+                <img width=30 src="/rts/static/gold.png">{{current_town.get_upgrade_cost(current_town.quarry)}}
             </td>
             <td>
-                <img width=30 src="/rts/static/iron_ignot.svg"> : {{current_town.get_upgrade_cost(current_town.quarry)}}
+                <img width=30 src="/rts/static/iron.png">{{current_town.get_upgrade_cost(current_town.quarry)}}
             </td>
             <td>
-                <img width=30 src="/rts/static/log.svg"> : {{current_town.get_upgrade_cost(current_town.quarry)}}
+                <img width=30 src="/rts/static/wood.png">{{current_town.get_upgrade_cost(current_town.quarry)}}
             </td>
             <td>
-                <img width=30 src="/rts/static/clock.svg"> : {{current_town.get_upgrade_time(current_town.quarry)}}
+                <img width=30 src="/rts/static/hourglass.png">{{current_town.get_upgrade_time(current_town.quarry)}}
             </td>
             <td>
                 {%if not current_town.upgrade%}
@@ -174,19 +174,19 @@
                 Lumber mill({{current_town.lumber_mill}})
             </td>
             <td>
-                <img width=30 src="/rts/static/food.svg"> : {{current_town.get_upgrade_cost(current_town.lumber_mill)}}
+                <img width=30 src="/rts/static/food.png">{{current_town.get_upgrade_cost(current_town.lumber_mill)}}
             </td>
             <td>
-                <img width=30 src="/rts/static/golden_ignot.svg"> : {{current_town.get_upgrade_cost(current_town.lumber_mill)}}
+                <img width=30 src="/rts/static/gold.png">{{current_town.get_upgrade_cost(current_town.lumber_mill)}}
             </td>
             <td>
-                <img width=30 src="/rts/static/iron_ignot.svg"> : {{current_town.get_upgrade_cost(current_town.lumber_mill)}}
+                <img width=30 src="/rts/static/iron.png">{{current_town.get_upgrade_cost(current_town.lumber_mill)}}
             </td>
             <td>
-                <img width=30 src="/rts/static/log.svg"> : {{current_town.get_upgrade_cost(current_town.lumber_mill)}}
+                <img width=30 src="/rts/static/wood.png">{{current_town.get_upgrade_cost(current_town.lumber_mill)}}
             </td>
             <td>
-                <img width=30 src="/rts/static/clock.svg"> : {{current_town.get_upgrade_time(current_town.lumber_mill)}}
+                <img width=30 src="/rts/static/hourglass.png">{{current_town.get_upgrade_time(current_town.lumber_mill)}}
             </td>
             <td>
                 {%if not current_town.upgrade%}
@@ -203,19 +203,19 @@
                 Wall({{current_town.wall}})
             </td>
             <td>
-                <img width=30 src="/rts/static/food.svg"> : {{current_town.get_upgrade_cost(current_town.wall)}}
+                <img width=30 src="/rts/static/food.png">{{current_town.get_upgrade_cost(current_town.wall)}}
             </td>
             <td>
-                <img width=30 src="/rts/static/golden_ignot.svg"> : {{current_town.get_upgrade_cost(current_town.wall)}}
+                <img width=30 src="/rts/static/gold.png">{{current_town.get_upgrade_cost(current_town.wall)}}
             </td>
             <td>
-                <img width=30 src="/rts/static/iron_ignot.svg"> : {{current_town.get_upgrade_cost(current_town.wall)}}
+                <img width=30 src="/rts/static/iron.png">{{current_town.get_upgrade_cost(current_town.wall)}}
             </td>
             <td>
-                <img width=30 src="/rts/static/log.svg"> : {{current_town.get_upgrade_cost(current_town.wall)}}
+                <img width=30 src="/rts/static/wood.png">{{current_town.get_upgrade_cost(current_town.wall)}}
             </td>
             <td>
-                <img width=30 src="/rts/static/clock.svg"> : {{current_town.get_upgrade_time(current_town.wall)}}
+                <img width=30 src="/rts/static/hourglass.png">{{current_town.get_upgrade_time(current_town.wall)}}
             </td>
             <td>
                 {%if not current_town.upgrade%}
@@ -252,16 +252,16 @@
                 Knight({{current_town.knights}})
             </td>
             <td>
-                <img width=30 src="/rts/static/food.svg"> : {{current_town.get_unit_cost('knight')['food']}}
+                <img width=30 src="/rts/static/food.png">{{current_town.get_unit_cost('knight')['food']}}
             </td>
             <td>
-                <img width=30 src="/rts/static/golden_ignot.svg"> : {{current_town.get_unit_cost('knight')['gold']}}
+                <img width=30 src="/rts/static/gold.png">{{current_town.get_unit_cost('knight')['gold']}}
             </td>
             <td>
-                <img width=30 src="/rts/static/iron_ignot.svg"> : {{current_town.get_unit_cost('knight')['iron']}}
+                <img width=30 src="/rts/static/iron.png">{{current_town.get_unit_cost('knight')['iron']}}
             </td>
             <td>
-                <img width=30 src="/rts/static/log.svg"> : {{current_town.get_unit_cost('knight')['wood']}}
+                <img width=30 src="/rts/static/wood.png">{{current_town.get_unit_cost('knight')['wood']}}
             </td>
             <td>
                 <input type="text" name="amount_of_knights" value="0">
@@ -272,16 +272,16 @@
                 Cavalry({{current_town.cavalry}})
             </td>
             <td>
-                <img width=30 src="/rts/static/food.svg"> : {{current_town.get_unit_cost('cavalry')['food']}}
+                <img width=30 src="/rts/static/food.png">{{current_town.get_unit_cost('cavalry')['food']}}
             </td>
             <td>
-                <img width=30 src="/rts/static/golden_ignot.svg"> : {{current_town.get_unit_cost('cavalry')['gold']}}
+                <img width=30 src="/rts/static/gold.png">{{current_town.get_unit_cost('cavalry')['gold']}}
             </td>
             <td>
-                <img width=30 src="/rts/static/iron_ignot.svg"> : {{current_town.get_unit_cost('cavalry')['iron']}}
+                <img width=30 src="/rts/static/iron.png">{{current_town.get_unit_cost('cavalry')['iron']}}
             </td>
             <td>
-                <img width=30 src="/rts/static/log.svg"> : {{current_town.get_unit_cost('cavalry')['wood']}}
+                <img width=30 src="/rts/static/wood.png">{{current_town.get_unit_cost('cavalry')['wood']}}
             </td>
             <td>
                 <input type="text" name="amount_of_cavalry" value="0">
@@ -292,16 +292,16 @@
                 Pikemen({{current_town.pikemen}})
             </td>
             <td>
-                <img width=30 src="/rts/static/food.svg"> : {{current_town.get_unit_cost('pikemen')['food']}}
+                <img width=30 src="/rts/static/food.png">{{current_town.get_unit_cost('pikemen')['food']}}
             </td>
             <td>
-                <img width=30 src="/rts/static/golden_ignot.svg"> : {{current_town.get_unit_cost('pikemen')['gold']}}
+                <img width=30 src="/rts/static/gold.png">{{current_town.get_unit_cost('pikemen')['gold']}}
             </td>
             <td>
-                <img width=30 src="/rts/static/iron_ignot.svg"> : {{current_town.get_unit_cost('pikemen')['iron']}}
+                <img width=30 src="/rts/static/iron.png">{{current_town.get_unit_cost('pikemen')['iron']}}
             </td>
             <td>
-                <img width=30 src="/rts/static/log.svg"> : {{current_town.get_unit_cost('pikemen')['wood']}}
+                <img width=30 src="/rts/static/wood.png">{{current_town.get_unit_cost('pikemen')['wood']}}
             </td>
             <td>
                 <input type="text" name="amount_of_pikemen" value="0">
