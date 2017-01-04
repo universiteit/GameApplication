@@ -1,0 +1,42 @@
+.table-left {
+	width: 56%;
+    display: inline-table;
+}
+
+.table-right {
+	margin-left:30px;
+	width: calc(44% - 34px);
+    display: inline-table;
+}
+
+.table-right table {
+	width:100%;
+}
+
+.table-right input[type=text] {
+	width: 100px;
+}
+
+.units {
+	width: calc(100% - 30px);	
+}
+
+h2{
+    text-align: center;
+}
+
+th {
+	text-align: center;
+}
+
+tr td {
+	padding: 10px ;
+}
+
+tr td:not(:nth-child(1)) {
+	border-left:3px solid #e1e1e1;
+}
+
+tr:not(:nth-child(1)) td {
+	border-top:3px solid #e1e1e1;
+}

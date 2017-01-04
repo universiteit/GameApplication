@@ -1,6 +1,10 @@
 
 # Created by https://www.gitignore.io/api/virtualenv,python,visualstudiocode,visualstudio
 
+### Custom ###
+# Database files
+*.db
+
 ### VirtualEnv ###
 # Virtualenv
 # http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
@@ -390,5 +394,3 @@ paket-files/
 
 # Cake - Uncomment if you are using it
 # tools/
-
-### VisualStudio Patch ###
