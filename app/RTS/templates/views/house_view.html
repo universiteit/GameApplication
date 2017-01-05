@@ -16,7 +16,7 @@
     {% for town in player.towns %}
         <tr>
             <td><a href='town/{{town.id}}'>{{town.name}}</a></td>
-            <td>{{town.knights}}/{{town.cavalry}}/{{town.pikemen}}</td>
+            <td>{{town.knights}}/{{town.cavalry}}/{{town.pikemen}}/{{town.doges}}</td>
             <td>{{town.gold}}</td>
         </tr>
     {% endfor %}

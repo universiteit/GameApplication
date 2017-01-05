@@ -24,7 +24,7 @@
     <table class="table-right">
         <thead>
             <tr>
-                <th colspan="4">Resources</th>
+                <th colspan="5">Resources</th>
             </tr>
         </thead>
         <tr>
@@ -32,6 +32,7 @@
             <td><img width=30 src="/rts/static/golden_ignot.svg"> : {{current_town.gold}}</td>
             <td><img width=30 src="/rts/static/iron_ignot.svg"> : {{current_town.iron}}</td>
             <td><img width=30 src="/rts/static/log.svg"> : {{current_town.wood}}</td>
+            <td><img width=30 src="/rts/static/coin.png"> : {{current_town.player.user.dogecoin}}</td>
         </tr>
     </table>
     <table class="table-left">
@@ -101,7 +102,7 @@
     <table>
         <thead>
             <tr>
-                <th colspan="7">Units</th>
+                <th colspan="9">Units</th>
             </tr>
         </thead>
         <tr>
@@ -134,6 +135,12 @@
             </td>
             <td>
                 {{current_town.pikemen}}
+            </td>
+            <td>
+                Doges
+            </td>
+            <td>
+                {{current_town.doges}}
             </td>
         </tr>
     </table>

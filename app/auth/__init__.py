@@ -72,7 +72,7 @@ def create_account():
         account_details = request.get_json()
     username = account_details['username']
     password = bcrypt.generate_password_hash(account_details['password'])
-    user = User(username, password)
+    user = User(username, password, dogecoin=0)
     db.session.add(user)
     db.session.commit()
     return 'created account', 200
