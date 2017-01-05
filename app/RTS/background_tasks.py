@@ -2,14 +2,6 @@ import atexit, datetime, os, time, threading
 from app.RTS.models import *
 from app import app, db
 
-if not app.debug:
-    if not os.environ["TEST"]:
-        def foo():
-            update_towns()
-            update_attacks()
-            threading.Timer(1, foo).start()
-        foo()
-
 def update_towns():
     towns = Town.query.all()
     for town in towns:
@@ -24,3 +16,11 @@ def update_attacks():
     while attack and now >= attack.arrival_time:
         attack.resolve()
         attack = Attack.query.order_by(Attack.arrival_time).first()
+
+if not app.debug:
+    if not "TEST" in os.environ:
+        def foo():
+            update_towns()
+            update_attacks()
+            threading.Timer(1, foo).start()
+        foo()
