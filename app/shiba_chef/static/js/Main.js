@@ -175,7 +175,7 @@ Main.prototype.createEnvironment = function() {
         new Ingredient('Lower bun', 15),
         new Ingredient('Hamburger', 15, { grilled: true }),
         new Ingredient('Upper bun', 15)
-    ]
+    ];
 
     Main.recipe = new Recipe(Main.stage, ingredients);
 

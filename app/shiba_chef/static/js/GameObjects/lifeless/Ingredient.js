@@ -1,7 +1,7 @@
 var style = {
     fontFamily: 'Arial',
     fontSize: '18px'
-}
+};
 
 function Ingredient(name, height, options) {
     self = this;
@@ -23,8 +23,8 @@ Ingredient.prototype.isIngredient = function(object) {
     if (this.options.chopped != object.isChopped)
         return false;
     return true;
-}
+};
 
 Ingredient.prototype.done = function() {
     this.text.style.fill = 0x33F74A;
-}
+};

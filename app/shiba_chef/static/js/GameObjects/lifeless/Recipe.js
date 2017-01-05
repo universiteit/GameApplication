@@ -16,7 +16,7 @@ function Recipe(stage, items) {
         self.ingredients.forEach(function(element) {
             stage.removeChild(element.text);
         })
-    }
+    };
 
     var generate = function(items) {
         clear();
@@ -26,7 +26,7 @@ function Recipe(stage, items) {
             stage.addChild(element.text);
         });
         self.ingredients = items;
-    }
+    };
 
     // Background
     var graphics = new PIXI.Graphics();
@@ -50,11 +50,11 @@ Recipe.prototype.ingredients = [];
 
 Recipe.prototype.isDone = function() {
     return this.currentIngredient >= this.ingredients.length;
-}
+};
 
 Recipe.prototype.finishIngredient = function(ingredient) {
     return this.currentIngredient < this.ingredients.length && (this.ingredients[this.currentIngredient].isIngredient(ingredient)) ? ((this.ingredients[this.currentIngredient].done()) | ++this.currentIngredient) > 0 : false // Ask Jorik.
-}
+};
 
 Recipe.prototype.getCurrentHeight = function() {
     var height = 0;
@@ -62,5 +62,5 @@ Recipe.prototype.getCurrentHeight = function() {
         height += this.ingredients[i].height;
     }
     return height;
-}
+};
 

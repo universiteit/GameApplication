@@ -11,14 +11,14 @@ function Score(stage, renderer) {
 
 Score.prototype.refresh = function() {
     this.scoreLabel.text = 'Score: ' + this.score;
-}
+};
 
 Score.prototype.increment = function() {
     this.score += 25;
     this.refresh();
-}
+};
 
 Score.prototype.decrement = function() {
     this.score -= 10;
     this.refresh();
-}
+};

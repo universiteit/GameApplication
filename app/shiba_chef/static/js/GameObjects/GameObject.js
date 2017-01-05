@@ -24,8 +24,6 @@ GameObject.prototype.overlapsWith = function(gameObject) {
 };
 
 GameObject.prototype.copyObject = function(gameObject) {
-    //Main.prototype.addGameObject(Object.assign({}, gameObject));
-    //var newObject = JSON.parse(JSON.stringify(gameObject));
 
     var newObject = GameObject.prototype.cloneObject(gameObject);
 
