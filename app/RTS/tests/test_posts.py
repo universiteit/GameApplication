@@ -84,7 +84,6 @@ class TestPosts(unittest.TestCase):
             amount_of_knights=1,
             amount_of_pikemen=1
         ), follow_redirects=True)
-        self.assertFalse()
         self.assertEqual(mock_redirect.call_args[0][0], "rts/town/1")
 
         player = None
