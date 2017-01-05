@@ -1,9 +1,11 @@
-import atexit, datetime, os
+import atexit, datetime
 from app.RTS.models import *
 from app import app, db
-from apscheduler.schedulers.background import BackgroundScheduler
-from apscheduler.triggers.interval import IntervalTrigger
+from celery import Celery
 
+celery_app = Celery('tasks', broker='pyamqp://guest@localhost//')
+
+@celery_app.task
 def update_towns():
     towns = Town.query.all()
     for town in towns:
@@ -12,6 +14,7 @@ def update_towns():
         db.session.add(town)
     db.session.commit()
 
+@celery_app.task
 def update_attacks():
     now = datetime.datetime.now()
     attack = Attack.query.order_by(Attack.arrival_time).first()
@@ -19,13 +22,8 @@ def update_attacks():
         attack.resolve()
         attack = Attack.query.order_by(Attack.arrival_time).first()
 
-def setup_scheduler():
-    scheduler = BackgroundScheduler()
-    scheduler.start()
-    scheduler.add_job(func=update_towns,trigger=IntervalTrigger(seconds=5),id='town_update',replace_existing=True)
-    scheduler.add_job(func=update_attacks,trigger=IntervalTrigger(seconds=5),id='attack_update',replace_existing=True)
-    # Shut down the scheduler when exiting the app
-    atexit.register(lambda: scheduler.shutdown())
-
-if not "TEST" in os.environ:
-    setup_scheduler()
+@celery_app.on_after_configure.connect
+def setup_periodic_tasks(sender, **kwargs):
+    if not os.environ["TEST"]:
+        sender.add_periodic_task(2.0, update_towns.s())
+        sender.add_periodic_task(2.0, update_attacks.s())
