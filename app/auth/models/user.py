@@ -8,7 +8,7 @@ class User(db.Model):
     password = db.Column(db.LargeBinary())
     dogecoin = db.Column(db.Integer, default=0)
 
-    def __init__(self, username, password):
+    def __init__(self, username, password, dogecoin = 0):
         self.username = username
         self.password = password
-        self.dogecoin = 0
+        self.dogecoin = dogecoin
