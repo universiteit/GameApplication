@@ -38,6 +38,7 @@ def generate_random_town(player):
     new_town.knights = 1
     new_town.pikemen = 5
     new_town.cavalry = 3
+    new_town.doges = 1
     return new_town
 
 # Assigns a new player to an existing user in the database

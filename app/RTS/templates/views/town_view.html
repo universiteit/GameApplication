@@ -31,6 +31,7 @@
             <td><img width=30 src="/rts/static/gold.png"> : {{current_town.gold}}</td>
             <td><img width=30 src="/rts/static/iron.png"> : {{current_town.iron}}</td>
             <td><img width=30 src="/rts/static/wood.png"> : {{current_town.wood}}</td>
+            <td><img width=30 src="/rts/static/coin.png"> : {{current_town.player.user.dogecoin}}</td>
         </tr>
     </table>
     <table class="table-left">
@@ -233,14 +234,14 @@
     <table>
         <thead>
             <tr>
-                <th colspan="6">Units</th>
+                <th colspan="7">Units</th>
             </tr>
         </thead>
         <tr>
             <td>
                 Building
             </td>
-            <td colspan="4">
+            <td colspan="5">
                 Unit cost
             </td>
             <td>
@@ -264,6 +265,9 @@
                 <img width=30 src="/rts/static/wood.png">{{current_town.get_unit_cost('knight')['wood']}}
             </td>
             <td>
+                <img width=30 src="/rts/static/coin.png">{{current_town.get_unit_cost('knight')['doge']}}
+            </td>            
+            <td>
                 <input type="text" name="amount_of_knights" value="0">
             </td>
         </tr>
@@ -282,6 +286,9 @@
             </td>
             <td>
                 <img width=30 src="/rts/static/wood.png">{{current_town.get_unit_cost('cavalry')['wood']}}
+            </td>
+            <td>
+                <img width=30 src="/rts/static/coin.png">{{current_town.get_unit_cost('cavalry')['doge']}}
             </td>
             <td>
                 <input type="text" name="amount_of_cavalry" value="0">
@@ -304,7 +311,33 @@
                 <img width=30 src="/rts/static/wood.png">{{current_town.get_unit_cost('pikemen')['wood']}}
             </td>
             <td>
+                <img width=30 src="/rts/static/coin.png">{{current_town.get_unit_cost('pikemen')['doge']}}
+            </td>
+            <td>
                 <input type="text" name="amount_of_pikemen" value="0">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Doges({{current_town.doges}})
+            </td>
+            <td>
+                <img width=30 src="/rts/static/food.png">{{current_town.get_unit_cost('doges')['food']}}
+            </td>
+            <td>
+                <img width=30 src="/rts/static/gold.png">{{current_town.get_unit_cost('doges')['gold']}}
+            </td>
+            <td>
+                <img width=30 src="/rts/static/iron.png">{{current_town.get_unit_cost('doges')['iron']}}
+            </td>
+            <td>
+                <img width=30 src="/rts/static/wood.png">{{current_town.get_unit_cost('doges')['wood']}}
+            </td>
+            <td>
+                <img width=30 src="/rts/static/coin.png">{{current_town.get_unit_cost('doges')['doge']}}
+            </td>
+            <td>
+                <input type="text" name="amount_of_doges" value="0">
             </td>
         </tr>
         <tr>
@@ -366,7 +399,7 @@
                 <td>
                     Town
                 </td>
-                <td colspan="3">
+                <td colspan="4">
                     Units
                 </td>
                 <td>
@@ -393,6 +426,9 @@
                 </td>
                 <td>
                     <img src="/rts/static/unit_spear.png"> <input type="text" name="amount_of_pikemen" value="0">
+                </td>
+                <td>
+                    <img src="/rts/static/unit_doge.png" width="20" height="20"> <input type="text" name="amount_of_doges" value="0">
                 </td>
                 <td>
                     <input type="submit" value="attack"> 

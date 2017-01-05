@@ -26,13 +26,14 @@ def create_unit():
     cavalry_amount = int(request.form['amount_of_cavalry'])
     knight_amount = int(request.form['amount_of_knights'])
     pikemen_amount = int(request.form['amount_of_pikemen'])
+    doges_amount = int(request.form["amount_of_doges"])
     id = int(request.form['townid'])
     town = Town.query.filter_by(id = id).first()
     if town.player.id != player.id:
         return redirect("rts/")
 
 
-    town.add_units(knight_amount, cavalry_amount, pikemen_amount)
+    town.add_units(knight_amount, cavalry_amount, pikemen_amount, doges_amount)
     db.session.add(town)
     db.session.commit()
     return redirect('rts/town/' + str(id))
@@ -71,13 +72,14 @@ def send_attack():
     cavalry_amount = int(request.form['amount_of_cavalry'])
     knight_amount = int(request.form['amount_of_knights'])
     pikemen_amount = int(request.form['amount_of_pikemen'])
+    doges_amount = int(request.form['amount_of_doges'])
     town = Town.query.filter_by(id = id).first()
     destination = Town.query.filter_by(id = destination).first()
     if town.player.id != player.id:
         return redirect("rts/")
 
-    if town.remove_units(knight_amount, cavalry_amount, pikemen_amount):
-        attack = Attack(town.player, destination, town, knight_amount, cavalry_amount, pikemen_amount)
+    if town.remove_units(knight_amount, cavalry_amount, pikemen_amount, doges_amount):
+        attack = Attack(town.player, destination, town, knight_amount, cavalry_amount, pikemen_amount, doges_amount)
         db.session.add(attack)
         db.session.commit()
     return redirect('rts/town/' + str(id))

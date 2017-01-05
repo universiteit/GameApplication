@@ -12,6 +12,7 @@ class Town(db.Model):
     knights = db.Column(db.Integer)
     cavalry = db.Column(db.Integer)
     pikemen = db.Column(db.Integer)
+    doges = db.Column(db.Integer)
     lumber_mill = db.Column(db.Integer)
     gold_mine = db.Column(db.Integer)
     farm = db.Column(db.Integer)
@@ -25,12 +26,13 @@ class Town(db.Model):
     upgrade = db.Column(db.String)
     upgrade_time_done = db.Column(db.DateTime)
 
-    def __init__(self, player, name, knights = 0, cavalry = 0, pikemen = 0, lumber_mill = 1, gold_mine = 1, farm = 1, barracks = 1, wall = 0, quarry = 1, gold = 0, wood = 0, food = 0, iron = 0, upgrade=None, upgrade_time_done = None):
+    def __init__(self, player, name, knights = 0, cavalry = 0, pikemen = 0, doges = 0, lumber_mill = 1, gold_mine = 1, farm = 1, barracks = 1, wall = 0, quarry = 1, gold = 0, wood = 0, food = 0, iron = 0, upgrade=None, upgrade_time_done = None):
         self.player = player
         self.name = name
         self.knights = knights
         self.cavalry = cavalry
         self.pikemen = pikemen
+        self.doges = doges
         self.lumber_mill = lumber_mill
         self.gold_mine = gold_mine
         self.farm = farm
@@ -43,11 +45,12 @@ class Town(db.Model):
         self.iron = iron
 
     # Removes given units from town, if the town has enough of each unit.
-    def remove_units(self, knights = 0, cavalry = 0, pikemen = 0):
-        if self.knights >= knights and self.cavalry >= cavalry and self.pikemen >= pikemen and knights >= 0 and cavalry >= 0 and pikemen >= 0:
+    def remove_units(self, knights = 0, cavalry = 0, pikemen = 0, doges = 0):
+        if self.knights >= knights and self.cavalry >= cavalry and self.pikemen >= pikemen and self.doges >= doges and knights >= 0 and cavalry >= 0 and pikemen >= 0 and doges >= 0:
             self.knights -= knights
             self.cavalry -= cavalry
             self.pikemen -= pikemen
+            self.doges -= doges
             return True
         return False
     
@@ -72,16 +75,18 @@ class Town(db.Model):
     # Returns dictionary of the cost of resources for a given unit
     def get_unit_cost(self, unit):
         return {
-            'knight' : { 'gold' : 25, 'wood' : 60, 'food' : 30, 'iron' : 70},
-            'cavalry' : { 'gold' : 50, 'wood' : 125, 'food' : 100, 'iron' : 250},
-            'pikemen' : { 'gold' : 15, 'wood' : 50, 'food' : 30, 'iron' : 10},
+            'knight' : { 'gold' : 25, 'wood' : 60, 'food' : 30, 'iron' : 70,'doge' : 0},
+            'cavalry' : { 'gold' : 50, 'wood' : 125, 'food' : 100, 'iron' : 250,'doge' : 0},
+            'pikemen' : { 'gold' : 15, 'wood' : 50, 'food' : 30, 'iron' : 10,'doge' : 0},
+            'doges' : { 'gold' : 0, 'wood' : 0, 'food' : 0, 'iron' : 0 ,'doge' : 1},
         }[unit.lower()]
         
     # Adds given units if the town has enough resources
-    def add_units(self, knight = 0, cavalry = 0, pikemen = 0):
+    def add_units(self, knight = 0, cavalry = 0, pikemen = 0, doges = 0):
         knight_cost = self.get_unit_cost("knight")
         cavalry_cost = self.get_unit_cost("cavalry")
         pikemen_cost = self.get_unit_cost("pikemen")
+        doge_cose =  self.get_unit_cost("doges")
 
         def sum_costs(key):
             return knight_cost[key] * knight + cavalry_cost[key] * cavalry + pikemen_cost[key] * pikemen
@@ -90,10 +95,12 @@ class Town(db.Model):
         wood = sum_costs("wood")
         food = sum_costs("food")
         iron = sum_costs("iron")
-        if self.remove_resources(gold, food, wood, iron):
+        dogecoin = sum_costs("doge")
+        if self.remove_resources(gold, food, wood, iron, dogecoin):
             self.knights += knight
             self.cavalry += cavalry
             self.pikemen += pikemen
+            self.doges += doges
 
     # Converts building name in string format to the level of the current town's building
     def get_building_level(self, building):
@@ -114,16 +121,17 @@ class Town(db.Model):
             raise ValueError("Invalid value")
 
     # Predicate that checks whether the town has at least the given resource amounts
-    def check_resources(self, gold = 0, food = 0, wood = 0, iron = 0):
-        return (self.food - food) >= 0 and (self.gold - gold) >= 0 and (self.iron - iron) >= 0 and (self.wood - wood) >= 0
+    def check_resources(self, gold = 0, food = 0, wood = 0, iron = 0, dogecoin = 0):
+        return (self.food - food) >= 0 and (self.gold - gold) >= 0 and (self.iron - iron) >= 0 and (self.wood - wood) >= 0 and (self.player.user.dogecoin - dogecoin) >= 0 
 
     # Removes resources from the town if town has enough resources.
-    def remove_resources(self, gold = 0, food = 0, wood = 0, iron = 0):
-        if self.check_resources(gold, food, wood, iron) and gold >= 0 and food >= 0 and wood >= 0 and iron >= 0:
+    def remove_resources(self, gold = 0, food = 0, wood = 0, iron = 0, dogecoin = 0):
+        if self.check_resources(gold, food, wood, iron, dogecoin) and gold >= 0 and food >= 0 and wood >= 0 and iron >= 0 and dogecoin >= 0:
             self.gold -= gold
             self.food -= food
             self.wood -= wood
             self.iron -= iron
+            self.player.user.dogecoin -= dogecoin
             return True
         return False
 
