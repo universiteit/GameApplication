@@ -1,8 +1,8 @@
 import atexit, datetime, os
 from app.RTS.models import *
 from app import app, db
-from apscheduler.schedulers.background import BackgroundScheduler
-from apscheduler.triggers.interval import IntervalTrigger
+#from apscheduler.schedulers.background import BackgroundScheduler
+#from apscheduler.triggers.interval import IntervalTrigger
 
 def update_towns():
     towns = Town.query.all()
