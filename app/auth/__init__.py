@@ -21,7 +21,7 @@ def waarIsMijnCss(filename):
 @auth.route('/login', methods=['GET'])
 def login():
     if 'user_id' in session:
-        return render_template('library.html')
+        return redirect('/')
     return render_template('login.html')
 
 @auth.route('/logout', methods=['GET'])

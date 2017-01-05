@@ -7,10 +7,13 @@ from app.auth.models.user import User
 from app.RTS.models.town import Town
 from app.RTS.models.player import Player
 
+from app.auth.attributes import secure
+
 dashboard = Blueprint('Dashboard', __name__, template_folder='templates', static_folder='static')
 
 
 @dashboard.route('/', methods=['GET'])
+@secure(cookie_authorization=True)
 def index():
     return dashboard.send_static_file('dashboard.html')
 
