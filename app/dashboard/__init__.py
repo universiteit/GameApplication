@@ -17,14 +17,18 @@ def index():
 def generate_shiba_chef_score():
     all = Highscore.query.join(User, Highscore.id == User.id)\
                 .add_columns(User.username, Highscore.highscore)\
+                .order_by(Highscore.highscore.desc())\
                 .all()
     return [{'name': x.username, 'score': x.highscore} for x in all]
 
 def generate_ogot_score():
+
+    score = db.func.count(User.username).label('score')
     all = Town.query\
                 .join(User, Town.player_id == User.id)\
-                .add_columns(User.username, db.func.count(User.username))\
+                .add_columns(User.username, score)\
                 .group_by(User.username)\
+                .order_by(score.desc())\
                 .all()
     return [{'name': x.username, 'score': x[2]} for x in all]
 
