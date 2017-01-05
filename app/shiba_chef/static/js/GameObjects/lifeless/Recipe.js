@@ -48,6 +48,9 @@ Recipe.prototype.constructor = Recipe;
 Recipe.prototype.currentIngredient = 0;
 Recipe.prototype.ingredients = [];
 
+Recipe.prototype.isDone = function() {
+    return this.currentIngredient >= this.ingredients.length;
+}
 
 Recipe.prototype.finishIngredient = function(ingredient) {
     return this.currentIngredient < this.ingredients.length && (this.ingredients[this.currentIngredient].isIngredient(ingredient)) ? ((this.ingredients[this.currentIngredient].done()) | ++this.currentIngredient) > 0 : false // Ask Jorik.

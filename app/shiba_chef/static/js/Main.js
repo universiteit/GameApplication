@@ -3,16 +3,17 @@
  */
 
 Main.stage = null;
+Main.renderer = null;
 
 function Main() {
     Main.stage = new PIXI.Container();
-    this.renderer = PIXI.autoDetectRenderer(
+    Main.renderer = PIXI.autoDetectRenderer(
         1200,
         720
     );
 
-    this.renderer.backgroundColor = 0xB7E3E6;
-    document.body.appendChild(this.renderer.view);
+    Main.renderer.backgroundColor = 0xB7E3E6;
+    document.body.appendChild(Main.renderer.view);
 
     this.loadSpriteSheet();
 }
@@ -25,6 +26,58 @@ Main.bin = null;
 Main.gameObjects = [];
 
 Main.recipe = null;
+Main.score = null;
+
+Main.finishGame = function() {
+    $.ajax({
+        type: 'POST',
+        url: '/shiba_chef/score',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            score: Main.score.score
+        })
+    });
+
+    Main.stage = new PIXI.Container();
+    var stage = Main.stage;
+    
+    var style = {
+        align: 'center'
+    }
+    var message = 'You win!\nScore: ' + this.score.score;
+    var winText = new PIXI.Text(message, style);
+    winText.anchor.set(0.5, 0.5);
+    winText.position.x = Main.renderer.width / 2;
+    winText.position.y = Main.renderer.height / 2;
+
+    var retryButton = new PIXI.Graphics();
+    retryButton.beginFill(0xAAAAAA);
+    retryButton.lineStyle(1, 0xFFFFFF);
+    retryButton.drawRoundedRect(winText.position.x - 100, winText.position.y + 100, 200, 75, 5);
+    retryButton.endFill();
+
+    var retryText = new PIXI.Text('Retry');
+    retryText.position.x = winText.position.x - 100 + (retryButton.width / 2);
+    retryText.position.y = winText.position.y + 100 + (retryButton.height / 2);
+    retryText.style.fill = 0x000000;
+    retryText.anchor.set(0.5, 0.5);
+
+    retryButton.interactive = true;
+    retryButton.on('mousedown', function() {
+        Main.retry();
+    });
+
+
+    stage.addChild(retryButton);
+    stage.addChild(retryText);
+    stage.addChild(winText);
+}
+
+Main.retry = function() {
+    Main.stage = new PIXI.Container();
+    Main.gameObjects = [];
+    main.makeWorld();
+}
 
 Main.prototype.update = function() {
     //update game objects
@@ -35,7 +88,7 @@ Main.prototype.update = function() {
             gameObject.update();
         }
     });
-    this.renderer.render(Main.stage);
+    Main.renderer.render(Main.stage);
     requestAnimationFrame(this.update.bind(this));
 };
 
@@ -119,25 +172,14 @@ Main.prototype.createEnvironment = function() {
     var ingredients = [
         new Ingredient('Lower bun', 0),
         new Ingredient('Hamburger', 15, { grilled: true }),
-        new Ingredient('Upper bun', 15),
-        new Ingredient('Lower bun', 0),
+        new Ingredient('Lower bun', 15),
         new Ingredient('Hamburger', 15, { grilled: true }),
         new Ingredient('Upper bun', 15)
     ]
 
     Main.recipe = new Recipe(Main.stage, ingredients);
 
-//    Main.recipe.finishIngredient('Lettuce');
-//
-//    var interval = setInterval(saltDone, 1000);
-//
-//    function saltDone() {
-//        if(!Main.recipe.finishIngredient('Salt'))
-//            clearInterval(interval);
-//    }
-
-    /*var added = Main.recipe.increment('Pineapple');
-    var error = Main.recipe.increment('RandomShit');*/
+    Main.score = new Score(Main.stage, Main.renderer);
 
     //bin
     Main.bin = new Bin(100, 350, 150, 150, PIXI.Texture.fromImage('bin'));
@@ -186,7 +228,6 @@ Main.prototype.createFood = function() {
         //food.position.y = foodStartY;
         Main.gameObjects.push(food);
     });
-
 };
 
 Main.prototype.addGameObject = function(gameObject) {

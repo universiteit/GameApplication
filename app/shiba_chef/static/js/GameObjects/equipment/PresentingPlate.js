@@ -32,6 +32,7 @@ PresentingPlate.prototype.dropOnPlate = function(food) {
         this.addIngredient(food);
     } else {    //DO NOT MAKE SHIBA CHEF ANGORY WITH YOUR PITIFUL OFFERINGS
         Main.shiba.getAngory(1000);
+        Main.score.decrement();
     }
 };
 
@@ -43,4 +44,9 @@ PresentingPlate.prototype.addIngredient = function(food) {
         food.y = this.position.y + this.snapY - extraHeight;
         Main.prototype.moveFoodToTop(food);
         food.removeEvents();
+
+        Main.score.increment();
+
+        if (Main.recipe.isDone())
+            Main.finishGame();
 };
