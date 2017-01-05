@@ -1,0 +1,17 @@
+<html>
+    <head></head>
+
+    <body>
+        <a href='/scoreboard?game=shiba_chef'>Shiba chef</a>
+        <a href='/scoreboard?game=ogot'>oGayOfThrones</a>
+
+        <ul>
+            {% for aids in aids_list %}
+            <li>
+                <p>{{ aids.name }} has score {{ aids.score }}</p>
+            </li>
+            <hr>
+            {% endfor %}
+    </body>
+
+</html>
