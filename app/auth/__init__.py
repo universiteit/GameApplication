@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, abort, jsonify, session, redirect
+from flask import Blueprint, request, render_template, abort, jsonify, session, redirect, send_from_directory
 from jinja2 import TemplateNotFound
 
 from datetime import datetime, timedelta
@@ -10,11 +10,18 @@ from app import bcrypt
 from app.auth.models.user import User
 from random import randint
 
-auth = Blueprint('auth', __name__, template_folder='templates/')
+auth = Blueprint('auth', __name__, static_folder='static', template_folder='templates/')
 
+#Waarom ziet ie mijn css file nou niet, potverdomme
+#Ik doe het wel zo, don't judge
+@auth.route('/static/<path:filename>')
+def waarIsMijnCss(filename):
+    return send_from_directory('.auth/static', filename)
 
 @auth.route('/login', methods=['GET'])
 def login():
+    if 'user_id' in session:
+        return render_template('library.html')
     return render_template('login.html')
 
 @auth.route('/logout', methods=['GET'])
@@ -32,11 +39,11 @@ def index():
     user = User.query.filter_by(username=login_info['username']).first()
 
     if user is None:
-        return 'Username or password was incorrect.', 401
+        return "<meta http-equiv='refresh' content='2;URL=login' />Login failed. Try again.", 401
 
     valid_password = bcrypt.check_password_hash(user.password, login_info['password'])
     if not valid_password:
-        return 'Username or password was incorrect.', 401
+        return "<meta http-equiv='refresh' content='2;URL=login' />Login failed. Try again", 401
 
     claims = {
         # Subject
@@ -57,7 +64,7 @@ def index():
 
     if (request.form):
         session['user_id'] = user.id
-        return 'logged in!'
+        return "<meta http-equiv='refresh' content='3;URL=login' />Login successful. Continue in 3 seconds"
     else:
         return jsonify(ret)
 
@@ -75,9 +82,11 @@ def create_account():
     password = bcrypt.generate_password_hash(account_details['password'])
     user = User(username, password)
     db.session.add(user)
-    db.session.commit()
-    return 'created account', 200
-
+    try:
+        db.session.commit()
+        return "<meta http-equiv='refresh' content='3;URL=auth/login' />Account created successfully. Login in 3 seconds.", 200
+    except:
+        return"<meta http-equiv='refresh' content='3;URL=auth/login' />Oops! Something went wrong. Try again in 3 seconds."
 @auth.route('/verify')
 @secure()
 def verify():

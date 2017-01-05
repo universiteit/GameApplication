@@ -3,21 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/reset.css') }}">
+      <link rel="stylesheet" type="text/css" href="/auth/static/reset.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="/auth/static/style.css">
 
 </head>
 <body>
-    <header>PICK YOUR GAME</header>
+    <a class="ToZeRight" href="/auth/logout">Logout</a>
+    <header>PICK YOUR GAME
+    </header>
     <section>
-        <div class="column ogot">
+        <div class="column ogot/">
              <p class="column-header">OGOT</p>
+            <!-- I need a break... -->
+                 <br/>
+                 <br/>
+                 <br/>
+                 <br/>
+            <form action="/RTS" method="get">
+                <input type="submit" value="Play OGOT"/>
+            </form>
         </div>
-        <div class="devider">OR</div>
+        <div class="divider">OR</div>
         <div class="column sc">
            <p class="column-header">SHIBA CHEF</p>
-
+             <form action="/ShibaChef/" method="get">
+                 <br/>
+                 <br/>
+                 <br/>
+                 <br/>
+                <input type="submit" value="Play Shiba Chef"/>
+            </form>
         </div>
     </section>
 </body>

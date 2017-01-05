@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='test.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/reset.css') }}">
+    <link rel="stylesheet" type="text/css" href="/auth/static/reset.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="/auth/static/style.css">
 
 </head>
 <body>
@@ -14,7 +13,7 @@
     <section>
         <div class="column">
              <p class="column-header">LOGIN</p>
-            <form name="Login" action="'/auth/login" method="post">
+            <form name="Login" action="/auth/login" method="post">
                 <input type="text" name="username" value="Enter username"/> <br/>
                 <input type="text" name="password" value="Enter password"/> <br/>
                 <input type="submit" name="submit" value="Log in"/>

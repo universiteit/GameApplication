@@ -69,7 +69,7 @@ input[type:"submit"]:active{
 
 .ogot{
     font-family: 'Open Sans', sans-serif;
-    background-image: url('images/OGOT.jpg');
+    background-image: url('images/ogot.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -79,4 +79,11 @@ input[type:"submit"]:active{
     background-image: url('images/ShibaChef.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.ToZeRight{
+    position:absolute;
+    top:0;
+    right:0;
+    font-size:14px;
 }
