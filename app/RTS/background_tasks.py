@@ -28,4 +28,6 @@ def setup_scheduler():
     atexit.register(lambda: scheduler.shutdown())
 
 if not app.debug:
+    if not os.environ["TEST"]:
+        
     setup_scheduler()
