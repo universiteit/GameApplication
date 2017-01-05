@@ -1,0 +1,82 @@
+/*main css*/
+body{
+    font-family: 'Open Sans', sans-serif;
+    background-image: url('images/wallpaper.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+header{
+    width:560px;
+    height:200px;
+    margin:auto;
+    font-size:25px;
+    font-weight:bold;
+    text-align: center;
+    line-height:300px;
+}
+section{
+    overflow:hidden;
+    margin:auto;
+    width:560px;
+    height:200px;
+}
+.column{
+    float:left;
+    padding:10px;
+    width:240px;
+    height:100px;
+    color:#fff;
+    text-align:center;
+    background-color:#000;
+    border-radius: 5px;
+    border: solid 0px #fff;
+}
+.column-header{
+    font-weight:lighter;
+    margin-bottom:10px;
+}
+input[type="text"]{
+    margin:auto;
+    width:80%;
+    height:25px;
+    color:grey;
+}
+input[type=text]:focus{
+    color:black;
+}
+input[type="submit"]{
+    margin-top:40px;
+    width:100px;
+    height:25px;
+    color:#fff;
+    border:solid 0px #000;
+    border-radius:5px;
+    background-color: #000;
+}
+input[type:"submit"]:active{
+    background-color: #fff;
+    color:#000;
+}
+.divider{
+    float:left;
+    margin-left:10px;
+    margin-right:10px;
+    width:20px;
+    height:100px;
+    text-align: center;
+    line-height:100px;
+}
+
+.ogot{
+    font-family: 'Open Sans', sans-serif;
+    background-image: url('images/OGOT.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.sc{
+     font-family: 'Open Sans', sans-serif;
+    background-image: url('images/ShibaChef.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}

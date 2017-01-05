@@ -12,6 +12,7 @@ from random import randint
 
 auth = Blueprint('auth', __name__, template_folder='templates/')
 
+
 @auth.route('/login', methods=['GET'])
 def login():
     return render_template('login.html')
@@ -62,7 +63,7 @@ def index():
 
 @auth.route('', methods=['GET'])
 def register():
-    return render_template('register.html')
+    return render_template('login.html')
 
 @auth.route('', methods=['POST'])
 def create_account():
