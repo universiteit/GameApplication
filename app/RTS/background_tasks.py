@@ -1,7 +1,6 @@
-import atexit, datetime, os
+import atexit, datetime, os, time, threading
 from app.RTS.models import *
 from app import app, db
-
 
 if not app.debug:
     if not os.environ["TEST"]:
