@@ -1,8 +1,8 @@
 import atexit, datetime, os
 from app.RTS.models import *
 from app import app, db
-#from apscheduler.schedulers.background import BackgroundScheduler
-#from apscheduler.triggers.interval import IntervalTrigger
+from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.triggers.interval import IntervalTrigger
 
 def update_towns():
     towns = Town.query.all()
@@ -27,5 +27,5 @@ def setup_scheduler():
     # Shut down the scheduler when exiting the app
     atexit.register(lambda: scheduler.shutdown())
 
-if not os.environ["TEST"]:
+if not "TEST" in os.environ:
     setup_scheduler()
