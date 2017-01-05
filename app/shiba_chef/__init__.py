@@ -19,8 +19,6 @@ def send_highscore():
     user_id = session['user_id']
     score = content['score']
 
-    print('User id:', user_id)
-
     highscore = Highscore.query.filter_by(id=user_id).first()
     if highscore is None:
         highscore = Highscore(user_id, score)
