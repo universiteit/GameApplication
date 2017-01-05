@@ -1,8 +1,16 @@
-import atexit, datetime
+import atexit, datetime, os
 from app.RTS.models import *
-from app import app, db, celery_app
+from app import app, db
 
-@celery_app.task
+
+if not app.debug:
+    if not os.environ["TEST"]:
+        def foo():
+            update_towns()
+            update_attacks()
+            threading.Timer(1, foo).start()
+        foo()
+
 def update_towns():
     towns = Town.query.all()
     for town in towns:
@@ -11,16 +19,9 @@ def update_towns():
         db.session.add(town)
     db.session.commit()
 
-@celery_app.task
 def update_attacks():
     now = datetime.datetime.now()
     attack = Attack.query.order_by(Attack.arrival_time).first()
     while attack and now >= attack.arrival_time:
         attack.resolve()
         attack = Attack.query.order_by(Attack.arrival_time).first()
-
-@celery_app.on_after_configure.connect
-def setup_periodic_tasks(sender, **kwargs):
-    if not os.environ["TEST"]:
-        sender.add_periodic_task(2.0, update_towns.s())
-        sender.add_periodic_task(2.0, update_attacks.s())
