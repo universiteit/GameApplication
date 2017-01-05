@@ -38,7 +38,7 @@ class TestTown(unittest.TestCase):
 
 
     def test_add_units(self):
-        self.town.get_unit_cost = mock.MagicMock(return_value = { 'gold' : 100, 'wood' : 0, 'food' : 0, 'iron' : 0})
+        self.town.get_unit_cost = mock.MagicMock(return_value = { 'gold' : 100, 'wood' : 0, 'food' : 0, 'iron' : 0, 'doge' : 0})
         # Test when we have insuffisicent money. Result must be no changes to money and units
         self.town.gold = 99
         self.town.add_units(knight = 1)
@@ -164,7 +164,7 @@ class TestAttack(unittest.TestCase):
         self.assertEqual(offense, 180)
 
     def test_take_damage(self):
-        pikemen, cavalry, knights = self.attack.take_damage(1, 1, 1, 70)
+        pikemen, cavalry, knights, doges = self.attack.take_damage(1, 1, 1, 1, 70)
         self.assertEqual(knights, 1)
         self.assertEqual(pikemen, 0)
         self.assertEqual(cavalry, 0)
@@ -189,7 +189,7 @@ class TestAttack(unittest.TestCase):
     @mock.patch('app.RTS.models.attack.db')
     def test_resolve(self, mock_db):
         simulate_battle = self.attack.simulate_battle()
-        mock_result = { "success" : True, "attacking army" : (2,2,2), "defending_army" : (0,0,0) }
+        mock_result = { "success" : True, "attacking army" : (2,2,2,2), "defending_army" : (0,0,0,0) }
         self.attack.simulate_battle = mock.MagicMock(return_value = mock_result)
         self.attack.resolve()
         # Check if calls made to db layer

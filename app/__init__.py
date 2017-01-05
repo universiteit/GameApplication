@@ -1,4 +1,4 @@
-# Flask
+ # Flask
 from flask import Flask
 app = Flask(__name__)
 app.config.from_object('config')
@@ -11,10 +11,10 @@ from flask_sqlalchemy import SQLAlchemy
 bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
 
-
 # Blueprints
 from app.auth import auth
 from app.RTS import rts
+from app.RTS.background_tasks import activate_background_task
 from app.docs import docs
 from app.shiba_chef import shiba_chef
 from app.dashboard import dashboard
@@ -31,6 +31,8 @@ app.register_blueprint(docs, url_prefix='/docs')
 app.register_blueprint(shiba_chef, url_prefix='/shiba_chef')
 
 app.secret_key = "secret test key"
+activate_background_task()
+
 
 if __name__ == "__main__":
     app.run(debug=True)
