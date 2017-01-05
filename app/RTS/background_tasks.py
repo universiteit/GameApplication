@@ -1,9 +1,6 @@
 import atexit, datetime
 from app.RTS.models import *
-from app import app, db
-from celery import Celery
-
-celery_app = Celery('tasks', broker='pyamqp://guest@localhost//')
+from app import app, db, celery_app
 
 @celery_app.task
 def update_towns():
