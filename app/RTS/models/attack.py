@@ -67,11 +67,11 @@ class Attack(db.Model):
         defender_defense = self.get_defender_stats()[0]
         attacker_offense = self.get_attacker_stats()[1]
         if defender_defense > attacker_offense:
-            attacker_army = 0, 0, 0
+            attacker_army = 0, 0, 0, 0
             defender_army = self.take_damage(self.destination.pikemen, self.destination.cavalry, self.destination.knights, self.destination.doges, attacker_offense - defender_defense, self.get_wall_defense(self.destination.wall))
             return { "success" : False, "attacking army" : attacker_army, "defending army" : defender_army }
         else:
-            defender_army = 0, 0, 0
+            defender_army = 0, 0, 0, 0
             attacker_army = self.take_damage(self.pikemen, self.cavalry, self.knights, self.doges, attacker_offense - defender_defense)
             return { "success" : True, "attacking army" : attacker_army, "defending army" : defender_army }
     

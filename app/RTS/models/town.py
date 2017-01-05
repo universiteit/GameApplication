@@ -75,10 +75,10 @@ class Town(db.Model):
     # Returns dictionary of the cost of resources for a given unit
     def get_unit_cost(self, unit):
         return {
-            'knight' : { 'gold' : 25, 'wood' : 60, 'food' : 30, 'iron' : 70,'doge' : 0},
-            'cavalry' : { 'gold' : 50, 'wood' : 125, 'food' : 100, 'iron' : 250,'doge' : 0},
-            'pikemen' : { 'gold' : 15, 'wood' : 50, 'food' : 30, 'iron' : 10,'doge' : 0},
-            'doges' : { 'gold' : 0, 'wood' : 0, 'food' : 0, 'iron' : 0 ,'doge' : 1},
+            'knight' : { 'gold' : 25, 'wood' : 60, 'food' : 30, 'iron' : 70, 'doge' : 0},
+            'cavalry' : { 'gold' : 50, 'wood' : 125, 'food' : 100, 'iron' : 250, 'doge' : 0},
+            'pikemen' : { 'gold' : 15, 'wood' : 50, 'food' : 30, 'iron' : 10, 'doge' : 0},
+            'doges' : { 'gold' : 0, 'wood' : 0, 'food' : 0, 'iron' : 0 , 'doge' : 1},
         }[unit.lower()]
         
     # Adds given units if the town has enough resources
@@ -86,10 +86,10 @@ class Town(db.Model):
         knight_cost = self.get_unit_cost("knight")
         cavalry_cost = self.get_unit_cost("cavalry")
         pikemen_cost = self.get_unit_cost("pikemen")
-        doge_cose =  self.get_unit_cost("doges")
+        doge_cost =  self.get_unit_cost("doges")
 
         def sum_costs(key):
-            return knight_cost[key] * knight + cavalry_cost[key] * cavalry + pikemen_cost[key] * pikemen
+            return knight_cost[key] * knight + cavalry_cost[key] * cavalry + pikemen_cost[key] * pikemen + doge_cost[key] * doges
 
         gold = sum_costs("gold")
         wood = sum_costs("wood")

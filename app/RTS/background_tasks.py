@@ -17,10 +17,11 @@ def update_attacks():
         attack.resolve()
         attack = Attack.query.order_by(Attack.arrival_time).first()
 
-if not app.debug:
-    if not "TEST" in os.environ:
-        def foo():
-            update_towns()
-            update_attacks()
-            threading.Timer(1, foo).start()
-        foo()
+def activate_background_task():
+    if not app.debug:
+        if not "TEST" in os.environ:
+            def foo():
+                update_towns()
+                update_attacks()
+                threading.Timer(1, foo).start()
+            foo()
