@@ -1,4 +1,4 @@
-import atexit, datetime
+import atexit, datetime, os
 from app.RTS.models import *
 from app import app, db
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -27,5 +27,6 @@ def setup_scheduler():
     # Shut down the scheduler when exiting the app
     atexit.register(lambda: scheduler.shutdown())
 
-if not app.debug:
+
+if not os.environ["TEST"]:
     setup_scheduler()
