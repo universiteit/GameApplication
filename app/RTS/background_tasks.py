@@ -27,6 +27,5 @@ def setup_scheduler():
     # Shut down the scheduler when exiting the app
     atexit.register(lambda: scheduler.shutdown())
 
-
-#if not os.environ["TEST"]:
-    #setup_scheduler()
+if not os.environ["TEST"]:
+    setup_scheduler()
