@@ -3,12 +3,14 @@ from flask import Flask
 app = Flask(__name__, static_folder='static')
 app.config.from_object('config')
 
+
 # Flask extensions
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 
 bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
+
 
 # Blueprints
 from app.auth import auth
