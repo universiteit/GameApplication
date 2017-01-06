@@ -8,6 +8,7 @@ from app.RTS.models.town import Town
 from app.RTS.models.player import Player
 
 from app.auth.attributes import secure
+from collections import OrderedDict
 
 dashboard = Blueprint('Dashboard', __name__, template_folder='templates', static_folder='static')
 
@@ -22,7 +23,10 @@ def generate_shiba_chef_score():
                 .add_columns(User.username, Highscore.highscore)\
                 .order_by(Highscore.highscore.desc())\
                 .all()
-    return [{'name': x.username, 'score': x.highscore} for x in all]
+    dic = {}
+    for element in all:
+        dic[element.username] = element.highscore
+    return dic
 
 def generate_ogot_score():
 
@@ -33,19 +37,31 @@ def generate_ogot_score():
                 .group_by(User.username)\
                 .order_by(score.desc())\
                 .all()
-    return [{'name': x.username, 'score': x[2]} for x in all]
+    #return [{'username': x.username, 'score_ogot': x[2]} for x in all]
+    dic = {}
+    for element in all:
+        dic[element.username] = element[2]
+    return dic
+
 
 
 @dashboard.route('scoreboard/', methods=['GET'])
 def scoreboard():
     default = 'shiba_chef'
-    selected_list = request.args.get('game', default)
-
-    func = None
-    if selected_list == 'ogot':
-        func = generate_ogot_score
-    else:
-        func = generate_shiba_chef_score
+    order_by = request.args.get('order_by', default)
     
-    scores = func()
+    ogot_scores = generate_ogot_score()
+    shiba_scores = generate_shiba_chef_score()
+
+    scores = {}
+    for key in ogot_scores:
+        scores[key] = { 'ogot' : ogot_scores[key], 'shiba_chef' : 0 }
+    for key in shiba_scores:
+        if key in scores:
+            scores[key]['shiba_chef'] = shiba_scores[key]
+        else:
+            scores[key] = { 'ogot' : 0, 'shiba_chef': shiba_scores[key] }
+
+    scores = sorted(scores.items(), key=lambda x: x[1][order_by], reverse=True)
+    scores = OrderedDict(scores)
     return render_template('scoreboard.html', aids_list=scores)
