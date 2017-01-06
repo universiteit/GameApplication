@@ -15,10 +15,10 @@
             </tr>
         </thead>
         <tr>
-            <td><img width=30 src="/rts/static/food.svg"> : {{current_town.get_production(current_town.farm)}}</td>
-            <td><img width=30 src="/rts/static/golden_ignot.svg"> : {{current_town.get_production(current_town.gold_mine)}}</td>
-            <td><img width=30 src="/rts/static/iron_ignot.svg"> : {{current_town.get_production(current_town.quarry)}}</td>
-            <td><img width=30 src="/rts/static/log.svg"> : {{current_town.get_production(current_town.lumber_mill)}}</td>
+            <td><img width=30 src="/rts/static/food.png"> : {{current_town.get_production(current_town.farm)}}</td>
+            <td><img width=30 src="/rts/static/gold.png"> : {{current_town.get_production(current_town.gold_mine)}}</td>
+            <td><img width=30 src="/rts/static/iron.png"> : {{current_town.get_production(current_town.quarry)}}</td>
+            <td><img width=30 src="/rts/static/wood.png"> : {{current_town.get_production(current_town.lumber_mill)}}</td>
         </tr>
     </table>
     <table class="table-right">
@@ -28,14 +28,14 @@
             </tr>
         </thead>
         <tr>
-            <td><img width=30 src="/rts/static/food.svg"> : {{current_town.food}}</td>
-            <td><img width=30 src="/rts/static/golden_ignot.svg"> : {{current_town.gold}}</td>
-            <td><img width=30 src="/rts/static/iron_ignot.svg"> : {{current_town.iron}}</td>
-            <td><img width=30 src="/rts/static/log.svg"> : {{current_town.wood}}</td>
+            <td><img width=30 src="/rts/static/food.png"> : {{current_town.food}}</td>
+            <td><img width=30 src="/rts/static/gold.png"> : {{current_town.gold}}</td>
+            <td><img width=30 src="/rts/static/iron.png"> : {{current_town.iron}}</td>
+            <td><img width=30 src="/rts/static/wood.png"> : {{current_town.wood}}</td>
             <td><img width=30 src="/rts/static/coin.png"> : {{current_town.player.user.dogecoin}}</td>
         </tr>
     </table>
-    <table class="table-left">
+    <table class="table-full">
         <thead>
             <tr>
                 <th colspan="7">Buildings</th>
@@ -99,7 +99,7 @@
         </tr>
     </table>
     
-    <table>
+    <table class='table-full'>
         <thead>
             <tr>
                 <th colspan="9">Units</th>
@@ -136,6 +136,8 @@
             <td>
                 {{current_town.pikemen}}
             </td>
+        </tr>
+        <tr>
             <td>
                 Doges
             </td>

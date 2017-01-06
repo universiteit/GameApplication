@@ -56,7 +56,7 @@ Food.prototype.removeEvents = function() {
     // events for drag move
     .off('mousemove', this.onDragMove)
     .off('touchmove', this.onDragMove);
-}
+};
 
 Food.prototype.onDragMove = function() {
     if (this.dragging)
