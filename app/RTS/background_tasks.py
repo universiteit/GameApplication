@@ -19,8 +19,13 @@ def update_attacks():
 
 def activate_background_task():
     if not "TEST" in os.environ:
-        def foo():
-            update_towns()
+        def fizz():
             update_attacks()
-            threading.Timer(1, foo).start()
-        foo()
+            threading.Timer(1, fizz).start()
+        def buzz():
+            update_towns()
+            threading.Timer(5, buzz).start()
+
+        fizz()
+        buzz()
+
