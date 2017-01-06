@@ -6,6 +6,6 @@ class Highscore(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     highscore = db.Column(db.Integer)
 
-    def __init__(self, username, highscore):
-        self.username = username
+    def __init__(self, id, highscore):
+        self.id = id
         self.highscore = highscore
