@@ -1,4 +1,5 @@
 QUnit.module( "General game objects" ); ////////////////////////////////////////////////////////////////////////////////
+
 QUnit.test("GameObject testing", function( assert ) {
     var lettuce = new Lettuce(0, 0, 100, 100, PIXI.Texture.fromImage('bread-lower'));
     var hamburger = new Hamburger(0, 10, 100, 100, PIXI.Texture.fromImage('bread-lower'));
