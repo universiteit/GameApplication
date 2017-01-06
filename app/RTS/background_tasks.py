@@ -1,8 +1,6 @@
-import atexit, datetime
+import atexit, datetime, os, time, threading
 from app.RTS.models import *
 from app import app, db
-from apscheduler.schedulers.background import BackgroundScheduler
-from apscheduler.triggers.interval import IntervalTrigger
 
 def update_towns():
     towns = Town.query.all()
@@ -19,13 +17,10 @@ def update_attacks():
         attack.resolve()
         attack = Attack.query.order_by(Attack.arrival_time).first()
 
-def setup_scheduler():
-    scheduler = BackgroundScheduler()
-    scheduler.start()
-    scheduler.add_job(func=update_towns,trigger=IntervalTrigger(seconds=5),id='town_update',replace_existing=True)
-    scheduler.add_job(func=update_attacks,trigger=IntervalTrigger(seconds=5),id='attack_update',replace_existing=True)
-    # Shut down the scheduler when exiting the app
-    atexit.register(lambda: scheduler.shutdown())
-
-if not app.debug:
-    setup_scheduler()
+def activate_background_task():
+    if not "TEST" in os.environ:
+        def foo():
+            update_towns()
+            update_attacks()
+            threading.Timer(1, foo).start()
+        foo()

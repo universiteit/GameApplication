@@ -50,4 +50,3 @@ class test_background_tasks(unittest.TestCase):
         background_tasks.update_attacks()
         self.assertTrue(self.attack.resolve.called)
         self.assertEqual(len(self.attack.resolve.call_args_list), 2)
-

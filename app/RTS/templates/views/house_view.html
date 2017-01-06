@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-<h3>House {{player.house}}</h3>
+<h3>Welcome {{player.user.username}} of House {{player.house}}</h3>
+    <div class='house-info-panel'>
+        <h2>House {{player.house}}</h2>
+        <img>
+        <p>Towns: {{ player.towns.all() | length }}</p>
+    </div>
+    <div class='town-list'>
     <table>
         <tr>
             <th>Name</th>
@@ -10,9 +16,10 @@
     {% for town in player.towns %}
         <tr>
             <td><a href='town/{{town.id}}'>{{town.name}}</a></td>
-            <td>{{town.knights}}/{{town.cavalry}}/{{town.pikemen}}</td>
+            <td>{{town.knights}}/{{town.cavalry}}/{{town.pikemen}}/{{town.doges}}</td>
             <td>{{town.gold}}</td>
         </tr>
     {% endfor %}
     </table>
+    </div>
 {% endblock %}

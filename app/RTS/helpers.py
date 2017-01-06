@@ -4,8 +4,9 @@ from app.auth.models.user import User
 import random
 from app import db
 
-houses = ["Stark", "Arryn", "Tully", "Lannister", "Greyjoy", "Targaeryan", "Baratheon", "Tyrell", "Martell"]
-towns = ["Winterfell", "The Eyrie", "Riverrun", "Casterly Rock", "Pyke", "King's Landing", "Storm's End", "Highgarden", "Sunspear"]
+houses = ["Arryn", "Baelish", "Baratheon", "Blackwood", "Bolton", "Bracken", "Brax", "Crakehall", "Cerwyn", "Clegane", "Connington", "Dondarrion", "Estermont" ,"Glover", "Greyjoy", "Hornwood", "Karstark", "Lannister", "Mallister", "Manderly", "Marbrand", "Martell", "Mormont", "Redwyne", "Seaworth", "Stark", "Swann", "Swyft", "Targaryen", "Tarth", "Tully", "Tyrell", "Whent"]
+towns = ["Winterfell", "The Eyrie", "Riverrun", "Casterly Rock", "Pyke", "King's Landing", "Storm's End", "Highgarden", "Sunspear", "Harrenhall"]
+towns = ["Harrenhall", "The Eyrie", "Storm's End", "Raventree Hall", "Dreadfort", "Stone Hedge", "Crakehall", "Griffin's Roost", "Castle Cerwyn", "Clegane's Keep", "Blackhaven", "Greenstone", "Deepwood Motte", "Pyke", "Hornwood", "Karhold", "Casterly Rock", "Seagard", "The New Castle", "Ashemark", "Sunspear", "Bear Island", "The Arbor", "Cape Wrath", "Winterfell", "Stonehelm", "Cornfield", "King's Landing", "Evenfall Hall", "Riverrun", "Highgarden", "Hornvale"]
 
 def session_id():
     return session["user_id"]
@@ -37,6 +38,7 @@ def generate_random_town(player):
     new_town.knights = 1
     new_town.pikemen = 5
     new_town.cavalry = 3
+    new_town.doges = 1
     return new_town
 
 # Assigns a new player to an existing user in the database

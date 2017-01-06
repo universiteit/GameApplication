@@ -6,10 +6,9 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(120), unique=True)
     password = db.Column(db.LargeBinary())
-    dogecoins = db.Column(db.Integer, default=0)
+    dogecoin = db.Column(db.Integer, default=0)
 
-    def __init__(self, username, password):
+    def __init__(self, username, password, dogecoin = 0):
         self.username = username
         self.password = password
-
-    
+        self.dogecoin = dogecoin

@@ -20,12 +20,20 @@ def create_player():
 #TODO: Check if the user has enough resources.
 @rts.route('/purchase-unit', methods=['POST'])
 def create_unit():
+    player = current_player()
+    if not player:
+        return redirect("rts/")
     cavalry_amount = int(request.form['amount_of_cavalry'])
     knight_amount = int(request.form['amount_of_knights'])
     pikemen_amount = int(request.form['amount_of_pikemen'])
+    doges_amount = int(request.form["amount_of_doges"])
     id = int(request.form['townid'])
     town = Town.query.filter_by(id = id).first()
-    town.add_units(knight_amount, cavalry_amount, pikemen_amount)
+    if town.player.id != player.id:
+        return redirect("rts/")
+
+
+    town.add_units(knight_amount, cavalry_amount, pikemen_amount, doges_amount)
     db.session.add(town)
     db.session.commit()
     return redirect('rts/town/' + str(id))
@@ -33,9 +41,16 @@ def create_unit():
 #TODO: Check if the user has enough resources.
 @rts.route('/purchase-building', methods=['POST'])
 def upgrade_building():
+    player = current_player()
+    if not player:
+        return redirect("rts/")
+
     building = request.form['building-name']
     id = int(request.form['townid'])
     town = Town.query.filter_by(id = id).first()
+    if town.player.id != player.id:
+        return redirect("rts/")
+
     town.add_upgrade(building)
     db.session.add(town)
     db.session.commit()
@@ -46,15 +61,25 @@ def upgrade_building():
 
 @rts.route('/send-attack', methods=['POST'])
 def send_attack():
+    id = int(request.form['townid'])
+    if not 'destination' in request.form:
+        return redirect('rts/town/' + str(id))
+    player = current_player()
+    if not player:
+        return redirect("rts/")
+
     destination = int(request.form['destination'])
     cavalry_amount = int(request.form['amount_of_cavalry'])
     knight_amount = int(request.form['amount_of_knights'])
     pikemen_amount = int(request.form['amount_of_pikemen'])
-    id = int(request.form['townid'])
+    doges_amount = int(request.form['amount_of_doges'])
     town = Town.query.filter_by(id = id).first()
     destination = Town.query.filter_by(id = destination).first()
-    if town.remove_units(knight_amount, cavalry_amount, pikemen_amount):
-        attack = Attack(town.player, destination, town, knight_amount, cavalry_amount, pikemen_amount)
+    if town.player.id != player.id:
+        return redirect("rts/")
+
+    if town.remove_units(knight_amount, cavalry_amount, pikemen_amount, doges_amount):
+        attack = Attack(town.player, destination, town, knight_amount, cavalry_amount, pikemen_amount, doges_amount)
         db.session.add(attack)
         db.session.commit()
     return redirect('rts/town/' + str(id))

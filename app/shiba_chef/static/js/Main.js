@@ -95,33 +95,34 @@ Main.prototype.update = function() {
 Main.prototype.loadSpriteSheet = function() {
     var loader = PIXI.loader;
 
+    var prefix = '';
     //shiba
-    loader.add('shiba-neutral', '../img/DogeDefault.png');
-    loader.add('shiba-angry', '../img/DogeAngry.png');
-    loader.add('shiba-happy', '../img/DogeHappy.png');
+    loader.add('shiba-neutral', prefix + 'img/DogeDefault.png');
+    loader.add('shiba-angry', prefix + 'img/DogeAngry.png');
+    loader.add('shiba-happy', prefix + 'img/DogeHappy.png');
 
     //equipment
-    loader.add('table', '../img/equipment/desk.png');
-    loader.add('choppingBoard', '../img/equipment/chopping-board.png');
-    loader.add('grill', '../img/equipment/grill.png');
-    loader.add('bin', '../img/equipment/bin.png');
-    loader.add('presenting-plate', '../img/equipment/presenting-plate.png');
+    loader.add('table', prefix + 'img/equipment/desk.png');
+    loader.add('choppingBoard', prefix + 'img/equipment/chopping-board.png');
+    loader.add('grill', prefix + 'img/equipment/grill.png');
+    loader.add('bin', prefix + 'img/equipment/bin.png');
+    loader.add('presenting-plate', prefix + 'img/equipment/presenting-plate.png');
 
     //food
-    loader.add('bread-lower', '../img/food/BreadLowerPart.png');
-    loader.add('bread-upper', '../img/food/BreadUpperPart.png');
-    loader.add('burger-raw', '../img/food/BurgerRaw.png');
-    loader.add('burger', '../img/food/Burger.png');
-    loader.add('burger-burned', '../img/food/BurgerBurned.png');
-    loader.add('eggplant', '../img/food/Eggplant.png');
-    loader.add('fish', '../img/food/Fish.png');
-    loader.add('lettuce', '../img/food/Lettuce.png');
-    loader.add('lettuce-cut', '../img/food/LettucePiece.png');
-    loader.add('pepper', '../img/food/Peppered.png');
-    loader.add('salt', '../img/food/Salted.png');
-    loader.add('legolegoland', '../img/food/Salt.png');
-    loader.add('tomato', '../img/food/Tomato.png');
-    loader.add('tomato-cut', '../img/food/TomatoSlice.png');
+    loader.add('bread-lower', prefix + 'img/food/BreadLowerPart.png');
+    loader.add('bread-upper', prefix + 'img/food/BreadUpperPart.png');
+    loader.add('burger-raw', prefix + 'img/food/BurgerRaw.png');
+    loader.add('burger', prefix + 'img/food/Burger.png');
+    loader.add('burger-burned', prefix + 'img/food/BurgerBurned.png');
+    loader.add('eggplant', prefix + 'img/food/Eggplant.png');
+    loader.add('fish', prefix + 'img/food/Fish.png');
+    loader.add('lettuce', prefix + 'img/food/Lettuce.png');
+    loader.add('lettuce-cut', prefix + 'img/food/LettucePiece.png');
+    loader.add('pepper', prefix + 'img/food/Peppered.png');
+    loader.add('salt', prefix + 'img/food/Salted.png');
+    loader.add('legolegoland', prefix + 'img/food/Salt.png');
+    loader.add('tomato', prefix + 'img/food/Tomato.png');
+    loader.add('tomato-cut', prefix + 'img/food/TomatoSlice.png');
 
     loader.once("complete", this.spriteSheetLoaded.bind(this));
     loader.load();

@@ -3,6 +3,7 @@ from app import db
 from app.auth.attributes import secure, context
 
 from app.shiba_chef.models.highscore import Highscore
+from app.auth.models.user import User
 
 shiba_chef = Blueprint('Shiba Chef game', __name__, static_folder='static', template_folder='templates')
 
@@ -19,8 +20,6 @@ def send_highscore():
     user_id = session['user_id']
     score = content['score']
 
-    print('User id:', user_id)
-
     highscore = Highscore.query.filter_by(id=user_id).first()
     if highscore is None:
         highscore = Highscore(user_id, score)
@@ -30,8 +29,10 @@ def send_highscore():
         highscore.highscore = score
         db.session.commit()
 
-    all = [{ 'id': x.id, 'score': x.highscore} for x in Highscore.query.all()]
-    return str(all), 200
+    user = User.query.filter_by(id=user_id).first()
+    user.dogecoin += 5
+    db.session.commit()
+    return '', 204
 
 # Static file routing
 @shiba_chef.route('/<path:path>')
