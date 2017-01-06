@@ -2,16 +2,16 @@
     <head></head>
 
     <body>
-        <a href='/scoreboard?game=shiba_chef'>Shiba chef</a>
-        <a href='/scoreboard?game=ogot'>oGayOfThrones</a>
-
-        <ul>
+        <div style="margin: 0 auto; width: 80%; text-align: center; margin-top: 30px;">
+            <a style="margin-right: 300px;" href='/scoreboard?game=shiba_chef'>Shiba chef</a>
+            <a href='/scoreboard?game=ogot'>OGameOfThrones</a>
+        <div>
+        <div style="margin-top: 35px;">
             {% for aids in aids_list %}
-            <li>
-                <p>{{ aids.name }} has score {{ aids.score }}</p>
-            </li>
+                <p><span style="color: green;">{{ aids.name }}</span> has score <span style="color: green">{{ aids.score }}</span></p>
             <hr>
             {% endfor %}
+        </div>
     </body>
 
 </html>
