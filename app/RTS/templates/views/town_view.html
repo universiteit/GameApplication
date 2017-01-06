@@ -253,39 +253,6 @@
             </td>
         </tr>
     </table>
-    <table class='table-full'>
-        <thead>
-            <tr>
-                <th>
-                    Upgrading
-                </th>
-                <th>
-                    Done
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            {%if current_town.upgrade%}
-            <tr>
-                <td>
-                    {{current_town.upgrade}}
-                </td>
-                <td>
-                    {{current_town.upgrade_time_done.ctime()}}
-                </td>
-            </tr>
-            {%else%}
-            <tr>
-                <td>
-                    None
-                </td>
-                <td>
-                    None
-                </td>
-            </tr>
-            {%endif%}
-        </tbody>
-    </table>
     <form method="POST" action="/rts/purchase-unit">
     <table class="table-full">
         <thead>
