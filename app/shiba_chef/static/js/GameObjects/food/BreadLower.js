@@ -11,7 +11,6 @@ function BreadLower(x,y, width, height, texture) {
 
     this.texture = texture;
 
-    //self.bounds = [];
     this.position.x = x;
     this.position.y = y;
     this.width = width;

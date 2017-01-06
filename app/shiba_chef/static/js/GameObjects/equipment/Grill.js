@@ -26,9 +26,7 @@ Grill.prototype = new GameObject();
 Grill.prototype.constructor = Grill;
 
 Grill.prototype.update = function() {
-    //this.food.forEach(function(food) {
     if(this.food != null) this.food.cookingStatus++;
-    //})
 };
 
 Grill.prototype.addFood = function(gameObject) {
