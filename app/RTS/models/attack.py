@@ -64,15 +64,15 @@ class Attack(db.Model):
         return pikemen, cavalry, knights, doges
 
     def simulate_battle(self):
-        defender_defense = self.get_defender_stats()[0]
-        attacker_offense = self.get_attacker_stats()[1]
+        defender_defense, defender_offense = self.get_defender_stats()
+        attacker_offense, attacker_defense = self.get_attacker_stats()
         if defender_defense > attacker_offense:
             attacker_army = 0, 0, 0, 0
             defender_army = self.take_damage(self.destination.pikemen, self.destination.cavalry, self.destination.knights, self.destination.doges, attacker_offense - defender_defense, self.get_wall_defense(self.destination.wall))
             return { "success" : False, "attacking army" : attacker_army, "defending army" : defender_army }
         else:
             defender_army = 0, 0, 0, 0
-            attacker_army = self.take_damage(self.pikemen, self.cavalry, self.knights, self.doges, attacker_offense - defender_defense)
+            attacker_army = self.take_damage(self.pikemen, self.cavalry, self.knights, self.doges, defender_offense - attacker_defense)
             return { "success" : True, "attacking army" : attacker_army, "defending army" : defender_army }
     
     def get_wall_defense(self, level):

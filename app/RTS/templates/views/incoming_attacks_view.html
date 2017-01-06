@@ -11,7 +11,7 @@
     {% for attack in attacks %}
         <tr>
             <td><a href='/rts/town/{{attack.origin.id}}'><img height=35 src='/rts/static/images/houses/250px/250px-{{attack.origin.player.house.lower()}}.png'>{{attack.origin.name}}</a></td>
-            <td><a href='/rts/town/{{attack.destination.id}}'><img height=35 src='/rts/static/images/houses/250px/250px-{{attack.destination.player.house.lower()}}.png'>{{attack.destination.name}}</a></td>
+            <td><a href='/rts/town/{{attack.origin.id}}'><img height=35 src='/rts/static/images/houses/250px/250px-{{attack.destination.player.house.lower()}}.png'>{{attack.destination.name}}</a></td>
             <td><img src="/rts/static/unit_sword.png"> {{attack.knights}}</td>
             <td><img src="/rts/static/unit_light.png"> {{attack.cavalry}}</td>
             <td><img src="/rts/static/unit_spear.png"> {{attack.pikemen}}</td>
@@ -21,6 +21,6 @@
     {% endfor %}
     </table>
     {% else %}
-    <h3>You have no ongoing attacks</h3>
+    <h3>You have no incoming attacks</h3>
     {% endif %}
 {% endblock %}

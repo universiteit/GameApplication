@@ -170,8 +170,6 @@ class TestAttack(unittest.TestCase):
         self.assertEqual(cavalry, 0)
     
     def test_simulate_battle(self):
-        take_damage = self.attack.take_damage
-        get_wall_defense = self.attack.get_wall_defense
         self.attack.take_damage = mock.MagicMock(return_value = (1,1,1))
         self.attack.get_wall_defense = mock.MagicMock(return_value = 0)
         # Both armies are 1, 1, 1. Total defense is 150, attack is 180
@@ -179,8 +177,6 @@ class TestAttack(unittest.TestCase):
         result = self.attack.simulate_battle()
         self.assertTrue(result["success"])
         self.assertEqual(result["attacking army"][1], 1)
-        self.attack.take_damage = take_damage
-        self.attack.get_wall_defense = get_wall_defense
 
     def test_get_wall_defense(self):
         result = self.attack.get_wall_defense(3)
@@ -201,3 +197,5 @@ class TestAttack(unittest.TestCase):
         self.assertEqual(mock_db.session.delete.call_args[0][0], self.attack)
         # Check if player switched after victory
         self.assertEqual(self.destination.player, self.player1)
+        # Check if army retained in town
+        self.assertEqual(self.destination.knights, 2)

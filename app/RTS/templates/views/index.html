@@ -1,22 +1,55 @@
 {% extends 'base.html' %}
 
+{% block css %}
+<link rel='stylesheet' type='text/css' href='/rts/static/style/index.css'>
+{% endblock %}
+
+
 {% block content %}
-<a href='towns'>View all the towns!</a><br>
-{% if player %}
-    <a href='house'>View your house!</a><br>
-    <a href='attacks'> View all your attacks!</a><br>
-{% elif user %}
-    <h3>Hello {{ user.username }}</h3><br>
-    <p>You have not yet created a player for OGame of thrones.</p><br>
-    <p>Would you like to?</p><br><br>
-    <form action='/rts/create-player' method='post'>
-        <input type="submit" value='Join OGameOfThrones!'>
-    </form>
-{% else %}
-    <h3>Hello Anonymous</h3>
-    <p>You need an account to join this game</p>
-    <a href='/auth'><input type='button' value='login'></a>
-{% endif %}
+
+<div class='panel-left'>
+    <h3>Welcome {{player.user.username}}, of noble House {{player.house}}</h3>
+    <p>Are you ready to conquer the seven kingdoms?</p>
+    <a href='towns'>View all the towns!</a><br>
+    {% if player %}
+        <a href='house'>View your house!</a><br>
+        <a href='attacks'> View all your attacks!</a><br>
+        <a href='incoming-attacks'> View all incoming attacks!</a><br>
+    {% elif user %}
+        <h3>Hello {{ user.username }}</h3><br>
+        <p>You have not yet created a player for OGame of thrones.</p><br>
+        <p>Would you like to?</p><br><br>
+        <form action='/rts/create-player' method='post'>
+            <input type="submit" value='Join OGameOfThrones!'>
+        </form>
+    {% else %}
+        <h3>Hello Anonymous</h3>
+        <p>You need an account to join this game</p>
+        <a href='/auth'><input type='button' value='login'></a>
+    {% endif %}
+</div>
+
+<div class='panel-right'>
+<table>
+    <tr>
+        <th></th>
+        <th>Name</th>
+        <th>House</th>
+        <th>Towns</th>
+    </tr>
+    <h3>Ranking</h3>
+    {% for player in players %}
+        <tr>
+            <td><img height=35 src='/rts/static/images/houses/250px/250px-{{player.house.lower()}}.png'></td>
+            <td>{{player.user.username}}</td>
+            <td>House {{player.house}}</td>
+            <td>{{ player.towns.all() | length }}</td>
+        </tr>
+    {% endfor %}
+</table>
+</div>
+
+
 {% endblock %}
 
 {% block scripts %}

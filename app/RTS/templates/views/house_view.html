@@ -9,12 +9,12 @@
     <table>
         <tr>
             <th>Name</th>
-            <th>Army Composition</th>
+            <th>Garrisoned Units</th>
             <th>Resources</th>
         </tr>
     {% for town in player.towns %}
         <tr>
-            <td><a href='town/{{town.id}}'>{{town.name}}</a></td>
+            <td><a href='town/{{town.id}}'><img width="20" src="/rts/static/images/houses/250px/250px-{{player.house.lower()}}.png"> {{town.name}}</a></td>
             <td>
                 {{town.knights}}<img src="/rts/static/unit_sword.png" width="20" height="20" style='margin-right: 10px'>
                 {{town.cavalry}}<img src="/rts/static/unit_light.png" width="20" height="20" style='margin-right: 10px'>

@@ -41,8 +41,6 @@ class TestViews(unittest.TestCase):
         self.assertEqual(rv.headers['location'], 'http://localhost/auth/login')
         
         self.create_session()
-        rv = self.app.get('/rts/')
-        assert b'You have not yet created' in rv.data
         player = Player(self.user, "Lannister")
         db.session.add(player)
         db.session.commit()
@@ -66,8 +64,6 @@ class TestViews(unittest.TestCase):
         self.create_session()
 
         mock_current_player.return_value = None
-        rv = self.app.get('/rts/house', follow_redirects = True)
-        assert b'You have not yet created' in rv.data
 
         mock_current_player.return_value = Player(self.user, "Lannister")
         rv = self.app.get('/rts/house', follow_redirects = True)
@@ -100,9 +96,6 @@ class TestViews(unittest.TestCase):
         self.create_session()
 
         mock_current_player.return_value = None
-        rv = self.app.get('/rts/attacks', follow_redirects = True)
-        assert b'You have not yet created' in rv.data
-
         player = Player(self.user, "Lannister")
         town = Town(player, "Lannisport")
 

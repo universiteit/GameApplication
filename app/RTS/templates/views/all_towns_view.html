@@ -1,17 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
-    <table>
+    <table style='margin: auto;'>
         <tr>
+            <th></th>
             <th>Name</th>
-            <th>Army Composition</th>
             <th>House</th>
+            <th colspan='4'>Garrisoned Units</th>
+
             <th>Player</th>
         </tr>
     {% for town in towns %}
         <tr>
+            <td><img height=35 src='/rts/static/images/houses/250px/250px-{{town.player.house.lower()}}.png'></td>
             <td><a href='/rts/town/{{town.id}}'>{{town.name}}</a></td>
-            <td>{{town.knights}}/{{town.cavalry}}/{{town.pikemen}}/{{town.doges}}</td>
             <td>{{town.player.house}}</td>
+            <td><img src="/rts/static/unit_sword.png"> {{town.knights}}</td>
+            <td><img src="/rts/static/unit_light.png"> {{town.cavalry}}</td>
+            <td><img src="/rts/static/unit_spear.png"> {{town.pikemen}}</td>
+            <td><img src="/rts/static/unit_doge.png" width="20" height="20"> {{town.doges}}</td>
             <td>{{town.player.user.username}}</td>
         </tr>
     {% endfor %}

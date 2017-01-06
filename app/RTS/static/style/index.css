@@ -1,0 +1,21 @@
+a, p {
+    font-size: 18px;
+    font-family: 'Helvetica Neue', sans-serif;
+}
+
+.panel-left {
+    width: 40%;
+    float: left;
+    margin-left: 5%;
+}
+
+.panel-right {
+    width: 40%;
+    float: right;
+    margin-right: 5%;
+}
+
+.panel-right table {
+    width: 100%;
+}
+
