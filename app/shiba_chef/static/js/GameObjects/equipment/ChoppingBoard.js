@@ -31,6 +31,6 @@ ChoppingBoard.prototype.addFood = function(gameObject) {
     this.food = gameObject;
 };
 
-ChoppingBoard.prototype.removeFood = function(gameObject) {
+ChoppingBoard.prototype.removeFood = function() {
    this.food = null;
 };
