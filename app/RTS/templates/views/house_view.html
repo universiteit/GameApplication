@@ -1,23 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
-<h3>Welcome {{player.user.username}} of House {{player.house}}</h3>
     <div class='house-info-panel'>
         <h2>House {{player.house}}</h2>
-        <img>
-        <p>Towns: {{ player.towns.all() | length }}</p>
+        <img width="20" src='{{"/rts/static/images/houses/full_banners/" + player.house + ".jpg"}}'>
+        <h2>Towns: {{ player.towns.all() | length }}</h2>
     </div>
     <div class='town-list'>
     <table>
         <tr>
             <th>Name</th>
             <th>Army Composition</th>
-            <th>Gold</th>
+            <th>Resources</th>
         </tr>
     {% for town in player.towns %}
         <tr>
             <td><a href='town/{{town.id}}'>{{town.name}}</a></td>
-            <td>{{town.knights}}/{{town.cavalry}}/{{town.pikemen}}/{{town.doges}}</td>
-            <td>{{town.gold}}</td>
+            <td>
+                {{town.knights}}<img src="/rts/static/unit_sword.png" width="20" height="20" style='margin-right: 10px'>
+                {{town.cavalry}}<img src="/rts/static/unit_light.png" width="20" height="20" style='margin-right: 10px'>
+                {{town.pikemen}}<img src="/rts/static/unit_spear.png" width="20" height="20" style='margin-right: 10px'>
+                {{town.doges}}<img src="/rts/static/unit_doge.png" width="20" height="20" style='margin-right: 10px'>
+            <td>
+                <img width=30 src="/rts/static/food.png"> : {{town.food}}
+                <img width=30 src="/rts/static/gold.png"> : {{town.gold}}
+                <img width=30 src="/rts/static/iron.png"> : {{town.iron}}
+                <img width=30 src="/rts/static/wood.png"> : {{town.wood}}
+                <img width=30 src="/rts/static/coin.png"> : {{town.player.user.dogecoin}}
+            </td>
         </tr>
     {% endfor %}
     </table>

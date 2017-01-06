@@ -33,7 +33,7 @@
             <td><img width=30 src="/rts/static/coin.png"> : {{current_town.player.user.dogecoin}}</td>
         </tr>
     </table>
-    <table class="table-left">
+    <table class="table-full">
         <thead>
             <tr>
                 <th colspan="7">Buildings</th>
@@ -78,7 +78,9 @@
                     <input type=hidden value="barrack" name="building-name">
                     <input type="submit" name="upgrade-barrack" value="OK">
                     <input type="hidden" name="townid" value={{current_town.id}}>
-                </form>
+                </form> 
+                {%elif current_town.upgrade == "barrack"%}
+                    {{current_town.upgrade_time_remaining().hours}} hours, {{current_town.upgrade_time_remaining().minutes}} min
                 {%endif%}
             </td>
         </tr>
@@ -107,7 +109,9 @@
                     <input type=hidden value="farm" name="building-name">
                     <input type="submit" name="upgrade-farm" value="OK">
                     <input type="hidden" name="townid" value={{current_town.id}}>
-                </form>    
+                </form> 
+                {%elif current_town.upgrade == "farm"%}
+                    {{current_town.upgrade_time_remaining().hours}} hours, {{current_town.upgrade_time_remaining().minutes}} min
                 {%endif%}
             </td>
         </tr>
@@ -137,6 +141,8 @@
                     <input type="submit" name="upgrade-mine" value="OK">
                     <input type="hidden" name="townid" value={{current_town.id}}>
                 </form> 
+                {%elif current_town.upgrade == "mine"%}
+                    {{current_town.upgrade_time_remaining().hours}} hours, {{current_town.upgrade_time_remaining().minutes}} min
                 {%endif%}
             </td>
         </tr>
@@ -166,6 +172,8 @@
                     <input type="submit" name="upgrade-quarry" value="OK">
                     <input type="hidden" name="townid" value={{current_town.id}}>
                 </form> 
+                {%elif current_town.upgrade == "quarry"%}
+                    {{current_town.upgrade_time_remaining().hours}} hours, {{current_town.upgrade_time_remaining().minutes}} min
                 {%endif%}
             </td>
         </tr>
@@ -195,6 +203,8 @@
                     <input type="submit" name="upgrade-lumber" value="OK">
                     <input type="hidden" name="townid" value={{current_town.id}}>
                 </form> 
+                {%elif current_town.upgrade == "lumber"%}
+                    {{current_town.upgrade_time_remaining().hours}} hours, {{current_town.upgrade_time_remaining().minutes}} min
                 {%endif%}
             </td>
         </tr>
@@ -218,19 +228,53 @@
                 <img width=30 src="/rts/static/Hourglass.png">{{current_town.get_upgrade_time(current_town.wall)}}
             </td>
             <td>
-                {%if not current_town.upgrade%}
+                {% if not current_town.upgrade %}
                 <form method="POST" action="/rts/purchase-building">
                     <input type=hidden value="wall" name="building-name">
                     <input type="submit" name="upgrade-wall" value="OK">
                     <input type="hidden" name="townid" value={{current_town.id}}>
                 </form> 
-                {%endif%}
+                {% elif current_town.upgrade == "wall" %}
+                    {{current_town.upgrade_time_remaining().hours}} hours, {{current_town.upgrade_time_remaining().minutes}} min
+                {% endif %}
             </td>
         </tr>
     </table>
-    
-    <form class="table-right" method="POST" action="/rts/purchase-unit">
-    <table>
+    <table class='table-full'>
+        <thead>
+            <tr>
+                <th>
+                    Upgrading
+                </th>
+                <th>
+                    Done
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {%if current_town.upgrade%}
+            <tr>
+                <td>
+                    {{current_town.upgrade}}
+                </td>
+                <td>
+                    {{current_town.upgrade_time_done.ctime()}}
+                </td>
+            </tr>
+            {%else%}
+            <tr>
+                <td>
+                    None
+                </td>
+                <td>
+                    None
+                </td>
+            </tr>
+            {%endif%}
+        </tbody>
+    </table>
+    <form method="POST" action="/rts/purchase-unit">
+    <table class="table-full">
         <thead>
             <tr>
                 <th colspan="7">Units</th>
@@ -350,42 +394,10 @@
     <input type="hidden" name="townid" value={{current_town.id}}>
     </form>
 
-    <table>
-        <thead>
-            <tr>
-                <th>
-                    Upgrading
-                </th>
-                <th>
-                    Done
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            {%if current_town.upgrade%}
-            <tr>
-                <td>
-                    {{current_town.upgrade}}
-                </td>
-                <td>
-                    {{current_town.upgrade_time_done.ctime()}}
-                </td>
-            </tr>
-            {%else%}
-            <tr>
-                <td>
-                    None
-                </td>
-                <td>
-                    None
-                </td>
-            </tr>
-            {%endif%}
-        </tbody>
-    </table>
+    
 
-    <form class="table-right" method="POST" action="/rts/send-attack">
-    <table>
+    <form class="table-full" method="POST" action="/rts/send-attack">
+    <table class='table-full'>
         <thead>
             <tr>
                 <th colspan="2">

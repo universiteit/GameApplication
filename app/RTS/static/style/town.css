@@ -1,8 +1,65 @@
 .house-info-panel {
-	background-color: rgba(0,0,0,0.1);
+	border: 1px solid rgba(0,0,0,0.1);
+	width: 25%;
+	min-width: 150px;
+	display: inline-block;
+}
+
+.ogot-link {
+	margin: 15px 0px 15px 0px;
 }
 
 
+.house-link {
+	margin: 10px 0px 10px 0px;
+	text-align: right;
+}
+
+.house-link p {
+	margin: 0px;
+	color: #777;
+	font-size: 18px;
+	font-family: "Helvetica Neue";
+	display: inline;
+	margin-right: 5px;
+}
+
+.house-link p:hover {
+	text-decoration: underline;
+}
+
+body {
+	padding-bottom: 50px;
+}
+
+.house-info-panel img {
+	width: 100%;
+	display: inline-block;
+}
+
+.town-list {
+	border: 1px solid rgba(0,0,0,0.1);
+	float: right;
+	width: 74%;
+}
+
+.town-list table {
+	width: 100%;
+}
+
+h1 {
+	text-align: center;
+}
+
+h2 {
+	padding: 10px 0px 10px 0px;
+	margin: 0px;
+}
+
+.table-full {
+	width: 100%;
+	display: inline-table;
+}
 
 .table-left {
 	width: 56%;
@@ -40,9 +97,9 @@ tr td {
 }
 
 tr td:not(:nth-child(1)) {
-	border-left:3px solid #e1e1e1;
+	border-left:1px solid #e1e1e1;
 }
 
 tr:not(:nth-child(1)) td {
-	border-top:3px solid #e1e1e1;
+	border-top:1px solid #e1e1e1;
 }

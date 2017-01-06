@@ -1,20 +1,20 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
-        <div class="navbar-header col-xs-1">
-            <a class="navbar-brand" href="/">GameAPP</a>
-            <a class="navbar-brand" href="/rts">RTS</a>
+        <a href='/rts'>
+        <div class="col-xs-1 ogot-link">
+            
+                <img height='25' src='/rts/static/images/ogame_logo.png'>
+            
         </div>
-        <div class='col-xs-2 pull-right'>
-            {% if not user %}
-                <a href='/auth/login'><input type='button' value='Login'></a>
-            {% else %}
-                <a href='/auth/logout'><input type='button' value='Logout'></a>
-            {% endif %}
-        </div>
-        <div class="col-xs-2 pull-right">
-            <div>Logged in as:</div>
-            <div>{{user.username if user else 'Anonymous'}}</div> 
-        </div>
+        </a>
+        <a href='/rts/house'>
+            <div class="col-xs-3 pull-right house-link">
+                {% if player %}
+                <p>House {{player.house}}</p>        
+                    <img height=35 src='/rts/static/images/houses/small_sigils/{{player.house}}.png'>
+                {% endif %}
+            </div>
+        </a>
     </div>
 </nav>
 

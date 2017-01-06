@@ -68,6 +68,10 @@ class Town(db.Model):
         h, m = divmod(minutes, 60)
         return datetime.timedelta(hours = h, minutes = m)
 
+    def upgrade_time_remaining(self):
+        time_left = self.upgrade_time_done - datetime.datetime.now()
+        return time_left
+
     # Get the amount of resources per minute based on given level.
     def get_production(self, level):
         return int(math.ceil((level * 50) ** 1.2))

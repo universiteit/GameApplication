@@ -6,7 +6,8 @@ from flask import Blueprint, render_template, redirect, session, request
 
 @rts.route('/towns/')
 def all_towns():
-    return render_template('views/all_towns_view.html', towns = Town.query.all(), user=current_user())
+    player = current_player()
+    return render_template('views/all_towns_view.html', towns = Town.query.all(), user=current_user(), player=player)
 
 @rts.route('/house')
 @secure(cookie_authorization=True)
@@ -29,7 +30,7 @@ def townview(town_id):
     if town.player == player:
         return render_template("views/town_view.html", current_town = town, user=current_user(), towns=Town.query.all())
     else:
-        return render_template("views/town_preview.html", current_town = town, user=current_user())
+        return render_template("views/town_preview.html", current_town = town, user=current_user(), player=player)
 
 @rts.route('/attacks')
 @secure(cookie_authorization=True)
