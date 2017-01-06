@@ -12,7 +12,23 @@ QUnit.test("GameObject testing", function( assert ) {
 
 });
 QUnit.test("Shiba Chef testing", function( assert ) {
+    var x = 0;
+    var y = 0;
+    var width = 100;
+    var height = 100;
+    var texture = PIXI.Texture.fromImage('bread-lower');
+
     var shiba = new ShibaChef(0, 0, 100, 100, PIXI.Texture.fromImage('bread-lower'));
+    assert.ok (
+        shiba.x == x &&
+            shiba.y == y &&
+            shiba.width == width &&
+            shiba.height == height &&
+            shiba.texture == texture &&
+            shiba.shibaStatus == 0
+        , "testing constructor of shiba was successful!"
+    );
+
     shiba.shibaStatus = 2;
     shiba.update();
 
@@ -28,13 +44,40 @@ QUnit.test("Shiba Chef testing", function( assert ) {
 });
 
 QUnit.module( "Equipment" ); ///////////////////////////////////////////////////////////////////////////////////////////
-//QUnit.test("Bin testing", function( assert ) {
-//    var bin = new Bin(0, 0, 100, 100,PIXI.Texture.fromImage('bread-lower'));
-//
-//    assert.equal( bin, bin, "hey");
-//});
+QUnit.test("Bin testing", function( assert ) {
+    var x = 0;
+    var y = 0;
+    var width = 100;
+    var height = 100;
+    var texture = PIXI.Texture.fromImage('bread-lower');
+
+    var bin = new Bin(0, 0, 100, 100, PIXI.Texture.fromImage('bread-lower'));
+    assert.ok (
+        bin.x == x &&
+        bin.y == y &&
+        bin.width == width &&
+        bin.height == height &&
+        bin.texture == texture
+        , "testing constructor of bim was successful!"
+    );
+
+});
 QUnit.test("Choppingboard testing", function( assert ) {
+    var x = 0;
+    var y = 0;
+    var width = 100;
+    var height = 100;
+    var texture = PIXI.Texture.fromImage('bread-lower');
+
     var choppingBoard = new ChoppingBoard(0, 0, 100, 100, PIXI.Texture.fromImage('bread-lower'));
+    assert.ok (
+        choppingBoard.x == x &&
+        choppingBoard.y == y &&
+        choppingBoard.width == width &&
+        choppingBoard.height == height &&
+        choppingBoard.texture == texture
+        , "testing constructor of choppingBoard was successful!"
+    );
     var hamburger = new Hamburger(0, 0, 100, 100, PIXI.Texture.fromImage('bread-lower'));
 
     choppingBoard.addFood(hamburger);
@@ -51,7 +94,21 @@ QUnit.test("Choppingboard testing", function( assert ) {
 
 });
 QUnit.test("Grill testing", function( assert ) {
+    var x = 0;
+    var y = 0;
+    var width = 100;
+    var height = 100;
+    var texture = PIXI.Texture.fromImage('bread-lower');
+
     var grill = new Grill(0, 0, 100, 100, PIXI.Texture.fromImage('bread-lower'));
+    assert.ok (
+        grill.x == x &&
+        grill.y == y &&
+        grill.width == width &&
+        grill.height == height &&
+        grill.texture == texture
+        , "testing constructor of grill was successful!"
+    );
     var hamburger = new Hamburger(0, 0, 100, 100, PIXI.Texture.fromImage('bread-lower'));
 
     grill.addFood(hamburger);
@@ -64,10 +121,10 @@ QUnit.test("Grill testing", function( assert ) {
 
     grill.removeFood();
 
-    assert.equal( grill.food, null, "removed food from gril successfully!");
+    assert.equal( grill.food, null, "removed food from grill successfully!");
 });
 QUnit.test("Presenting plate testing", function( assert ) {
-    //var main = makeMain();
+
     var ingredients = [
         new Ingredient('Lower bun', 0),
         new Ingredient('Hamburger', 15, { grilled: true }),
@@ -78,7 +135,22 @@ QUnit.test("Presenting plate testing", function( assert ) {
 
     Main.recipe = new Recipe(Main.stage, ingredients);
     Main.score = new Score(Main.stage, Main.renderer);
+
+    var x = 0;
+    var y = 0;
+    var width = 100;
+    var height = 100;
+    var texture = PIXI.Texture.fromImage('bread-lower');
+
     var plate = new PresentingPlate(0, 0, 100, 100, PIXI.Texture.fromImage('bread-lower'));
+    assert.ok (
+        plate.x == x &&
+        plate.y == y &&
+        plate.width == width &&
+        plate.height == height &&
+        plate.texture == texture
+        , "testing constructor of plate was successful!"
+    );
     var hamburger = new Hamburger(0, 0, 100, 100, PIXI.Texture.fromImage('bread-lower'));
 
     plate.addIngredient(hamburger);
@@ -104,7 +176,15 @@ QUnit.test("Presenting plate testing", function( assert ) {
 
 QUnit.module( "Food" ); ////////////////////////////////////////////////////////////////////////////////////////////////
 QUnit.test("Food object testing", function( assert ) {
-    var hamburger = new Hamburger(0, 0, 100, 100, PIXI.Texture.fromImage('bread-lower'));
+    var x = 0;
+    var y = 0;
+    var width = 100;
+    var height = 100;
+    var texture = PIXI.Texture.fromImage('bread-lower');
+    var hamburger = new Hamburger(x, y, width, height, texture);
+
+    testFoodConstructor(hamburger, x, y, width, height, texture, assert);
+
     var event = new GameObject();
     event.data = 1;
     hamburger.onDragStart(event);
@@ -118,17 +198,38 @@ QUnit.test("Food object testing", function( assert ) {
 
 });
 QUnit.test("BreadLower testing", function( assert ) {
-    var breadLower = new BreadLower(0, 0, 100, 100, PIXI.Texture.fromImage('bread-lower'));
+    var x = 0;
+    var y = 0;
+    var width = 100;
+    var height = 100;
+    var texture = PIXI.Texture.fromImage('bread-lower');
+    var breadLower = new BreadLower(x, y, width, height, texture);
+
+    testFoodConstructor(breadLower, x, y, width, height, texture, assert);
 
     testCopySelfForFood(breadLower, assert);
 });
 QUnit.test("BreadUpper testing", function( assert ) {
-    var breadUpper = new BreadUpper(0, 0, 100, 100, PIXI.Texture.fromImage('bread-lower'));
+    var x = 0;
+    var y = 0;
+    var width = 100;
+    var height = 100;
+    var texture = PIXI.Texture.fromImage('bread-lower');
+    var breadUpper = new BreadUpper(x, y, width, height, texture);
+
+    testFoodConstructor(breadUpper, x, y, width, height, texture, assert);
 
     testCopySelfForFood(breadUpper, assert);
 });
 QUnit.test("Hamburger testing", function( assert ) {
-    var hamburger = new Hamburger(0, 0, 100, 100, PIXI.Texture.fromImage('bread-lower'));
+    var x = 0;
+    var y = 0;
+    var width = 100;
+    var height = 100;
+    var texture = PIXI.Texture.fromImage('bread-lower');
+    var hamburger = new Hamburger(x, y, width, height, texture);
+
+    testFoodConstructor(hamburger, x, y, width, height, texture, assert);
 
     testCopySelfForFood(hamburger, assert);
 
@@ -143,7 +244,14 @@ QUnit.test("Hamburger testing", function( assert ) {
     assert.notOk (hamburger.isGrilled, "tested checking cooking status on burned burger successfully!");
 });
 QUnit.test("Lettuce testing", function( assert ) {
-    var lettuce = new Lettuce(0, 0, 100, 100, PIXI.Texture.fromImage('bread-lower'));
+    var x = 0;
+    var y = 0;
+    var width = 100;
+    var height = 100;
+    var texture = PIXI.Texture.fromImage('bread-lower');
+    var lettuce = new Lettuce(x, y, width, height, texture);
+
+    testFoodConstructor(lettuce, x, y, width, height, texture, assert);
 
     testCopySelfForFood(lettuce, assert);
 
@@ -153,17 +261,38 @@ QUnit.test("Lettuce testing", function( assert ) {
     assert.ok( lettuce.isChopped, "tested checking chopping status on chopped lettuce successfully!" );
 });
 QUnit.test("Pepper testing", function( assert ) {
-    var pepper = new Pepper(0, 0, 100, 100, PIXI.Texture.fromImage('bread-lower'));
+    var x = 0;
+    var y = 0;
+    var width = 100;
+    var height = 100;
+    var texture = PIXI.Texture.fromImage('bread-lower');
+    var pepper = new Pepper(x, y, width, height, texture);
+
+    testFoodConstructor(pepper, x, y, width, height, texture, assert);
 
     testCopySelfForFood(pepper, assert);
 });
 QUnit.test("Salt testing", function( assert ) {
-    var salt = new Salt(0, 0, 100, 100, PIXI.Texture.fromImage('bread-lower'));
+    var x = 0;
+    var y = 0;
+    var width = 100;
+    var height = 100;
+    var texture = PIXI.Texture.fromImage('bread-lower');
+    var salt = new Salt(x, y, width, height, texture);
+
+    testFoodConstructor(salt, x, y, width, height, texture, assert);
 
     testCopySelfForFood(salt, assert);
 });
 QUnit.test("Tomato testing", function( assert ) {
-    var tomato = new Tomato(0, 0, 100, 100, PIXI.Texture.fromImage('bread-lower'));
+    var x = 0;
+    var y = 0;
+    var width = 100;
+    var height = 100;
+    var texture = PIXI.Texture.fromImage('bread-lower');
+    var tomato = new Tomato(x, y, width, height, texture);
+
+    testFoodConstructor(tomato, x, y, width, height, texture, assert);
 
     testCopySelfForFood(tomato, assert);
 
@@ -175,10 +304,23 @@ QUnit.test("Tomato testing", function( assert ) {
 
 QUnit.module( "Lifeless" ); ////////////////////////////////////////////////////////////////////////////////////////////
 QUnit.test("Ingredient testing", function( assert ) {
-    var ingredientHamburger = new Ingredient('Hamburger', 10, {
+    var name = 'Hamburger';
+    var height = 10;
+    var options = {
         grilled: true,
         chopped: false
-    });
+    };
+    var style = {
+        fontFamily: 'Arial',
+        fontSize: '18px'
+    };
+    var ingredientHamburger = new Ingredient(name, height, options);
+
+    assert.ok (
+        ingredientHamburger.name == name &&
+        ingredientHamburger.height == height
+        , "testing constructor of ingredient was successful!"
+    );
 
     var hamburger = new Hamburger(0, 0, 100, 100, PIXI.Texture.fromImage('bread-lower'));
     assert.notOk( ingredientHamburger.isIngredient(hamburger), "Testing if wrong object is not correct in ingredient was successful!" );
@@ -196,7 +338,14 @@ QUnit.test("Recipe testing", function( assert ) {
         new Ingredient('Hamburger', 15),
         new Ingredient('Upper bun', 15)
     ];
-    var recipe = new Recipe(new PIXI.Container(), ingredients);
+    var stage = new PIXI.Container();
+    var recipe = new Recipe(stage, ingredients);
+    assert.ok (
+        recipe.x == 20 &&
+        recipe.y == 20 &&
+        recipe.ingredients == ingredients
+        , "testing constructor of recipe was successful!"
+    );
 
     var breadLower = new BreadLower(0, 0, 100, 100, PIXI.Texture.fromImage('bread-lower'));
     assert.equal( recipe.finishIngredient(breadLower), true, "added correct ingredient successfully!" );
@@ -214,10 +363,16 @@ QUnit.test("Recipe testing", function( assert ) {
     assert.ok( recipe.isDone(), "Recipe correctly shows as done after adding all of the right ingredients!" );
 });
 QUnit.test("Score testing", function( assert ) {
+
     var score = new Score(new PIXI.Container(), PIXI.autoDetectRenderer(
         1200,
         720
     ));
+    assert.ok (
+        score.score == 0 &&
+        score.scoreLabel.text == 'Score: 0'
+        , "testing constructor of score was successful!"
+    );
 
     score.increment();
     assert.equal( score.score, 25, "incrementing score tested successfully!" );
@@ -227,6 +382,24 @@ QUnit.test("Score testing", function( assert ) {
     score.score = 100;
     score.refresh();
     assert.equal(score.scoreLabel.text, 'Score: 100', "refreshing score label tested successfully!");
+});
+QUnit.test("Table testing", function( assert ) {
+    var x = 0;
+    var y = 0;
+    var width = 100;
+    var height = 100;
+    var texture = PIXI.Texture.fromImage('bread-lower');
+    var table = new Table(x, y, width, height, texture);
+
+    assert.ok (
+        table.x == x &&
+        table.y == y &&
+        table.width == width &&
+        table.height == height &&
+        table.texture == texture
+        , "testing constructor of table was successful!"
+    )
+
 });
 
 ////////////////////////////////////////////////// HELPER FUNCTIONS /////////////////////////////////////////
@@ -253,4 +426,17 @@ function testCopySelfForFood(food, assert) {
 
     assert.equal(Main.gameObjects.length, objectListSize+1, "tested copying self of "+food.name+ " successfully!");
 
-};
+}
+
+function testFoodConstructor(madeFood, x, y, width, height, texture, assert) {
+    assert.ok (
+        madeFood.x == x &&
+            madeFood.y == y &&
+            madeFood.width == width &&
+            madeFood.height == height &&
+            madeFood.texture == texture &&
+            madeFood.interactive == true &&
+            madeFood.buttonMode == true
+        , "testing constructor of " + madeFood.name + " was successful!"
+    )
+}
