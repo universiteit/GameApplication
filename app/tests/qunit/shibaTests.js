@@ -1,7 +1,6 @@
 QUnit.module( "General game objects" ); ////////////////////////////////////////////////////////////////////////////////
 
 QUnit.test("GameObject testing", function( assert ) {
-    assert.ok(false, "This always fails, also Daniel is gay 8=====D~~~~~");
     var lettuce = new Lettuce(0, 0, 100, 100, PIXI.Texture.fromImage('bread-lower'));
     var hamburger = new Hamburger(0, 10, 100, 100, PIXI.Texture.fromImage('bread-lower'));
 
