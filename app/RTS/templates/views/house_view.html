@@ -2,7 +2,7 @@
 {% block content %}
     <div class='house-info-panel'>
         <h2>House {{player.house}}</h2>
-        <img width="20" src='{{"/rts/static/images/houses/full_banners/" + player.house + ".jpg"}}'>
+        <img width="20" src="/rts/static/images/houses/full_banners/{{player.house.lower()}}.jpg">
         <h2>Towns: {{ player.towns.all() | length }}</h2>
     </div>
     <div class='town-list'>
